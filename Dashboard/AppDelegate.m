@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
+#import "UIColor+DBColors.h"
 
 @interface AppDelegate ()
 
@@ -14,11 +18,39 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    // Register Facebook required classes
+    [FBSDKLoginButton class];
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+
+    // Configure tabBarController appearance
+    [[UITabBar appearance] setBarTintColor:[UIColor globalDarkColor]];
+    [[UITabBar appearance] setTintColor:[UIColor colorWithHexString:@"#7ECCED"]];
+    NSDictionary *selectedAttributes = @{
+                                         NSFontAttributeName            : [UIFont systemFontOfSize:12 weight:UIFontWeightBold],
+                                         NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#7ECCED"]
+                                         };
+    NSDictionary *normalAttributes = @{
+                                       NSFontAttributeName            : [UIFont systemFontOfSize:12 weight:UIFontWeightLight],
+                                       NSForegroundColorAttributeName : [UIColor whiteColor],
+                                       };
+    [[UITabBarItem appearance] setTitleTextAttributes:normalAttributes forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:selectedAttributes forState:UIControlStateSelected];
+
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:sourceApplication
+                                                               annotation:annotation];
+    // Add any custom logic here.
+    return handled;
+} 
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
