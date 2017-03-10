@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class Election;
+
 @interface ElectionCardView : UIView
 
 @property (strong, nonatomic) IBOutlet UIImageView *cityImageView;
@@ -21,5 +23,7 @@
 @property (strong, nonatomic) IBOutlet UIView *positionView;
 @property (strong, nonatomic) IBOutlet UILabel *positionLabel;
 @property (strong, nonatomic) IBOutlet UILabel *cityStateLabel;
+
+- (instancetype)initWithElection:(Election *)election;
 
 @end

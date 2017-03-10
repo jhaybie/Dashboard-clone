@@ -13,8 +13,8 @@
 - (instancetype)initWithImageURL:(NSURL *)imageURL
                             name:(NSString *)name
                        cityState:(NSString *)cityState
-                      emailCount:(int)emailCount
-                        smsCount:(int)smsCount
-                      phoneCount:(int)phoneCount;
+                      emailCount:(NSInteger)emailCount
+                        smsCount:(NSInteger)smsCount
+                      phoneCount:(NSInteger)phoneCount;
 
 @end

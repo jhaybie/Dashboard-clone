@@ -41,7 +41,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City, State" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0M-ps-xUX">
-                    <rect key="frame" x="114" y="34.5" width="369" height="18"/>
+                    <rect key="frame" x="116" y="35.5" width="367" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="18" id="jYI-oB-nsD"/>
                     </constraints>
@@ -49,15 +49,15 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-marker" translatesAutoresizingMaskIntoConstraints="NO" id="dwn-1s-Dj9">
-                    <rect key="frame" x="100" y="38.5" width="10" height="10"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-map-marker" translatesAutoresizingMaskIntoConstraints="NO" id="dwn-1s-Dj9">
+                    <rect key="frame" x="100" y="38.5" width="12" height="12"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="10" id="g9b-EW-Y7d"/>
-                        <constraint firstAttribute="width" constant="10" id="wvM-eh-enY"/>
+                        <constraint firstAttribute="height" constant="12" id="g9b-EW-Y7d"/>
+                        <constraint firstAttribute="width" constant="12" id="wvM-eh-enY"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Sc6-Ft-eQX" firstAttribute="top" secondItem="w8l-jb-Fvd" secondAttribute="top" constant="5" id="7O8-WD-ytd"/>
                 <constraint firstItem="E0M-ps-xUX" firstAttribute="leading" secondItem="dwn-1s-Dj9" secondAttribute="trailing" constant="4" id="ElL-4n-uuh"/>
@@ -86,6 +86,6 @@
     </objects>
     <resources>
         <image name="background-user-icon" width="107" height="97"/>
-        <image name="map-marker" width="16" height="16"/>
+        <image name="icon-map-marker" width="21" height="21"/>
     </resources>
 </document>

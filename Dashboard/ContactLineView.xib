@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactLineView"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ContactLineView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjH-6B-q1n" customClass="DBCheckboxButton">
+                    <rect key="frame" x="20" y="9.5" width="21" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="3ev-JF-miC"/>
+                        <constraint firstAttribute="width" constant="21" id="apQ-Ju-4Kj"/>
+                    </constraints>
+                    <state key="normal" image="checkmark-inactive"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="NO"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="checkedImage" value="checkmark-active"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="uncheckedImage" value="checkmark-inactive"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="checkboxButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="dEW-hw-uIJ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZA7-pj-3Oc">
+                    <rect key="frame" x="331" y="9.5" width="24" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="24" id="ahW-Ba-6er"/>
+                        <constraint firstAttribute="height" constant="21" id="xja-ch-CpD"/>
+                    </constraints>
+                    <state key="normal" image="icon-contact-phone"/>
+                    <connections>
+                        <action selector="phoneButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="2hg-1W-LsA"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqU-Vq-ji9">
+                    <rect key="frame" x="289" y="9.5" width="28" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="8nA-sc-4jm"/>
+                        <constraint firstAttribute="width" constant="28" id="WDa-DH-57H"/>
+                    </constraints>
+                    <state key="normal" image="icon-contact-sms"/>
+                    <connections>
+                        <action selector="smsButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="7LP-Vb-46j"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Doe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qo-Tp-tMF">
+                    <rect key="frame" x="57" y="9.5" width="174" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="6GM-Ff-bm8"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERd-2p-V5F">
+                    <rect key="frame" x="247" y="9.5" width="28" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="EdB-uv-g9S"/>
+                        <constraint firstAttribute="height" constant="21" id="fC7-gW-rDq"/>
+                    </constraints>
+                    <state key="normal" image="icon-contact-email"/>
+                    <connections>
+                        <action selector="emailButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="rKz-LZ-J6z"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="vjH-6B-q1n" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="QdO-8N-ysR"/>
+                <constraint firstItem="ZA7-pj-3Oc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="WU7-FH-LlI"/>
+                <constraint firstItem="ZA7-pj-3Oc" firstAttribute="leading" secondItem="sqU-Vq-ji9" secondAttribute="trailing" constant="14" id="WwY-OD-Ab5"/>
+                <constraint firstItem="2Qo-Tp-tMF" firstAttribute="leading" secondItem="vjH-6B-q1n" secondAttribute="trailing" constant="16" id="XeP-OJ-RjD"/>
+                <constraint firstItem="sqU-Vq-ji9" firstAttribute="leading" secondItem="ERd-2p-V5F" secondAttribute="trailing" constant="14" id="i4l-7a-ghd"/>
+                <constraint firstAttribute="trailing" secondItem="ZA7-pj-3Oc" secondAttribute="trailing" constant="20" id="kOD-Zl-N0l"/>
+                <constraint firstItem="vjH-6B-q1n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="ncJ-8P-X9U"/>
+                <constraint firstItem="2Qo-Tp-tMF" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uff-wa-9RB"/>
+                <constraint firstItem="ERd-2p-V5F" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="vS2-52-rPk"/>
+                <constraint firstItem="ERd-2p-V5F" firstAttribute="leading" secondItem="2Qo-Tp-tMF" secondAttribute="trailing" constant="16" id="w43-MC-1Cp"/>
+                <constraint firstItem="sqU-Vq-ji9" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="w5f-m4-Mkb"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="checkbox" destination="vjH-6B-q1n" id="cqt-qg-VLp"/>
+                <outlet property="emailButton" destination="ERd-2p-V5F" id="wxD-bB-7NH"/>
+                <outlet property="nameLabel" destination="2Qo-Tp-tMF" id="4PA-mQ-SX3"/>
+                <outlet property="phoneButton" destination="ZA7-pj-3Oc" id="1zC-cH-bzi"/>
+                <outlet property="smsButton" destination="sqU-Vq-ji9" id="s7s-iD-dPP"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="128.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="checkmark-active" width="38" height="38"/>
+        <image name="checkmark-inactive" width="38" height="38"/>
+        <image name="icon-contact-email" width="45" height="33"/>
+        <image name="icon-contact-phone" width="38" height="38"/>
+        <image name="icon-contact-sms" width="48" height="41"/>
+    </resources>
+</document>

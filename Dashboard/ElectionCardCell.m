@@ -16,7 +16,7 @@
         self = [[[NSBundle mainBundle] loadNibNamed:@"ElectionCardCell"
                                               owner:self
                                             options:nil] objectAtIndex:0];
-        CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 230);
+        CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 228);
         self.frame = frame;
         self.clipsToBounds = true;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
