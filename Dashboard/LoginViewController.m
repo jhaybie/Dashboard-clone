@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "Constant.h"
 #import "DBCheckboxButton.h"
+#import "Election.h"
 #import "RegisterView.h"
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UserCardView.h"

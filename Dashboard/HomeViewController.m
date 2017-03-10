@@ -8,8 +8,11 @@
 
 #import "HomeViewController.h"
 #import "Constant.h"
+#import "Election.h"
 #import "ElectionCardCell.h"
 #import "ElectionCardView.h"
+#import "ElectionDetailViewController.h"
+#import "GlobalAPI.h"
 #import "LoginViewController.h"
 #import "UIColor+DBColors.h"
 #import "UserCardView.h"
@@ -24,6 +27,8 @@
 
 @property (strong, nonatomic) NSMutableArray<ElectionCardView *> *electionCards;
 @property (strong, nonatomic) NSMutableArray<UIColor *> *colors;
+
+@property (strong, nonatomic) NSArray<Election *> *elections;
 
 @end
 
@@ -71,7 +76,7 @@
     
     [self loadUserCardView];
     
-    [self loadFakeData];
+    [self getElections];
 }
 
 #pragma mark - Private Methods
@@ -81,37 +86,26 @@
     return self.colors[colorIndex];
 }
 
-- (void)loadFakeData {
+- (void)getElections {
+    [GlobalAPI getElections:^(NSArray<Election *> *elections) {
+        self.elections = [[NSArray alloc] initWithArray:elections];
+        [self processElections];
+    } failure:^(NSInteger statusCode) {
+        //
+    }];
+}
+
+- (void)processElections {
     self.electionCards = [[NSMutableArray alloc] init];
     CGRect evFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width - 36, 220);
     
-    ElectionCardView *ev1 = [[ElectionCardView alloc] initWithFrame:evFrame];
-    ev1.cityImageView.image = [UIImage imageNamed:@"sample-alabama"];
-    ev1.positionLabel.text = @"Mayor";
-    ev1.cityStateLabel.text = @"Birmingham, Alabama";
-    ev1.badgeCountLabel.text = @"3";
-    
-    ElectionCardView *ev2 = [[ElectionCardView alloc] initWithFrame:evFrame];
-    ev2.cityImageView.image = [UIImage imageNamed:@"sample-chicago"];
-    ev2.positionLabel.text = @"City Council";
-    ev2.cityStateLabel.text = @"Chicago, Illinois";
-    ev2.badgeCountLabel.text = @"2";
-    
-    ElectionCardView *ev3 = [[ElectionCardView alloc] initWithFrame:evFrame];
-    ev3.cityImageView.image = [UIImage imageNamed:@"sample-nyc"];
-    ev3.positionLabel.text = @"Alderman";
-    ev3.cityStateLabel.text = @"New York, New York";
-    ev3.badgeCountLabel.text = @"5";
-    
-    [self.electionCards addObject:ev1];
-    [self.electionCards addObject:ev2];
-    [self.electionCards addObject:ev3];
-    
-    for (int i = 0; i < self.electionCards.count; i++) {
-        self.electionCards[i].positionView.backgroundColor = [self colorForIndex:i];
+    for (NSInteger i = 0; i < self.elections.count; i++) {
+        Election *election = self.elections[i];
+        ElectionCardView *ecv = [[ElectionCardView alloc] initWithElection:election];
+        ecv.frame = evFrame;
+        ecv.positionView.backgroundColor = [self colorForIndex:i];
+        [self.electionCards addObject:ecv];
     }
-    
-    
     [self.tableView reloadData];
 }
 
@@ -186,7 +180,7 @@
                          }];
     } else {
         [self loadUserCardView];
-        [self loadFakeData];
+        [self getElections];
     }
 }
 
@@ -200,15 +194,25 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
     NSLog(@"LoginButtonDidLogOut called");
 }
 
+#pragma mark - Segue Support
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ElectionDetailViewControllerSegue"]) {
+        ElectionDetailViewController *edvc = segue.destinationViewController;
+        edvc.electionIndex = (int)((NSIndexPath *)sender).row;
+        edvc.elections = self.elections;
+    }
+}
+
 #pragma mark - UITableView DataSource & Delegate Methods
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"ElectionDetailViewControllerSegue" sender:indexPath];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellID = @"ElectionCardCell";
-    
     ElectionCardCell *cell = [[ElectionCardCell alloc] initWithElectionCardView:self.electionCards[indexPath.row]];
-        
     return cell;
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

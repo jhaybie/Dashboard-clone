@@ -6,13 +6,13 @@
 //  Copyright © 2017 RiseMovement. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "ImportContactsViewController.h"
 
-@interface SecondViewController ()
+@interface ImportContactsViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation ImportContactsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
