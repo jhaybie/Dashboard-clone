@@ -18,7 +18,7 @@
 
 #pragma mark - URLs
 
-#define BASE_URL          @"https://riseapp-dot-rise-team-tool-qa.appspot.com/"
+#define BASE_URL          @"https://riseapp-dot-rise-team-tool-qa.appspot.com"
 
 
 
