@@ -18,6 +18,10 @@
     return [UIColor colorWithHex:0x1F80AA];
 }
 
++ (UIColor *)dbBlue2Disabled {
+    return [UIColor colorWithHex:0x91C1CE];
+}
+
 + (UIColor *)dbBlue3 {
     return [UIColor colorWithHex:0x155671];
 }
@@ -47,7 +51,11 @@
 }
 
 + (UIColor *)globalFailureColor {
-    return [UIColor colorWithHex:0xE44757];
+    return [UIColor colorWithHex:0xDB4B39];
+}
+
++ (UIColor *)globalFailureColorDisabled {
+    return [UIColor colorWithHex:0xFFC1BB];
 }
 
 + (UIColor *)progressBarGray {

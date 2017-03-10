@@ -12,6 +12,7 @@
 
 + (UIColor *)dbBlue1;
 + (UIColor *)dbBlue2;
++ (UIColor *)dbBlue2Disabled;
 + (UIColor *)dbBlue3;
 + (UIColor *)dbBlue4;
 
@@ -21,6 +22,7 @@
 + (UIColor *)globalPendingColor;
 + (UIColor *)globalSuccessColor;
 + (UIColor *)globalFailureColor;
++ (UIColor *)globalFailureColorDisabled;
 + (UIColor *)progressBarGray;
 + (UIColor *)wellrightBlue;
 + (UIColor *)colorWithHexString:(NSString *)hexString;
