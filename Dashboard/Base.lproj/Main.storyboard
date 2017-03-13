@@ -12,7 +12,7 @@
         <!--Home View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" id="9pv-A4-QxB" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pv-A4-QxB" customClass="HomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -67,8 +67,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PvT-y1-kmh">
                                 <rect key="frame" x="0.0" y="141" width="375" height="447"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyv-MH-Ijr">
-                                        <rect key="frame" x="125" y="211" width="125" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyv-MH-Ijr">
+                                        <rect key="frame" x="24" y="223" width="327" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -76,8 +76,9 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="eyv-MH-Ijr" firstAttribute="centerX" secondItem="PvT-y1-kmh" secondAttribute="centerX" id="5u8-dU-CAd"/>
+                                    <constraint firstAttribute="trailing" secondItem="eyv-MH-Ijr" secondAttribute="trailing" constant="24" id="AFH-PY-jA6"/>
                                     <constraint firstItem="eyv-MH-Ijr" firstAttribute="centerY" secondItem="PvT-y1-kmh" secondAttribute="centerY" id="mYV-rO-UJ6"/>
+                                    <constraint firstItem="eyv-MH-Ijr" firstAttribute="leading" secondItem="PvT-y1-kmh" secondAttribute="leading" constant="24" id="tsP-Gg-1tr"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="225" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HNT-iP-Ny6">
@@ -141,7 +142,7 @@
         <!--Election Detail View Controller-->
         <scene sceneID="ZH0-en-z9R">
             <objects>
-                <viewController storyboardIdentifier="ElectionDetailViewController" hidesBottomBarWhenPushed="YES" id="d8F-8X-LTJ" customClass="ElectionDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ElectionDetailViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="d8F-8X-LTJ" customClass="ElectionDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jah-xk-XjQ"/>
                         <viewControllerLayoutGuide type="bottom" id="hYE-cf-3rm"/>
@@ -235,6 +236,9 @@
                                     <constraint firstItem="UjE-Ai-IdZ" firstAttribute="leading" secondItem="Ch9-Kq-GOJ" secondAttribute="leading" id="ivi-3l-tMX"/>
                                     <constraint firstItem="uXM-Tm-uWu" firstAttribute="leading" secondItem="Ch9-Kq-GOJ" secondAttribute="leading" constant="24" id="k3P-N8-ZmX"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="d8F-8X-LTJ" id="TKB-Oa-RSl"/>
+                                </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSt-Pd-NR4">
                                 <rect key="frame" x="0.0" y="567" width="375" height="50"/>
@@ -380,7 +384,7 @@
         <!--Donate-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController storyboardIdentifier="SecondViewController" id="8rJ-Kc-sve" customClass="ImportContactsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DonateViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8rJ-Kc-sve" customClass="DonateViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -389,30 +393,233 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XjR-b9-Din">
-                                <rect key="frame" x="125" y="322" width="125" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help us keep chuggin!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4K-5g-TbJ">
+                                <rect key="frame" x="24" y="44" width="327" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jl-mG-P4Y">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="v8r-LN-abL"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="As a collection of not-for-profits, we depend on donors like you to survive." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubE-Zn-t9L">
+                                <rect key="frame" x="24" y="68.5" width="327" height="41"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xgg-gs-KkF">
+                                <rect key="frame" x="0.0" y="133" width="375" height="485"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTu-fu-dgq">
+                                        <rect key="frame" x="24" y="24" width="327" height="224"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ZKb-PU-Xfy">
+                                                <rect key="frame" x="36" y="80" width="255" height="40"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yc8-h4-MGi" customClass="DBToggleTextButton">
+                                                        <rect key="frame" x="0.0" y="5" width="74.5" height="30"/>
+                                                        <color key="backgroundColor" red="0.1215686275" green="0.50196078430000002" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" title="$25">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="presetDonationButtonTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="PZq-Fn-Vaw"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhC-oU-1ci" customClass="DBToggleTextButton">
+                                                        <rect key="frame" x="90.5" y="5" width="74" height="30"/>
+                                                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" title="$50">
+                                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="presetDonationButtonTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="jSW-i1-341"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JSw-k2-XKv" customClass="DBToggleTextButton">
+                                                        <rect key="frame" x="180.5" y="5" width="74.5" height="30"/>
+                                                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" title="$100">
+                                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="presetDonationButtonTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="cMD-g1-zRf"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="FHz-gz-4bc"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fdn-1X-aKt">
+                                                <rect key="frame" x="36" y="120" width="255" height="40"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" tag="500" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xx-lM-8ft" customClass="DBToggleTextButton">
+                                                        <rect key="frame" x="0.0" y="5" width="74.5" height="30"/>
+                                                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" title="$500">
+                                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="presetDonationButtonTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="vWP-pO-Ehh"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MSL-sa-5YX" customClass="DBToggleTextButton">
+                                                        <rect key="frame" x="90.5" y="5" width="74" height="30"/>
+                                                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" title="$1000">
+                                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="presetDonationButtonTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="ntv-Xf-qoR"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" tag="2000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43n-78-i3x" customClass="DBToggleTextButton">
+                                                        <rect key="frame" x="180.5" y="5" width="74.5" height="30"/>
+                                                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" title="$2000">
+                                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="presetDonationButtonTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="yVd-f5-eyU"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="e4g-e7-6VW"/>
+                                                </constraints>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jL8-eA-omJ">
+                                                <rect key="frame" x="88" y="184" width="150" height="40"/>
+                                                <color key="backgroundColor" red="0.13333333333333333" green="0.70980392156862748" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="Ba9-6v-dI2"/>
+                                                    <constraint firstAttribute="height" constant="40" id="h2b-UB-sSn"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <state key="normal" title="Donate">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="donateButtonTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="ogM-Ev-QHY"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$25" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p7w-xM-g1r">
+                                                <rect key="frame" x="0.0" y="0.0" width="327" height="72"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="72" id="Vnm-vD-cj7"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="fdn-1X-aKt" firstAttribute="top" secondItem="ZKb-PU-Xfy" secondAttribute="bottom" id="2Wx-jF-jTD"/>
+                                            <constraint firstAttribute="bottom" secondItem="jL8-eA-omJ" secondAttribute="bottom" id="5am-Jb-xTE"/>
+                                            <constraint firstItem="p7w-xM-g1r" firstAttribute="leading" secondItem="WTu-fu-dgq" secondAttribute="leading" id="6b7-Rd-Ley"/>
+                                            <constraint firstItem="ZKb-PU-Xfy" firstAttribute="leading" secondItem="WTu-fu-dgq" secondAttribute="leading" constant="36" id="Hdk-nd-YiO"/>
+                                            <constraint firstAttribute="trailing" secondItem="p7w-xM-g1r" secondAttribute="trailing" id="Hoz-c5-blF"/>
+                                            <constraint firstItem="fdn-1X-aKt" firstAttribute="trailing" secondItem="ZKb-PU-Xfy" secondAttribute="trailing" id="K0p-49-nLn"/>
+                                            <constraint firstItem="p7w-xM-g1r" firstAttribute="top" secondItem="WTu-fu-dgq" secondAttribute="top" id="Lk2-yI-V1F"/>
+                                            <constraint firstItem="fdn-1X-aKt" firstAttribute="leading" secondItem="ZKb-PU-Xfy" secondAttribute="leading" id="Ln1-bx-2hq"/>
+                                            <constraint firstItem="jL8-eA-omJ" firstAttribute="centerX" secondItem="WTu-fu-dgq" secondAttribute="centerX" id="UhK-Kf-keF"/>
+                                            <constraint firstItem="ZKb-PU-Xfy" firstAttribute="top" secondItem="p7w-xM-g1r" secondAttribute="bottom" constant="8" id="tGi-8G-JS6"/>
+                                            <constraint firstItem="jL8-eA-omJ" firstAttribute="top" secondItem="fdn-1X-aKt" secondAttribute="bottom" constant="24" id="vGI-AU-UX7"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZKb-PU-Xfy" secondAttribute="trailing" constant="36" id="xrU-px-soQ"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="WTu-fu-dgq" secondAttribute="trailing" constant="24" id="8i1-66-37o"/>
+                                    <constraint firstItem="WTu-fu-dgq" firstAttribute="leading" secondItem="Xgg-gs-KkF" secondAttribute="leading" constant="24" id="QjJ-Wn-odw"/>
+                                    <constraint firstItem="WTu-fu-dgq" firstAttribute="top" secondItem="Xgg-gs-KkF" secondAttribute="top" constant="24" id="Qjt-6B-UoE"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="XjR-b9-Din" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="7Xq-dR-b87"/>
-                            <constraint firstItem="XjR-b9-Din" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="R4c-zP-tem"/>
+                            <constraint firstAttribute="trailing" secondItem="v4K-5g-TbJ" secondAttribute="trailing" constant="24" id="8IB-R8-G2E"/>
+                            <constraint firstItem="ubE-Zn-t9L" firstAttribute="top" secondItem="v4K-5g-TbJ" secondAttribute="bottom" constant="4" id="D3T-ID-s0V"/>
+                            <constraint firstItem="8jl-mG-P4Y" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="PKK-Vs-WD3"/>
+                            <constraint firstItem="Xgg-gs-KkF" firstAttribute="top" secondItem="ubE-Zn-t9L" secondAttribute="bottom" constant="24" id="S73-h2-xrE"/>
+                            <constraint firstAttribute="trailing" secondItem="Xgg-gs-KkF" secondAttribute="trailing" id="TGm-EH-cwm"/>
+                            <constraint firstItem="ubE-Zn-t9L" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="W94-XK-YY2"/>
+                            <constraint firstItem="v4K-5g-TbJ" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" constant="24" id="WvD-Yp-KAa"/>
+                            <constraint firstItem="8jl-mG-P4Y" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="fCH-Kf-VwZ"/>
+                            <constraint firstAttribute="trailing" secondItem="8jl-mG-P4Y" secondAttribute="trailing" id="nTk-f5-XCB"/>
+                            <constraint firstItem="Xgg-gs-KkF" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="wb3-fc-S8e"/>
+                            <constraint firstItem="v4K-5g-TbJ" firstAttribute="top" secondItem="8jl-mG-P4Y" secondAttribute="bottom" constant="24" id="whO-NX-fNG"/>
+                            <constraint firstItem="ubE-Zn-t9L" firstAttribute="width" secondItem="v4K-5g-TbJ" secondAttribute="width" id="wlt-o3-6Ym"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="Xgg-gs-KkF" secondAttribute="bottom" id="yNi-YL-3Ta"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Donate" image="icon-tab-donation" id="cPa-gy-q4n"/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="donateButton" destination="jL8-eA-omJ" id="iVn-BO-SJh"/>
+                        <outlet property="donationTextField" destination="p7w-xM-g1r" id="yxQ-dS-9hR"/>
+                        <outlet property="stackView1" destination="ZKb-PU-Xfy" id="1fG-0N-wQs"/>
+                        <outlet property="stackView2" destination="fdn-1X-aKt" id="tEq-4U-Cjp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="788" y="1781"/>
+            <point key="canvasLocation" x="788" y="1780.6596701649178"/>
         </scene>
         <!--Map View-->
         <scene sceneID="WlU-DC-VV0">
             <objects>
-                <viewController storyboardIdentifier="MapViewController" id="DVh-Vm-OGC" customClass="MapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DVh-Vm-OGC" customClass="MapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8sy-mp-dib"/>
                         <viewControllerLayoutGuide type="bottom" id="7uk-4Z-W5N"/>
@@ -422,7 +629,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKO-cc-Zfl">
-                                <rect key="frame" x="125" y="322" width="125" height="24"/>
+                                <rect key="frame" x="125" y="321.5" width="125" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -444,7 +651,7 @@
         <!--Contacts-->
         <scene sceneID="xAS-ec-PMZ">
             <objects>
-                <viewController storyboardIdentifier="ContactsViewController" id="3S2-2A-fyF" customClass="ContactsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3S2-2A-fyF" customClass="ContactsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4hK-iK-lSc"/>
                         <viewControllerLayoutGuide type="bottom" id="Doy-go-Zam"/>
@@ -454,7 +661,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZC-S5-GIF">
-                                <rect key="frame" x="125" y="322" width="125" height="24"/>
+                                <rect key="frame" x="125" y="321.5" width="125" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
