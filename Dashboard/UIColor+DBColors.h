@@ -10,6 +10,8 @@
 
 @interface UIColor (DBColors)
 
++ (UIColor *)buttonDeselectedGray;
+
 + (UIColor *)dbBlue1;
 + (UIColor *)dbBlue2;
 + (UIColor *)dbBlue2Disabled;

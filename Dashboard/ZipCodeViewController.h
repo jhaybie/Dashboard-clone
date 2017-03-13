@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DBViewController.h"
+
 @class UserCardView;
 
 @protocol ZipCodeViewControllerDelegate <NSObject>
@@ -16,7 +18,7 @@
 
 @end
 
-@interface ZipCodeViewController : UIViewController
+@interface ZipCodeViewController : DBViewController
 
 @property (strong, nonatomic) id<ZipCodeViewControllerDelegate> delegate;
 @property (strong, nonatomic) UserCardView *cardView;

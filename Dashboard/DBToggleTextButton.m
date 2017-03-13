@@ -1,14 +1,15 @@
 //
-//  DBCheckboxButton.m
+//  DBToggleTextButton.m
 //  Dashboard
 //
-//  Created by Jhaybie Basco on 2/27/17.
+//  Created by Jhaybie Basco on 3/13/17.
 //  Copyright © 2017 RiseMovement. All rights reserved.
 //
 
-#import "DBCheckboxButton.h"
+#import "DBToggleTextButton.h"
+#import "UIColor+DBColors.h"
 
-@implementation DBCheckboxButton
+@implementation DBToggleTextButton
 
 #pragma mark - Init Methods
 
@@ -31,15 +32,23 @@
 #pragma mark - Private Methods
 
 - (void)buttonToggled {
-    self.isChecked = !self.isChecked;
-    UIImage *buttonImage = (self.isChecked) ? self.checkedImage : self.uncheckedImage;
-    [self setImage:buttonImage forState:UIControlStateNormal];
+    if (!self.isSelected) {
+        self.isSelected = true;
+    }
 }
 
 - (void)setDefaultValues {
     [self addTarget:self
              action:@selector(buttonToggled)
    forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setIsSelected:(BOOL)isSelected {
+    UIColor *backgroundColor = (isSelected) ? [UIColor dbBlue2] : [UIColor buttonDeselectedGray];
+    UIColor *textColor = (isSelected) ? [UIColor whiteColor] : [UIColor darkGrayColor];
+    
+    self.backgroundColor = backgroundColor;
+    [self setTitleColor:textColor forState:UIControlStateNormal];
 }
 
 @end

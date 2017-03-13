@@ -12,6 +12,7 @@
 		6F3FE9181E76EF8800134EF5 /* DBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE9161E76EF8800134EF5 /* DBViewController.m */; };
 		6F3FE91B1E76EFD700134EF5 /* DBToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */; };
 		6F3FE91E1E76EFFF00134EF5 /* DBToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE91D1E76EFFF00134EF5 /* DBToastView.m */; };
+		6F3FE9211E770B0B00134EF5 /* DBToggleTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE9201E770B0B00134EF5 /* DBToggleTextButton.m */; };
 		6FA3BC2F1E62426100962D55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC2E1E62426100962D55 /* main.m */; };
 		6FA3BC321E62426100962D55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC311E62426100962D55 /* AppDelegate.m */; };
 		6FA3BC351E62426100962D55 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC341E62426100962D55 /* HomeViewController.m */; };
@@ -117,6 +118,8 @@
 		6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBToastView.xib; sourceTree = "<group>"; };
 		6F3FE91C1E76EFFF00134EF5 /* DBToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBToastView.h; sourceTree = "<group>"; };
 		6F3FE91D1E76EFFF00134EF5 /* DBToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBToastView.m; sourceTree = "<group>"; };
+		6F3FE91F1E770B0B00134EF5 /* DBToggleTextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBToggleTextButton.h; sourceTree = "<group>"; };
+		6F3FE9201E770B0B00134EF5 /* DBToggleTextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBToggleTextButton.m; sourceTree = "<group>"; };
 		6FA3BC2A1E62426100962D55 /* Dashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FA3BC2E1E62426100962D55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6FA3BC301E62426100962D55 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -547,6 +550,8 @@
 				6FCB58DC1E64E0EF005A3D66 /* DBSegmentedControl.m */,
 				6FCB58FB1E65E98D005A3D66 /* DBDarkTextField.h */,
 				6FCB58FC1E65E98D005A3D66 /* DBDarkTextField.m */,
+				6F3FE91F1E770B0B00134EF5 /* DBToggleTextButton.h */,
+				6F3FE9201E770B0B00134EF5 /* DBToggleTextButton.m */,
 				6F3FE9151E76EF8800134EF5 /* DBViewController.h */,
 				6F3FE9161E76EF8800134EF5 /* DBViewController.m */,
 				6FCB58E91E64EE80005A3D66 /* UIFloatLabelTextField.h */,
@@ -836,6 +841,7 @@
 				6FCB59B11E68921E005A3D66 /* NSValueTransformer+MTLInversionAdditions.m in Sources */,
 				6FCB59AD1E68921E005A3D66 /* NSDictionary+MTLManipulationAdditions.m in Sources */,
 				6FCB59C81E6A1983005A3D66 /* MapViewController.m in Sources */,
+				6F3FE9211E770B0B00134EF5 /* DBToggleTextButton.m in Sources */,
 				6FA3BC351E62426100962D55 /* HomeViewController.m in Sources */,
 				6FCB59B01E68921E005A3D66 /* NSObject+MTLComparisonAdditions.m in Sources */,
 				6FCB58D61E64DF55005A3D66 /* iCarousel.m in Sources */,

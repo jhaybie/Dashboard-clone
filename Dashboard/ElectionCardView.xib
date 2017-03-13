@@ -33,7 +33,7 @@
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wk2-Nl-J6L">
-                            <rect key="frame" x="24" y="37.5" width="311" height="66"/>
+                            <rect key="frame" x="24" y="37" width="311" height="66"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ELECTION IN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrf-4I-mPS">
                                     <rect key="frame" x="0.0" y="0.0" width="311" height="22"/>
@@ -191,7 +191,7 @@
         </view>
     </objects>
     <resources>
-        <image name="background-card-shadow" width="515" height="330"/>
+        <image name="background-card-shadow" width="1079" height="694"/>
         <image name="icon-contact" width="42" height="42"/>
     </resources>
 </document>
