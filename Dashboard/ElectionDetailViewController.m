@@ -12,6 +12,7 @@
 #import "Election.h"
 #import "ElectionCardView.h"
 #import "GlobalAPI.h"
+#import "PinnedHeaderView.h"
 #import "UIColor+DBColors.h"
 
 @interface ElectionDetailViewController ()
@@ -26,12 +27,15 @@
 @property (nonatomic, strong) IBOutlet UIButton *previousButton;
 @property (nonatomic, strong) IBOutlet UIButton *nextButton;
 
+@property (nonatomic, strong) PinnedHeaderView *pinnedHeaderView;
+
 @property (strong, nonatomic) NSArray<Contact *> *contacts;
 @property (strong, nonatomic) NSMutableArray<Contact *> *selectedContacts;
 
 @end
 
 @implementation ElectionDetailViewController
+BOOL isPinnedHeaderViewVisible;
 
 #pragma mark - Override Methods
 - (void)viewDidLoad {
@@ -49,7 +53,9 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
-    [self updateScrollViewContentSize];
+    if (!isPinnedHeaderViewVisible) {
+        [self updateScrollViewContentSize];
+    }
 }
 
 #pragma mark - Private Methods
@@ -88,11 +94,23 @@
     for (UIView *view in self.electionCardView.subviews) {
         [view removeFromSuperview];
     }
-    ElectionCardView *ecv = [[ElectionCardView alloc] initWithElection:self.elections[self.electionIndex]];
+    Election *election = self.elections[self.electionIndex];
+    
+    ElectionCardView *ecv = [[ElectionCardView alloc] initWithElection:election];
     CGRect frame = CGRectMake(-8, -8, [[UIScreen mainScreen] bounds].size.width + 16, 222);
     ecv.frame = frame; //self.electionCardView.bounds;
     ecv.badgeView.hidden = true;
     [self.electionCardView addSubview:ecv];
+    
+    if (isPinnedHeaderViewVisible) {
+        [self.pinnedHeaderView removeFromSuperview];
+    }
+    CGRect pinnedFrame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, 75);
+    self.pinnedHeaderView = [[PinnedHeaderView alloc] initWithPosition:election.positionName cityState:ecv.cityStateLabel.text];
+    self.pinnedHeaderView.frame = pinnedFrame;
+    if (isPinnedHeaderViewVisible) {
+        [self.view addSubview:self.pinnedHeaderView];
+    }
     
     // TODO: update candidate textview
     
@@ -319,6 +337,19 @@
     }
     
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+#pragma mark - UIScrollView Delegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y >= 140) {
+        [self.view addSubview:self.pinnedHeaderView];
+        isPinnedHeaderViewVisible = true;
+    } else {
+        [self.pinnedHeaderView removeFromSuperview];
+        isPinnedHeaderViewVisible = false;
+    }
+    
 }
 
 @end

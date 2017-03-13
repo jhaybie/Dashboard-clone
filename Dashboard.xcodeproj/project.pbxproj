@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F3FE9111E76D7E900134EF5 /* PinnedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FE9101E76D7E900134EF5 /* PinnedHeaderView.xib */; };
+		6F3FE9141E76D80500134EF5 /* PinnedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE9131E76D80500134EF5 /* PinnedHeaderView.m */; };
 		6F3FE9181E76EF8800134EF5 /* DBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE9161E76EF8800134EF5 /* DBViewController.m */; };
 		6F3FE91B1E76EFD700134EF5 /* DBToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */; };
 		6F3FE91E1E76EFFF00134EF5 /* DBToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE91D1E76EFFF00134EF5 /* DBToastView.m */; };
@@ -107,6 +109,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F3FE9101E76D7E900134EF5 /* PinnedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinnedHeaderView.xib; sourceTree = "<group>"; };
+		6F3FE9121E76D80500134EF5 /* PinnedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinnedHeaderView.h; sourceTree = "<group>"; };
+		6F3FE9131E76D80500134EF5 /* PinnedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinnedHeaderView.m; sourceTree = "<group>"; };
 		6F3FE9151E76EF8800134EF5 /* DBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBViewController.h; sourceTree = "<group>"; };
 		6F3FE9161E76EF8800134EF5 /* DBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBViewController.m; sourceTree = "<group>"; };
 		6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBToastView.xib; sourceTree = "<group>"; };
@@ -665,6 +670,9 @@
 				6FCB59BA1E69C7A6005A3D66 /* ContactLineView.m */,
 				6FCB59BF1E69D424005A3D66 /* ContactListView.h */,
 				6FCB59C01E69D424005A3D66 /* ContactListView.m */,
+				6F3FE9101E76D7E900134EF5 /* PinnedHeaderView.xib */,
+				6F3FE9121E76D80500134EF5 /* PinnedHeaderView.h */,
+				6F3FE9131E76D80500134EF5 /* PinnedHeaderView.m */,
 			);
 			name = ElectionDetail;
 			sourceTree = "<group>";
@@ -772,6 +780,7 @@
 				6FCB59B81E69C795005A3D66 /* ContactLineView.xib in Resources */,
 				6FCB59A41E68921D005A3D66 /* Info.plist in Resources */,
 				6FCB59041E660835005A3D66 /* ZipCodeViewController.xib in Resources */,
+				6F3FE9111E76D7E900134EF5 /* PinnedHeaderView.xib in Resources */,
 				6FA3BCBB1E62641000962D55 /* SVProgressHUD.bundle in Resources */,
 				6FCB59121E673A94005A3D66 /* ElectionCardView.xib in Resources */,
 			);
@@ -799,6 +808,7 @@
 				6FA3BCB91E62641000962D55 /* SVIndefiniteAnimatedView.m in Sources */,
 				6FA3BC921E62637B00962D55 /* SDImageCacheConfig.m in Sources */,
 				6FCB59AA1E68921D005A3D66 /* MTLValueTransformer.m in Sources */,
+				6F3FE9141E76D80500134EF5 /* PinnedHeaderView.m in Sources */,
 				6FCB59A31E68921D005A3D66 /* EXTScope.m in Sources */,
 				6FCB59031E660835005A3D66 /* ZipCodeViewController.m in Sources */,
 				6FCB59BE1E69CD74005A3D66 /* Contact.m in Sources */,
@@ -820,6 +830,7 @@
 				6FCB59221E68711E005A3D66 /* Election.m in Sources */,
 				6FA3BC5C1E62636800962D55 /* AFHTTPSessionManager.m in Sources */,
 				6FA3BC901E62637B00962D55 /* NSImage+WebCache.m in Sources */,
+				6F3FE9181E76EF8800134EF5 /* DBViewController.m in Sources */,
 				6FA3BC931E62637B00962D55 /* SDWebImageCompat.m in Sources */,
 				6FA3BC611E62636800962D55 /* AFURLSessionManager.m in Sources */,
 				6FCB59B11E68921E005A3D66 /* NSValueTransformer+MTLInversionAdditions.m in Sources */,

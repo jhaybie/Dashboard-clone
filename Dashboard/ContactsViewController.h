@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ContactsViewController : UIViewController
+#import "DBViewController.h"
+
+@interface ContactsViewController : DBViewController
 
 @end
