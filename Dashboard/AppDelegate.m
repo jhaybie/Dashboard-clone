@@ -7,10 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "Constant.h"
+
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "UIColor+DBColors.h"
+
+@import GoogleMaps;
 
 @interface AppDelegate ()
 
@@ -24,6 +28,9 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
 
+    // Register Google Maps SDK API Key
+    [GMSServices provideAPIKey:GOOGLE_API_KEY];
+    
     // Configure tabBarController appearance
     [[UITabBar appearance] setBarTintColor:[UIColor globalDarkColor]];
     [[UITabBar appearance] setTintColor:[UIColor colorWithHexString:@"#7ECCED"]];

@@ -13,7 +13,7 @@
 #pragma mark - API KEY
 
 #define API_KEY           @"Lu__gDyuS2SEw7MJmxyUWw"
-
+#define GOOGLE_API_KEY    @"AIzaSyBfzd3igMBpI0FUiUsow0jmhoTWpt2LQLA"
 
 
 #pragma mark - URLs
