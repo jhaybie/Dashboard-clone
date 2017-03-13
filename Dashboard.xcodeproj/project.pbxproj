@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F3FE91B1E76EFD700134EF5 /* DBToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */; };
+		6F3FE91E1E76EFFF00134EF5 /* DBToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE91D1E76EFFF00134EF5 /* DBToastView.m */; };
 		6FA3BC2F1E62426100962D55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC2E1E62426100962D55 /* main.m */; };
 		6FA3BC321E62426100962D55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC311E62426100962D55 /* AppDelegate.m */; };
 		6FA3BC351E62426100962D55 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC341E62426100962D55 /* HomeViewController.m */; };
@@ -104,6 +106,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBToastView.xib; sourceTree = "<group>"; };
+		6F3FE91C1E76EFFF00134EF5 /* DBToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBToastView.h; sourceTree = "<group>"; };
+		6F3FE91D1E76EFFF00134EF5 /* DBToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBToastView.m; sourceTree = "<group>"; };
 		6FA3BC2A1E62426100962D55 /* Dashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FA3BC2E1E62426100962D55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6FA3BC301E62426100962D55 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -536,6 +541,9 @@
 				6FCB58FC1E65E98D005A3D66 /* DBDarkTextField.m */,
 				6FCB58E91E64EE80005A3D66 /* UIFloatLabelTextField.h */,
 				6FCB58EA1E64EE80005A3D66 /* UIFloatLabelTextField.m */,
+				6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */,
+				6F3FE91C1E76EFFF00134EF5 /* DBToastView.h */,
+				6F3FE91D1E76EFFF00134EF5 /* DBToastView.m */,
 			);
 			name = "UI Classes";
 			sourceTree = "<group>";
@@ -834,6 +842,7 @@
 				6FA3BC2F1E62426100962D55 /* main.m in Sources */,
 				6FA3BC981E62637B00962D55 /* SDWebImagePrefetcher.m in Sources */,
 				6FA3BCAA1E62639D00962D55 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				6F3FE91E1E76EFFF00134EF5 /* DBToastView.m in Sources */,
 				6FCB58EE1E64F286005A3D66 /* DBCheckboxButton.m in Sources */,
 				6FCB59091E6608FC005A3D66 /* UserCardView.m in Sources */,
 				6FA3BC991E62637B00962D55 /* UIButton+WebCache.m in Sources */,
