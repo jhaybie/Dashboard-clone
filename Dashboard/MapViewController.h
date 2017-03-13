@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MapViewController : UIViewController
+#import "DBViewController.h"
+
+@interface MapViewController : DBViewController
 
 @end

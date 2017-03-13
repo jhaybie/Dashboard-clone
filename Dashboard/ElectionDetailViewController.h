@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
+
 #import "ContactListView.h"
+#import "DBViewController.h"
 
 @class Election;
 
-@interface ElectionDetailViewController : UIViewController <ContactListViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
+@interface ElectionDetailViewController : DBViewController <ContactListViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic) int electionIndex;
 @property (nonatomic, strong) NSArray<Election *> *elections;

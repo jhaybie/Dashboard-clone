@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F3FE9181E76EF8800134EF5 /* DBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE9161E76EF8800134EF5 /* DBViewController.m */; };
 		6F3FE91B1E76EFD700134EF5 /* DBToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */; };
 		6F3FE91E1E76EFFF00134EF5 /* DBToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE91D1E76EFFF00134EF5 /* DBToastView.m */; };
 		6FA3BC2F1E62426100962D55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC2E1E62426100962D55 /* main.m */; };
 		6FA3BC321E62426100962D55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC311E62426100962D55 /* AppDelegate.m */; };
 		6FA3BC351E62426100962D55 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC341E62426100962D55 /* HomeViewController.m */; };
-		6FA3BC381E62426100962D55 /* ImportContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC371E62426100962D55 /* ImportContactsViewController.m */; };
+		6FA3BC381E62426100962D55 /* DonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC371E62426100962D55 /* DonateViewController.m */; };
 		6FA3BC3B1E62426100962D55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3BC391E62426100962D55 /* Main.storyboard */; };
 		6FA3BC3D1E62426100962D55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3BC3C1E62426100962D55 /* Assets.xcassets */; };
 		6FA3BC401E62426100962D55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3BC3E1E62426100962D55 /* LaunchScreen.storyboard */; };
@@ -106,6 +107,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F3FE9151E76EF8800134EF5 /* DBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBViewController.h; sourceTree = "<group>"; };
+		6F3FE9161E76EF8800134EF5 /* DBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBViewController.m; sourceTree = "<group>"; };
 		6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBToastView.xib; sourceTree = "<group>"; };
 		6F3FE91C1E76EFFF00134EF5 /* DBToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBToastView.h; sourceTree = "<group>"; };
 		6F3FE91D1E76EFFF00134EF5 /* DBToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBToastView.m; sourceTree = "<group>"; };
@@ -115,8 +118,8 @@
 		6FA3BC311E62426100962D55 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6FA3BC331E62426100962D55 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		6FA3BC341E62426100962D55 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		6FA3BC361E62426100962D55 /* ImportContactsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImportContactsViewController.h; sourceTree = "<group>"; };
-		6FA3BC371E62426100962D55 /* ImportContactsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImportContactsViewController.m; sourceTree = "<group>"; };
+		6FA3BC361E62426100962D55 /* DonateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DonateViewController.h; sourceTree = "<group>"; };
+		6FA3BC371E62426100962D55 /* DonateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DonateViewController.m; sourceTree = "<group>"; };
 		6FA3BC3A1E62426100962D55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6FA3BC3C1E62426100962D55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FA3BC3F1E62426100962D55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -372,9 +375,9 @@
 			children = (
 				6FA3BC391E62426100962D55 /* Main.storyboard */,
 				6FCB59C91E6A1A53005A3D66 /* Contacts */,
+				6FCB59C41E6A1936005A3D66 /* Donate */,
 				6FCB59B61E68AB21005A3D66 /* ElectionDetail */,
 				6FCB59171E676295005A3D66 /* Home */,
-				6FCB59C41E6A1936005A3D66 /* Import Contacts */,
 				6FCB58D11E64DEB1005A3D66 /* Login */,
 				6FCB59C51E6A1956005A3D66 /* Map View */,
 				6FCB590B1E66091F005A3D66 /* ZipCode */,
@@ -539,6 +542,8 @@
 				6FCB58DC1E64E0EF005A3D66 /* DBSegmentedControl.m */,
 				6FCB58FB1E65E98D005A3D66 /* DBDarkTextField.h */,
 				6FCB58FC1E65E98D005A3D66 /* DBDarkTextField.m */,
+				6F3FE9151E76EF8800134EF5 /* DBViewController.h */,
+				6F3FE9161E76EF8800134EF5 /* DBViewController.m */,
 				6FCB58E91E64EE80005A3D66 /* UIFloatLabelTextField.h */,
 				6FCB58EA1E64EE80005A3D66 /* UIFloatLabelTextField.m */,
 				6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */,
@@ -664,13 +669,13 @@
 			name = ElectionDetail;
 			sourceTree = "<group>";
 		};
-		6FCB59C41E6A1936005A3D66 /* Import Contacts */ = {
+		6FCB59C41E6A1936005A3D66 /* Donate */ = {
 			isa = PBXGroup;
 			children = (
-				6FA3BC361E62426100962D55 /* ImportContactsViewController.h */,
-				6FA3BC371E62426100962D55 /* ImportContactsViewController.m */,
+				6FA3BC361E62426100962D55 /* DonateViewController.h */,
+				6FA3BC371E62426100962D55 /* DonateViewController.m */,
 			);
-			name = "Import Contacts";
+			name = Donate;
 			sourceTree = "<group>";
 		};
 		6FCB59C51E6A1956005A3D66 /* Map View */ = {
@@ -757,6 +762,7 @@
 			files = (
 				6FCB58D01E64DEAD005A3D66 /* LoginViewController.xib in Resources */,
 				6FCB591C1E6762C5005A3D66 /* ElectionCardCell.xib in Resources */,
+				6F3FE91B1E76EFD700134EF5 /* DBToastView.xib in Resources */,
 				6FA3BC401E62426100962D55 /* LaunchScreen.storyboard in Resources */,
 				6FCB58D71E64DF55005A3D66 /* Info.plist in Resources */,
 				6FA3BC3D1E62426100962D55 /* Assets.xcassets in Resources */,
@@ -789,7 +795,7 @@
 				6FCB59BB1E69C7A6005A3D66 /* ContactLineView.m in Sources */,
 				6FCB59AF1E68921E005A3D66 /* NSError+MTLModelException.m in Sources */,
 				6FA3BCAD1E62639D00962D55 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
-				6FA3BC381E62426100962D55 /* ImportContactsViewController.m in Sources */,
+				6FA3BC381E62426100962D55 /* DonateViewController.m in Sources */,
 				6FA3BCB91E62641000962D55 /* SVIndefiniteAnimatedView.m in Sources */,
 				6FA3BC921E62637B00962D55 /* SDImageCacheConfig.m in Sources */,
 				6FCB59AA1E68921D005A3D66 /* MTLValueTransformer.m in Sources */,

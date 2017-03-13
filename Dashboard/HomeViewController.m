@@ -136,14 +136,28 @@
 }
 
 - (void)presentElectionsNearYou {
-    [UIView animateWithDuration:0.25f animations:^{
+    [UIView animateWithDuration:0.15f animations:^{
         self.tableView.alpha = 1;
+    } completion:^(BOOL finished) {
+        // TODO: reload tableview with elections near you
+        [UIView animateWithDuration:0.15f animations:^{
+            self.tableView.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.tableView.alpha = 1;
+        }];
     }];
 }
 
 - (void)presentElectionsNearYourContacts {
-    [UIView animateWithDuration:0.25f animations:^{
-        self.tableView.alpha = 0;
+    [UIView animateWithDuration:0.15f animations:^{
+        self.tableView.alpha = 1;
+    } completion:^(BOOL finished) {
+        // TODO: reload tableview with elections near your contacts
+        [UIView animateWithDuration:0.15f animations:^{
+            self.tableView.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.tableView.alpha = 1;
+        }];
     }];
 }
 

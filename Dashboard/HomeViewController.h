@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
-@interface HomeViewController : UIViewController <FBSDKLoginButtonDelegate, UITableViewDataSource, UITableViewDelegate>
+#import "DBViewController.h"
+
+@interface HomeViewController : DBViewController <FBSDKLoginButtonDelegate, UITableViewDataSource, UITableViewDelegate>
 
 
 @end

@@ -12,6 +12,7 @@
 #import "Election.h"
 #import "RegisterView.h"
 #import "TPKeyboardAvoidingScrollView.h"
+#import "UIColor+DBColors.h"
 #import "UserCardView.h"
 
 @interface LoginViewController ()
@@ -216,9 +217,13 @@ NSTimer *carouselTimer;
 #pragma mark - IBActions
 
 - (IBAction)loginButtonTapped:(id)sender {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:@"YES" forKey:IS_SESSION_ACTIVE];
-    [self dismissViewControllerAnimated:true completion:nil];
+    if (self.emailTextField.text.length == 0 || self.passwordTextField.text.length == 0) {
+        [self displayToastWithMessage:@"Please enter valid email and password" backgroundColor:[UIColor globalFailureColor]];
+    }
+    
+//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+//    [prefs setObject:@"YES" forKey:IS_SESSION_ACTIVE];
+//    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 #pragma mark - Facebook SDK Delegate Methods
