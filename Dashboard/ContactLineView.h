@@ -6,6 +6,7 @@
 //  Copyright © 2017 RiseMovement. All rights reserved.
 //
 
+#import <MessageUI/MessageUI.h>
 #import <UIKit/UIKit.h>
 
 @class Contact;

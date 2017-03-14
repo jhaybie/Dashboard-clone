@@ -6,7 +6,6 @@
 //  Copyright © 2017 RiseMovement. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
 #import "ContactListView.h"

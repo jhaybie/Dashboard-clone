@@ -10,8 +10,6 @@
 #import "Contact.h"
 #import "DBCheckboxButton.h"
 
-#import <MessageUI/MessageUI.h>
-
 @implementation ContactLineView
 
 #pragma mark - Init Methods

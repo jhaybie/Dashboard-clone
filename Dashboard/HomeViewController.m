@@ -17,8 +17,6 @@
 #import "UIColor+DBColors.h"
 #import "UserCardView.h"
 
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-
 @interface HomeViewController ()
 
 @property (strong, nonatomic) IBOutlet UIView *cardView;

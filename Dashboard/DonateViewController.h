@@ -6,8 +6,6 @@
 //  Copyright © 2017 RiseMovement. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "DBViewController.h"
 
 @interface DonateViewController : DBViewController

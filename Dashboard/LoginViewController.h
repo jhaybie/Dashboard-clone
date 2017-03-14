@@ -6,9 +6,9 @@
 //  Copyright © 2017 RiseMovement. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <UIKit/UIKit.h>
 
 #import "DBViewController.h"
 #import "iCarousel.h"
