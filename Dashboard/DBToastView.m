@@ -10,6 +10,7 @@
 
 @interface DBToastView()
 
+@property (strong, nonatomic) IBOutlet UIView *backgroundView;
 @property (strong, nonatomic) IBOutlet UILabel *messageLabel;
 
 @end
@@ -25,7 +26,7 @@
                                               owner:self
                                             options:nil] objectAtIndex:0];
         
-        self.backgroundColor = backgroundColor;
+        self.backgroundView.backgroundColor = backgroundColor;
         self.messageLabel.text = message;
     }
     return self;
