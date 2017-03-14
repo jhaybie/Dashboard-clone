@@ -24,6 +24,8 @@
 @end
 
 @implementation DonateViewController
+BOOL firstDonateTry = true; // FOR TESTING ONLY -- REMOVE WHEN DONATE FEATURE IS IMPLEMENTED
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -121,6 +123,13 @@
 
 - (IBAction)donateButtonTapped:(id)sender {
     [self.donationTextField resignFirstResponder];
+    
+    // BEGIN TEST CODE FOR DONATE
+    if (firstDonateTry) {
+        [self displayToastWithMessage:@"Transaction failed. Please try again." backgroundColor:[UIColor globalFailureColor]];
+    }
+    // END TEST CODE
+    
     // TODO: donation payment processing goes here
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Thank you!"
                                                                    message:@"We appreciate your contribution."

@@ -105,7 +105,7 @@ BOOL isPinnedHeaderViewVisible;
     if (isPinnedHeaderViewVisible) {
         [self.pinnedHeaderView removeFromSuperview];
     }
-    CGRect pinnedFrame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, 75);
+    CGRect pinnedFrame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, 74);
     self.pinnedHeaderView = [[PinnedHeaderView alloc] initWithPosition:election.positionName cityState:ecv.cityStateLabel.text];
     self.pinnedHeaderView.frame = pinnedFrame;
     if (isPinnedHeaderViewVisible) {

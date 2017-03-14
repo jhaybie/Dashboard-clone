@@ -12,7 +12,7 @@
 
 - (instancetype)initWithPosition:(NSString *)position cityState:(NSString *)cityState {
     int width = [[UIScreen mainScreen] bounds].size.width;
-    CGRect frame = CGRectMake(0, 0, width, 75);
+    CGRect frame = CGRectMake(0, 0, width, 74);
     
     if (self = [super initWithFrame:frame]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"PinnedHeaderView"
