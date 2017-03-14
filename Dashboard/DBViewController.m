@@ -17,6 +17,8 @@
 @implementation DBViewController
 
 #pragma mark - Override Methods
+BOOL isToastVisible = false;
+NSTimer *timer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,18 +30,38 @@
     CGRect startFrame = CGRectMake(0, -60, [[UIScreen mainScreen] bounds].size.width, 80);
     CGRect endFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 80);
     
-    self.toastView = [[DBToastView alloc] initWithMessage:message backgroundColor:backgroundColor];
-    self.toastView.frame = startFrame;
-    self.toastView.delegate = self;
-    [self.view addSubview:self.toastView];
+    [timer invalidate];
+    timer = nil;
     
-    [UIView animateWithDuration:0.5f animations:^{
-        self.toastView.frame = endFrame;
-    } completion:^(BOOL finished) {
-        [self performSelector:@selector(toastCloseButtonTapped)
-                   withObject:self
-                   afterDelay:5.0f];
-    }];
+    if (!isToastVisible) {
+        isToastVisible = true;
+
+        self.toastView = [[DBToastView alloc] initWithMessage:message backgroundColor:backgroundColor];
+        self.toastView.frame = startFrame;
+        self.toastView.delegate = self;
+        [self.view addSubview:self.toastView];
+
+        [UIView animateWithDuration:0.5f animations:^{
+            self.toastView.frame = endFrame;
+        } completion:^(BOOL finished) {
+            timer = [NSTimer scheduledTimerWithTimeInterval:30.0f
+                                                     target:self
+                                                   selector:@selector(toastCloseButtonTapped)
+                                                   userInfo:nil
+                                                    repeats:true];
+        }];
+    } else { // current toast notification exists
+        
+        CGRect endFrame = CGRectMake(0, -60, [[UIScreen mainScreen] bounds].size.width, 60);
+        [UIView animateWithDuration:0.15f animations:^{
+            self.toastView.frame = endFrame;
+        } completion:^(BOOL finished) {
+            isToastVisible = false;
+            [self.toastView removeFromSuperview];
+            
+            [self displayToastWithMessage:message backgroundColor:backgroundColor];
+        }];
+    }
 }
 
 #pragma mark - DBToastView Delegate Methods
@@ -50,6 +72,7 @@
     [UIView animateWithDuration:0.5f animations:^{
         self.toastView.frame = endFrame;
     } completion:^(BOOL finished) {
+        isToastVisible = false;
         [self.toastView removeFromSuperview];
     }];
 }
