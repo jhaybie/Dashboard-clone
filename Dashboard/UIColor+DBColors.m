@@ -14,6 +14,10 @@
     return [UIColor colorWithHex:0xF2F2F2];
 }
 
++ (UIColor *)buttonTextInactiveGray {
+    return [UIColor colorWithHex:0x333333];
+}
+
 + (UIColor *)dbBlue1 {
     return [UIColor colorWithHex:0x29ABE2];
 }

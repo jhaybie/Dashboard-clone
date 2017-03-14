@@ -11,6 +11,7 @@
 @interface UIColor (DBColors)
 
 + (UIColor *)buttonDeselectedGray;
++ (UIColor *)buttonTextInactiveGray;
 
 + (UIColor *)dbBlue1;
 + (UIColor *)dbBlue2;

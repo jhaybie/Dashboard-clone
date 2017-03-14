@@ -109,7 +109,7 @@ BOOL firstDonateTry = true; // FOR TESTING ONLY -- REMOVE WHEN DONATE FEATURE IS
     for (UIBarButtonItem *item in self.keyboardToolbar.items) {
         item.enabled = enabled;
     }
-    self.donateButton.backgroundColor = (enabled) ? [UIColor globalSuccessColor] : [UIColor lightGrayColor];
+    self.donateButton.backgroundColor = (enabled) ? [UIColor dbBlue2] : [UIColor dbBlue2Disabled];
     self.donateButton.userInteractionEnabled = enabled;
     [self deselectOtherDonateButtons:nil];
 }
@@ -127,31 +127,35 @@ BOOL firstDonateTry = true; // FOR TESTING ONLY -- REMOVE WHEN DONATE FEATURE IS
     // BEGIN TEST CODE FOR DONATE
     if (firstDonateTry) {
         [self displayToastWithMessage:@"Transaction failed. Please try again." backgroundColor:[UIColor globalFailureColor]];
+        firstDonateTry = false;
+    } else {
+        // KEEP THIS PART
+        // TODO: donation payment processing goes here
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Thank you!"
+                                                                       message:@"We appreciate your contribution."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"Place another donation"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Go to your Dashboard"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                    [self.tabBarController setSelectedIndex:0];
+                                                }]];
+        
+        [self presentViewController:alert
+                           animated:true
+                         completion:nil];
+        // END KEEP THIS PART
+        firstDonateTry = true;
     }
-    // END TEST CODE
-    
-    // TODO: donation payment processing goes here
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Thank you!"
-                                                                   message:@"We appreciate your contribution."
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Place another donation"
-                                              style:UIAlertActionStyleDefault
-                                            handler:nil]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Go to your Dashboard"
-                                              style:UIAlertActionStyleDefault
-                                            handler:^(UIAlertAction * _Nonnull action) {
-                                                [self.tabBarController setSelectedIndex:0];
-                                            }]];
-    
-    [self presentViewController:alert
-                       animated:true
-                     completion:nil];
+    // END TEST CODE FOR DONATE
 }
 
 - (IBAction)presetDonationButtonTapped:(DBToggleTextButton *)sender {
     [self.donationTextField resignFirstResponder];
-    self.donateButton.backgroundColor = [UIColor globalSuccessColor];
+    self.donateButton.backgroundColor = [UIColor dbBlue2];
     self.donateButton.userInteractionEnabled = true;
     for (UIBarButtonItem *item in self.keyboardToolbar.items) {
         item.enabled = true;

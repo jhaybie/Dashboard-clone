@@ -532,7 +532,7 @@
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jL8-eA-omJ">
                                                 <rect key="frame" x="88" y="184" width="150" height="40"/>
-                                                <color key="backgroundColor" red="0.13333333333333333" green="0.70980392156862748" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.12156862745098039" green="0.50196078431372548" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="Ba9-6v-dI2"/>
                                                     <constraint firstAttribute="height" constant="40" id="h2b-UB-sSn"/>
@@ -707,7 +707,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cHn-BA-Wkm" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Dashboard" image="icon-tab-home" id="acW-dT-cKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hj6-Te-jym">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Hj6-Te-jym">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

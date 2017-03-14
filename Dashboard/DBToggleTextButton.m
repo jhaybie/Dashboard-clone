@@ -45,7 +45,7 @@
 
 - (void)setIsSelected:(BOOL)isSelected {
     UIColor *backgroundColor = (isSelected) ? [UIColor dbBlue2] : [UIColor buttonDeselectedGray];
-    UIColor *textColor = (isSelected) ? [UIColor whiteColor] : [UIColor darkGrayColor];
+    UIColor *textColor = (isSelected) ? [UIColor buttonDeselectedGray] : [UIColor buttonTextInactiveGray];
     
     self.backgroundColor = backgroundColor;
     [self setTitleColor:textColor forState:UIControlStateNormal];
