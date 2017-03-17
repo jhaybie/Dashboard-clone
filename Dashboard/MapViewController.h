@@ -6,10 +6,15 @@
 //  Copyright © 2017 RiseMovement. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 #import "DBViewController.h"
 
-@interface MapViewController : DBViewController
+@class Election;
+
+@interface MapViewController : DBViewController <GMSMapViewDelegate>
+
+@property (nonatomic, strong) NSArray<Election *> *elections;
 
 @end
