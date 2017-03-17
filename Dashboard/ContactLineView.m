@@ -7,8 +7,21 @@
 //
 
 #import "ContactLineView.h"
+#import "Constant.h"
 #import "Contact.h"
 #import "DBCheckboxButton.h"
+
+@interface ContactLineView()
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *contactLeadingConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *contactTrailingConstraint;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *lineSpacingConstraint1;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *lineSpacingConstraint2;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *lineSpacingConstraint3;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *lineSpacingConstraint4;
+
+@end
 
 @implementation ContactLineView
 
@@ -22,6 +35,25 @@
         self = [[[NSBundle mainBundle] loadNibNamed:@"ContactLineView"
                                               owner:self
                                             options:nil] objectAtIndex:0];
+        
+        // Adjust spacing for devices
+        int offset = 8;
+        CGFloat fontSize = 12;
+        if (IS_IPHONE_4_7_INCH) {
+            offset = 16;
+            fontSize = 14;
+        } else if (IS_IPHONE_5_5_INCH) {
+            offset = 20;
+            fontSize = 16;
+        }
+        self.contactLeadingConstraint.constant += offset;
+        self.contactTrailingConstraint.constant += offset;
+        self.lineSpacingConstraint1.constant += offset;
+        self.lineSpacingConstraint2.constant += offset;
+        self.lineSpacingConstraint3.constant += offset;
+        self.lineSpacingConstraint4.constant += offset;
+
+        [self.nameLabel setFont:[UIFont systemFontOfSize:fontSize]];
         
         [self.emailButton setImage:[UIImage imageNamed:@"icon-contact-email"] forState:UIControlStateNormal];
         [self.emailButton setImage:[UIImage imageNamed:@"icon-contact-email-inactive"] forState:UIControlStateDisabled];
@@ -38,7 +70,11 @@
         
         self.checkbox.tag = index;
         
-        self.emailButton.enabled = (contact.email.length > 0);
+        if (contact.email.length > 0 && [MFMailComposeViewController canSendMail]) {
+            self.emailButton.enabled = true;
+        } else {
+            self.emailButton.enabled = false;
+        }
         self.emailButton.tag = index;
         
         if (contact.phone.length > 0 && [application canOpenURL:[NSURL URLWithString:@"tel://"]]) {

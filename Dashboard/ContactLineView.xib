@@ -9,14 +9,23 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactLineView"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactLineView">
+            <connections>
+                <outlet property="contactLeadingConstraint" destination="ncJ-8P-X9U" id="qqh-bh-wk9"/>
+                <outlet property="contactTrailingConstraint" destination="kOD-Zl-N0l" id="AQM-2M-DGz"/>
+                <outlet property="lineSpacingConstraint1" destination="XeP-OJ-RjD" id="eo6-7e-bhQ"/>
+                <outlet property="lineSpacingConstraint2" destination="w43-MC-1Cp" id="72j-px-XUy"/>
+                <outlet property="lineSpacingConstraint3" destination="i4l-7a-ghd" id="qib-ts-XHH"/>
+                <outlet property="lineSpacingConstraint4" destination="WwY-OD-Ab5" id="k7D-r7-Rtn"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ContactLineView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjH-6B-q1n" customClass="DBCheckboxButton">
-                    <rect key="frame" x="20" y="9.5" width="21" height="21"/>
+                    <rect key="frame" x="10" y="9.5" width="21" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="3ev-JF-miC"/>
                         <constraint firstAttribute="width" constant="21" id="apQ-Ju-4Kj"/>
@@ -32,7 +41,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZA7-pj-3Oc">
-                    <rect key="frame" x="331" y="9.5" width="24" height="21"/>
+                    <rect key="frame" x="341" y="9.5" width="24" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="24" id="ahW-Ba-6er"/>
                         <constraint firstAttribute="height" constant="21" id="xja-ch-CpD"/>
@@ -43,7 +52,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqU-Vq-ji9">
-                    <rect key="frame" x="289" y="9.5" width="28" height="21"/>
+                    <rect key="frame" x="305" y="9.5" width="28" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="8nA-sc-4jm"/>
                         <constraint firstAttribute="width" constant="28" id="WDa-DH-57H"/>
@@ -54,7 +63,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Doe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qo-Tp-tMF">
-                    <rect key="frame" x="57" y="9.5" width="174" height="21"/>
+                    <rect key="frame" x="39" y="9.5" width="222" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="6GM-Ff-bm8"/>
                     </constraints>
@@ -63,7 +72,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERd-2p-V5F">
-                    <rect key="frame" x="247" y="9.5" width="28" height="21"/>
+                    <rect key="frame" x="269" y="9.5" width="28" height="21"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="28" id="EdB-uv-g9S"/>
@@ -79,14 +88,14 @@
             <constraints>
                 <constraint firstItem="vjH-6B-q1n" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="QdO-8N-ysR"/>
                 <constraint firstItem="ZA7-pj-3Oc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="WU7-FH-LlI"/>
-                <constraint firstItem="ZA7-pj-3Oc" firstAttribute="leading" secondItem="sqU-Vq-ji9" secondAttribute="trailing" constant="14" id="WwY-OD-Ab5"/>
-                <constraint firstItem="2Qo-Tp-tMF" firstAttribute="leading" secondItem="vjH-6B-q1n" secondAttribute="trailing" constant="16" id="XeP-OJ-RjD"/>
-                <constraint firstItem="sqU-Vq-ji9" firstAttribute="leading" secondItem="ERd-2p-V5F" secondAttribute="trailing" constant="14" id="i4l-7a-ghd"/>
-                <constraint firstAttribute="trailing" secondItem="ZA7-pj-3Oc" secondAttribute="trailing" constant="20" id="kOD-Zl-N0l"/>
-                <constraint firstItem="vjH-6B-q1n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="ncJ-8P-X9U"/>
+                <constraint firstItem="ZA7-pj-3Oc" firstAttribute="leading" secondItem="sqU-Vq-ji9" secondAttribute="trailing" constant="8" id="WwY-OD-Ab5"/>
+                <constraint firstItem="2Qo-Tp-tMF" firstAttribute="leading" secondItem="vjH-6B-q1n" secondAttribute="trailing" constant="8" id="XeP-OJ-RjD"/>
+                <constraint firstItem="sqU-Vq-ji9" firstAttribute="leading" secondItem="ERd-2p-V5F" secondAttribute="trailing" constant="8" id="i4l-7a-ghd"/>
+                <constraint firstAttribute="trailing" secondItem="ZA7-pj-3Oc" secondAttribute="trailing" constant="10" id="kOD-Zl-N0l"/>
+                <constraint firstItem="vjH-6B-q1n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="ncJ-8P-X9U"/>
                 <constraint firstItem="2Qo-Tp-tMF" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uff-wa-9RB"/>
                 <constraint firstItem="ERd-2p-V5F" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="vS2-52-rPk"/>
-                <constraint firstItem="ERd-2p-V5F" firstAttribute="leading" secondItem="2Qo-Tp-tMF" secondAttribute="trailing" constant="16" id="w43-MC-1Cp"/>
+                <constraint firstItem="ERd-2p-V5F" firstAttribute="leading" secondItem="2Qo-Tp-tMF" secondAttribute="trailing" constant="8" id="w43-MC-1Cp"/>
                 <constraint firstItem="sqU-Vq-ji9" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="w5f-m4-Mkb"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
