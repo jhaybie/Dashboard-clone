@@ -29,6 +29,8 @@
 		6F3FE93D1E772F2000134EF5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FE93C1E772F2000134EF5 /* OpenGLES.framework */; };
 		6F3FE93F1E772F3000134EF5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FE93E1E772F3000134EF5 /* SystemConfiguration.framework */; };
 		6F3FE9411E772F3600134EF5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FE9401E772F3600134EF5 /* UIKit.framework */; };
+		6F8D2FE31E7B0B28006969A9 /* DBNagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D2FE21E7B0B28006969A9 /* DBNagView.m */; };
+		6F8D2FE51E7B0B67006969A9 /* DBNagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F8D2FE41E7B0B67006969A9 /* DBNagView.xib */; };
 		6FA3BC2F1E62426100962D55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC2E1E62426100962D55 /* main.m */; };
 		6FA3BC321E62426100962D55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC311E62426100962D55 /* AppDelegate.m */; };
 		6FA3BC351E62426100962D55 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC341E62426100962D55 /* HomeViewController.m */; };
@@ -152,6 +154,9 @@
 		6F3FE93C1E772F2000134EF5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		6F3FE93E1E772F3000134EF5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6F3FE9401E772F3600134EF5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6F8D2FE11E7B0B28006969A9 /* DBNagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBNagView.h; sourceTree = "<group>"; };
+		6F8D2FE21E7B0B28006969A9 /* DBNagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBNagView.m; sourceTree = "<group>"; };
+		6F8D2FE41E7B0B67006969A9 /* DBNagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBNagView.xib; sourceTree = "<group>"; };
 		6FA3BC2A1E62426100962D55 /* Dashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FA3BC2E1E62426100962D55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6FA3BC301E62426100962D55 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -613,15 +618,18 @@
 				6FCB58DC1E64E0EF005A3D66 /* DBSegmentedControl.m */,
 				6FCB58FB1E65E98D005A3D66 /* DBDarkTextField.h */,
 				6FCB58FC1E65E98D005A3D66 /* DBDarkTextField.m */,
+				6F8D2FE41E7B0B67006969A9 /* DBNagView.xib */,
+				6F8D2FE11E7B0B28006969A9 /* DBNagView.h */,
+				6F8D2FE21E7B0B28006969A9 /* DBNagView.m */,
+				6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */,
+				6F3FE91C1E76EFFF00134EF5 /* DBToastView.h */,
+				6F3FE91D1E76EFFF00134EF5 /* DBToastView.m */,
 				6F3FE91F1E770B0B00134EF5 /* DBToggleTextButton.h */,
 				6F3FE9201E770B0B00134EF5 /* DBToggleTextButton.m */,
 				6F3FE9151E76EF8800134EF5 /* DBViewController.h */,
 				6F3FE9161E76EF8800134EF5 /* DBViewController.m */,
 				6FCB58E91E64EE80005A3D66 /* UIFloatLabelTextField.h */,
 				6FCB58EA1E64EE80005A3D66 /* UIFloatLabelTextField.m */,
-				6F3FE91A1E76EFD700134EF5 /* DBToastView.xib */,
-				6F3FE91C1E76EFFF00134EF5 /* DBToastView.h */,
-				6F3FE91D1E76EFFF00134EF5 /* DBToastView.m */,
 			);
 			name = "UI Classes";
 			sourceTree = "<group>";
@@ -842,6 +850,7 @@
 				6FA3BC401E62426100962D55 /* LaunchScreen.storyboard in Resources */,
 				6FCB58D71E64DF55005A3D66 /* Info.plist in Resources */,
 				6FA3BC3D1E62426100962D55 /* Assets.xcassets in Resources */,
+				6F8D2FE51E7B0B67006969A9 /* DBNagView.xib in Resources */,
 				6FCB590D1E671609005A3D66 /* RegisterView.xib in Resources */,
 				6F3FE9291E772E4000134EF5 /* GoogleMaps.bundle in Resources */,
 				6FA3BC3B1E62426100962D55 /* Main.storyboard in Resources */,
@@ -907,6 +916,7 @@
 				6FCB59C81E6A1983005A3D66 /* MapViewController.m in Sources */,
 				6F3FE9211E770B0B00134EF5 /* DBToggleTextButton.m in Sources */,
 				6FA3BC351E62426100962D55 /* HomeViewController.m in Sources */,
+				6F8D2FE31E7B0B28006969A9 /* DBNagView.m in Sources */,
 				6FCB59B01E68921E005A3D66 /* NSObject+MTLComparisonAdditions.m in Sources */,
 				6FCB58D61E64DF55005A3D66 /* iCarousel.m in Sources */,
 				6FA3BC971E62637B00962D55 /* SDWebImageManager.m in Sources */,

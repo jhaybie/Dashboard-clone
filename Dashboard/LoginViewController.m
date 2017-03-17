@@ -182,18 +182,24 @@ NSTimer *carouselTimer;
              NSLog(@"Gathered the following info from your logged in user: %@ email: %@ birthday: %@, profilePhotoURL: %@",
                    result, result[@"email"], result[@"birthday"], result[@"picture"][@"data"][@"url"]);
              
-             ZipCodeViewController *zvc = [[ZipCodeViewController alloc] initWithNibName:@"ZipCodeViewController" bundle:nil];
-             zvc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+             
+             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+             [defaults setObject:result[@"picture"][@"data"][@"url"] forKey:USER_IMAGE_URL];
+             [defaults setObject:result[@"name"] forKey:USER_FULL_NAME];
+             [defaults setObject:result[@"location"][@"name"] forKey:USER_LOCATION];
+             
+             AddressViewController *avc = [[AddressViewController alloc] initWithNibName:@"AddressViewController" bundle:nil];
+             avc.modalPresentationStyle = UIModalPresentationOverFullScreen;
              UserCardView *cardView = [[UserCardView alloc] initWithImageURL:result[@"picture"][@"data"][@"url"]
                                                                         name:result[@"name"]
                                                                    cityState:result[@"location"][@"name"]
                                                                   emailCount:0
                                                                     smsCount:0
                                                                   phoneCount:0];
-             zvc.cardView = cardView;
-             zvc.delegate = self;
+             avc.cardView = cardView;
+             avc.delegate = self;
              
-             [self presentViewController:zvc
+             [self presentViewController:avc
                                 animated:true
                               completion:nil];
          }];
@@ -247,10 +253,10 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
     
 }
 
-#pragma mark - ZipCodeViewController Delegate Method
+#pragma mark - AddressViewController Delegate Method
 
 - (void)didDismissViewController:(UIViewController *)viewController {
-    if ([viewController isKindOfClass:[ZipCodeViewController class]]) {
+    if ([viewController isKindOfClass:[AddressViewController class]]) {
         [self dismissViewControllerAnimated:false completion:nil];
         [self dismissViewControllerAnimated:true completion:nil];
     }

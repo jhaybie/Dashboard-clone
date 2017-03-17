@@ -21,17 +21,29 @@
 #define BASE_URL          @"https://riseapp-dot-rise-team-tool-qa.appspot.com"
 
 
+#pragma mark - DEVICE IDENTIFICATION
+#define IS_IPHONE_4_INCH (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON)
+#define IS_IPHONE_4_7_INCH (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)667) < DBL_EPSILON)
+#define IS_IPHONE_5_5_INCH (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)736) < DBL_EPSILON)
+
 
 #pragma mark - NSNOTIFICATIONCENTER KEYS
 
-#define ZIP_CODE_UPDATED  @"ZipCodeUpdated"
+#define ADDRESS_UPDATED     @"AddressUpdated"
 
 
 
 #pragma mark - NSUSERDEFAULT KEYS
 
-#define IS_SESSION_ACTIVE @"IsSessionActive"
-#define USER_ZIP_CODE     @"UserZipCode"
+#define IS_SESSION_ACTIVE   @"IsSessionActive"
+#define USER_IMAGE_URL      @"UserImageURL"
+#define USER_FULL_NAME      @"UserFullName"
+#define USER_LOCATION       @"UserLocation"
+#define USER_STREET         @"UserStreet"
+#define USER_CITY           @"UserCity"
+#define USER_STATE          @"UserState"
+#define USER_ZIP_CODE       @"UserZipCode"
+#define USER_ADDRESS_EXISTS @"UserAddressExists"
 
 
 

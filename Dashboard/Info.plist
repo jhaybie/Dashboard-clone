@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
 	<key>FacebookAppID</key>
 	<string>754150878081339</string>
 	<key>FacebookDisplayName</key>
@@ -49,6 +49,8 @@
 	<true/>
 	<key>NSContactsUsageDescription</key>
 	<string>${PRODUCT_NAME) needs access to your Address Book</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) needs this information to show you your location</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

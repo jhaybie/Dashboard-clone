@@ -10,10 +10,10 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <UIKit/UIKit.h>
 
+#import "AddressViewController.h"
 #import "DBViewController.h"
 #import "iCarousel.h"
-#import "ZipCodeViewController.h"
 
-@interface LoginViewController : DBViewController <iCarouselDataSource, iCarouselDelegate, FBSDKLoginButtonDelegate, ZipCodeViewControllerDelegate>
+@interface LoginViewController : DBViewController <iCarouselDataSource, iCarouselDelegate, FBSDKLoginButtonDelegate, AddressViewControllerDelegate>
 
 @end

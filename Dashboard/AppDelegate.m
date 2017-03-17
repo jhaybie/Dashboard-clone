@@ -8,11 +8,10 @@
 
 #import "AppDelegate.h"
 #import "Constant.h"
+#import "UIColor+DBColors.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-
-#import "UIColor+DBColors.h"
 
 @import GoogleMaps;
 
@@ -44,6 +43,11 @@
                                        };
     [[UITabBarItem appearance] setTitleTextAttributes:normalAttributes forState:UIControlStateNormal];
     [[UITabBarItem appearance] setTitleTextAttributes:selectedAttributes forState:UIControlStateSelected];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults objectForKey:USER_ADDRESS_EXISTS]) {
+        [defaults setObject:@"False" forKey:USER_ADDRESS_EXISTS];
+    }
 
     return YES;
 }

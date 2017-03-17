@@ -52,6 +52,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.shouldShowNagView = true;
+    
     self.navigationController.navigationBar.hidden = true;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -191,6 +194,13 @@
                              // TODO: load saved credentials here
                          }];
     } else {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"False" forKey:USER_ADDRESS_EXISTS];
+        [defaults setObject:@"" forKey:USER_STREET];
+        [defaults setObject:@"" forKey:USER_CITY];
+        [defaults setObject:@"" forKey:USER_STATE];
+        [defaults setObject:@"" forKey:USER_ZIP_CODE];
+        [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
         [self loadUserCardView];
         [self getElections];
     }
@@ -204,6 +214,14 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
     NSLog(@"LoginButtonDidLogOut called");
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"False" forKey:USER_ADDRESS_EXISTS];
+    [defaults setObject:@"" forKey:USER_STREET];
+    [defaults setObject:@"" forKey:USER_CITY];
+    [defaults setObject:@"" forKey:USER_STATE];
+    [defaults setObject:@"" forKey:USER_ZIP_CODE];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
 }
 
 #pragma mark - Segue Support
