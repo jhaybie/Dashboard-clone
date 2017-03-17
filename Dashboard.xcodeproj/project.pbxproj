@@ -84,8 +84,8 @@
 		6FCB58F21E65C7C9005A3D66 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FCB58F11E65C7C9005A3D66 /* FBSDKCoreKit.framework */; };
 		6FCB58F41E65CACF005A3D66 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FCB58F31E65CACF005A3D66 /* Bolts.framework */; };
 		6FCB58FD1E65E98D005A3D66 /* DBDarkTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB58FC1E65E98D005A3D66 /* DBDarkTextField.m */; };
-		6FCB59031E660835005A3D66 /* ZipCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB59011E660835005A3D66 /* ZipCodeViewController.m */; };
-		6FCB59041E660835005A3D66 /* ZipCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCB59021E660835005A3D66 /* ZipCodeViewController.xib */; };
+		6FCB59031E660835005A3D66 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB59011E660835005A3D66 /* AddressViewController.m */; };
+		6FCB59041E660835005A3D66 /* AddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCB59021E660835005A3D66 /* AddressViewController.xib */; };
 		6FCB59061E6608E5005A3D66 /* UserCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCB59051E6608E5005A3D66 /* UserCardView.xib */; };
 		6FCB59091E6608FC005A3D66 /* UserCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB59081E6608FC005A3D66 /* UserCardView.m */; };
 		6FCB590D1E671609005A3D66 /* RegisterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCB590C1E671609005A3D66 /* RegisterView.xib */; };
@@ -256,9 +256,9 @@
 		6FCB58F31E65CACF005A3D66 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		6FCB58FB1E65E98D005A3D66 /* DBDarkTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBDarkTextField.h; sourceTree = "<group>"; };
 		6FCB58FC1E65E98D005A3D66 /* DBDarkTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBDarkTextField.m; sourceTree = "<group>"; };
-		6FCB59001E660835005A3D66 /* ZipCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipCodeViewController.h; sourceTree = "<group>"; };
-		6FCB59011E660835005A3D66 /* ZipCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipCodeViewController.m; sourceTree = "<group>"; };
-		6FCB59021E660835005A3D66 /* ZipCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZipCodeViewController.xib; sourceTree = "<group>"; };
+		6FCB59001E660835005A3D66 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
+		6FCB59011E660835005A3D66 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
+		6FCB59021E660835005A3D66 /* AddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressViewController.xib; sourceTree = "<group>"; };
 		6FCB59051E6608E5005A3D66 /* UserCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCardView.xib; sourceTree = "<group>"; };
 		6FCB59071E6608FC005A3D66 /* UserCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCardView.h; sourceTree = "<group>"; };
 		6FCB59081E6608FC005A3D66 /* UserCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCardView.m; sourceTree = "<group>"; };
@@ -393,8 +393,6 @@
 		6FA3BC2D1E62426100962D55 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6FA3BC301E62426100962D55 /* AppDelegate.h */,
-				6FA3BC311E62426100962D55 /* AppDelegate.m */,
 				6FA3BC411E62426100962D55 /* Info.plist */,
 				6FA3BC2E1E62426100962D55 /* main.m */,
 			);
@@ -428,14 +426,16 @@
 		6FA3BC491E6242FD00962D55 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				6FA3BC301E62426100962D55 /* AppDelegate.h */,
+				6FA3BC311E62426100962D55 /* AppDelegate.m */,
 				6FA3BC391E62426100962D55 /* Main.storyboard */,
+				6FCB590B1E66091F005A3D66 /* Address */,
 				6FCB59C91E6A1A53005A3D66 /* Contacts */,
 				6FCB59C41E6A1936005A3D66 /* Donate */,
 				6FCB59B61E68AB21005A3D66 /* ElectionDetail */,
 				6FCB59171E676295005A3D66 /* Home */,
 				6FCB58D11E64DEB1005A3D66 /* Login */,
 				6FCB59C51E6A1956005A3D66 /* Map View */,
-				6FCB590B1E66091F005A3D66 /* ZipCode */,
 				6FA3BC3E1E62426100962D55 /* LaunchScreen.storyboard */,
 			);
 			name = Screens;
@@ -650,14 +650,14 @@
 			name = "Shared Views";
 			sourceTree = "<group>";
 		};
-		6FCB590B1E66091F005A3D66 /* ZipCode */ = {
+		6FCB590B1E66091F005A3D66 /* Address */ = {
 			isa = PBXGroup;
 			children = (
-				6FCB59021E660835005A3D66 /* ZipCodeViewController.xib */,
-				6FCB59001E660835005A3D66 /* ZipCodeViewController.h */,
-				6FCB59011E660835005A3D66 /* ZipCodeViewController.m */,
+				6FCB59021E660835005A3D66 /* AddressViewController.xib */,
+				6FCB59001E660835005A3D66 /* AddressViewController.h */,
+				6FCB59011E660835005A3D66 /* AddressViewController.m */,
 			);
-			name = ZipCode;
+			name = Address;
 			sourceTree = "<group>";
 		};
 		6FCB59161E675520005A3D66 /* Models */ = {
@@ -848,7 +848,7 @@
 				6FCB59061E6608E5005A3D66 /* UserCardView.xib in Resources */,
 				6FCB59B81E69C795005A3D66 /* ContactLineView.xib in Resources */,
 				6FCB59A41E68921D005A3D66 /* Info.plist in Resources */,
-				6FCB59041E660835005A3D66 /* ZipCodeViewController.xib in Resources */,
+				6FCB59041E660835005A3D66 /* AddressViewController.xib in Resources */,
 				6F3FE9111E76D7E900134EF5 /* PinnedHeaderView.xib in Resources */,
 				6FA3BCBB1E62641000962D55 /* SVProgressHUD.bundle in Resources */,
 				6FCB59121E673A94005A3D66 /* ElectionCardView.xib in Resources */,
@@ -879,7 +879,7 @@
 				6FCB59AA1E68921D005A3D66 /* MTLValueTransformer.m in Sources */,
 				6F3FE9141E76D80500134EF5 /* PinnedHeaderView.m in Sources */,
 				6FCB59A31E68921D005A3D66 /* EXTScope.m in Sources */,
-				6FCB59031E660835005A3D66 /* ZipCodeViewController.m in Sources */,
+				6FCB59031E660835005A3D66 /* AddressViewController.m in Sources */,
 				6FCB59BE1E69CD74005A3D66 /* Contact.m in Sources */,
 				6FA3BC8F1E62637B00962D55 /* NSData+ImageContentType.m in Sources */,
 				6FA3BC911E62637B00962D55 /* SDImageCache.m in Sources */,
