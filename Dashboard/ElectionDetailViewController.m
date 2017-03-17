@@ -40,7 +40,7 @@ BOOL isPinnedHeaderViewVisible;
 #pragma mark - Override Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+        
     [self displaySelectedElectionCard];
     
     self.bulkEmailButton.backgroundColor = [UIColor globalFailureColorDisabled];
@@ -68,8 +68,9 @@ BOOL isPinnedHeaderViewVisible;
             ContactListView *clv = [[ContactListView alloc] initWithContacts:self.contacts];
             self.contactListViewHeightConstraint.constant = clv.frame.size.height;
             CGRect frame = self.contactListView.frame;
-            clv.frame = CGRectMake(0, 0, frame.size.width, clv.frame.size.height);
-            self.contactListView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, clv.frame.size.height);
+            int width = [[UIScreen mainScreen] bounds].size.width - 48;
+            clv.frame = CGRectMake(0, 0, width, clv.frame.size.height);
+            self.contactListView.frame = CGRectMake(frame.origin.x, frame.origin.y, width, clv.frame.size.height);
             clv.delegate = self;
             [self.contactListView addSubview:clv];
             [self.scrollView setNeedsDisplay];
@@ -98,7 +99,7 @@ BOOL isPinnedHeaderViewVisible;
     
     ElectionCardView *ecv = [[ElectionCardView alloc] initWithElection:election];
     CGRect frame = CGRectMake(-8, -8, [[UIScreen mainScreen] bounds].size.width + 16, 222);
-    ecv.frame = frame; //self.electionCardView.bounds;
+    ecv.frame = frame;
     ecv.badgeView.hidden = true;
     [self.electionCardView addSubview:ecv];
     

@@ -7,6 +7,7 @@
 //
 
 #import "DonateViewController.h"
+#import "Constant.h"
 #import "DBToggleTextButton.h"
 #import "UIColor+DBColors.h"
 
@@ -19,6 +20,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *donateButton;
 
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *donateViewTopVerticalHeightConstraint;
 @property (strong, nonatomic) UIToolbar *keyboardToolbar;
 
 @end
@@ -29,6 +31,15 @@ BOOL firstDonateTry = true; // FOR TESTING ONLY -- REMOVE WHEN DONATE FEATURE IS
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Adjust spacing for devices
+    int offset = 0;
+    if (IS_IPHONE_4_7_INCH) {
+        offset = 40;
+    } else if (IS_IPHONE_5_5_INCH) {
+        offset = 60;
+    }
+    self.donateViewTopVerticalHeightConstraint.constant += offset;
     
     // Done button on keyboard
     self.keyboardToolbar = [[UIToolbar alloc] init];

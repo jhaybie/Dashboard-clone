@@ -41,12 +41,20 @@
 }
 
 - (void)setupDefaults {
+    // Adjust font size for devices
+    CGFloat fontSize = 12;
+    if (IS_IPHONE_4_7_INCH) {
+        fontSize = 14;
+    } else if (IS_IPHONE_5_5_INCH) {
+        fontSize = 16;
+    }
+    
     NSDictionary *selectedAttributes = @{
-                                         NSFontAttributeName            : [UIFont systemFontOfSize:14 weight:UIFontWeightBold],
+                                         NSFontAttributeName            : [UIFont systemFontOfSize:fontSize weight:UIFontWeightBold],
                                          NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#333333"]
                                          };
     NSDictionary *normalAttributes = @{
-                                       NSFontAttributeName            : [UIFont systemFontOfSize:14 weight:UIFontWeightLight],
+                                       NSFontAttributeName            : [UIFont systemFontOfSize:fontSize weight:UIFontWeightLight],
                                        NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#999999"],
                                        };
     

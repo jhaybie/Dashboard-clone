@@ -18,6 +18,7 @@
 @interface LoginViewController ()
 
 @property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *loginViewTopSpacingHeightConstraint;
 
 @property (strong, nonatomic) IBOutlet iCarousel *carouselView;
 
@@ -49,8 +50,16 @@ NSTimer *carouselTimer;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self configureCarousel];
+    // Adjust spacing for devices
+    int offset = 0;
+    if (IS_IPHONE_4_7_INCH) {
+        offset = 40;
+    } else if (IS_IPHONE_5_5_INCH) {
+        offset = 60;
+    }
+    self.loginViewTopSpacingHeightConstraint.constant = offset;
     
+    [self configureCarousel];
     [self.segmentedControl addTarget:self
                               action:@selector(segmentedControlValueChanged)
                     forControlEvents:UIControlEventValueChanged];
