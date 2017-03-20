@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="100" id="KGk-i7-Jjw" customClass="ContactCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-user-icon" translatesAutoresizingMaskIntoConstraints="NO" id="NZ4-lS-Gcc">
+                        <rect key="frame" x="10" y="16" width="58" height="58"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="58" id="8vy-EI-fCt"/>
+                            <constraint firstAttribute="width" constant="58" id="ip2-tS-SW8"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="29"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Doe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dI-3y-cy7">
+                        <rect key="frame" x="80" y="16" width="199" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFj-K1-DDe" customClass="DBCheckboxButton">
+                        <rect key="frame" x="287" y="34" width="21" height="21"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="8y5-zb-QmO"/>
+                            <constraint firstAttribute="width" constant="21" id="mua-oM-OrP"/>
+                        </constraints>
+                        <state key="normal" image="checkmark-inactive"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="NO"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="checkedImage" value="checkmark-active"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="uncheckedImage" value="checkmark-inactive"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="checkBoxButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="OGM-NT-g10"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zod-Wt-yjA">
+                        <rect key="frame" x="80" y="53" width="125" height="21"/>
+                        <color key="backgroundColor" red="0.1215686275" green="0.50196078430000002" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="68E-t2-2vk"/>
+                            <constraint firstAttribute="width" constant="125" id="IWA-VI-RCz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="Invite to Join">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="inviteButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="I2i-hA-9dH"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="St Louis, Mississippi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rn0-9a-Y98">
+                        <rect key="frame" x="80" y="36" width="199" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="rn0-9a-Y98" firstAttribute="top" secondItem="6dI-3y-cy7" secondAttribute="bottom" id="379-d7-gWS"/>
+                    <constraint firstAttribute="trailing" secondItem="GFj-K1-DDe" secondAttribute="trailing" constant="12" id="3cy-YD-bfw"/>
+                    <constraint firstItem="6dI-3y-cy7" firstAttribute="leading" secondItem="NZ4-lS-Gcc" secondAttribute="trailing" constant="12" id="QEu-KE-Jjf"/>
+                    <constraint firstItem="6dI-3y-cy7" firstAttribute="top" secondItem="NZ4-lS-Gcc" secondAttribute="top" id="TXw-3l-LOM"/>
+                    <constraint firstItem="zod-Wt-yjA" firstAttribute="bottom" secondItem="NZ4-lS-Gcc" secondAttribute="bottom" id="YzD-ru-iNy"/>
+                    <constraint firstItem="NZ4-lS-Gcc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="hPd-JR-8vk"/>
+                    <constraint firstItem="GFj-K1-DDe" firstAttribute="leading" secondItem="6dI-3y-cy7" secondAttribute="trailing" constant="8" id="i5q-kA-JbK"/>
+                    <constraint firstItem="rn0-9a-Y98" firstAttribute="leading" secondItem="6dI-3y-cy7" secondAttribute="leading" id="lSM-ga-1TZ"/>
+                    <constraint firstItem="NZ4-lS-Gcc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nU7-ep-3f2"/>
+                    <constraint firstItem="zod-Wt-yjA" firstAttribute="leading" secondItem="rn0-9a-Y98" secondAttribute="leading" id="o36-TE-PK6"/>
+                    <constraint firstItem="rn0-9a-Y98" firstAttribute="trailing" secondItem="6dI-3y-cy7" secondAttribute="trailing" id="pOJ-T4-lqe"/>
+                    <constraint firstItem="GFj-K1-DDe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="q8y-vX-yzi"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="checkBoxButton" destination="GFj-K1-DDe" id="a6I-Fd-m2z"/>
+                <outlet property="contactImageView" destination="NZ4-lS-Gcc" id="SpD-ES-NTf"/>
+                <outlet property="inviteButton" destination="zod-Wt-yjA" id="QtU-ae-CFs"/>
+                <outlet property="locationLabel" destination="rn0-9a-Y98" id="5RM-aQ-a1f"/>
+                <outlet property="nameLabel" destination="6dI-3y-cy7" id="jiY-DS-rCb"/>
+                <outlet property="spacingConstraint1" destination="hPd-JR-8vk" id="FgR-5y-r0z"/>
+                <outlet property="spacingConstraint2" destination="QEu-KE-Jjf" id="e9v-cq-NdN"/>
+                <outlet property="spacingConstraint4" destination="3cy-YD-bfw" id="AA5-EO-yXg"/>
+            </connections>
+            <point key="canvasLocation" x="35" y="79"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="checkmark-active" width="38" height="38"/>
+        <image name="checkmark-inactive" width="38" height="38"/>
+        <image name="placeholder-user-icon" width="16" height="16"/>
+    </resources>
+</document>

@@ -23,54 +23,74 @@
 + (void)getAddressBookValidContactsSuccess:(void (^)(NSArray<Contact *> *contacts))success
                                    failure:(void (^)(NSString *message))failure {
     
-    CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
-    if (status == CNAuthorizationStatusDenied || status == CNAuthorizationStatusRestricted) {
-        [GlobalAPI presentAddressBookErrorDialog];
-        failure(@"Permissions");
-    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    CNContactStore *store = [[CNContactStore alloc] init];
-    [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        
-        // make sure the user granted us access
-        
-        if (!granted) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [GlobalAPI presentAddressBookErrorDialog];
-                failure(@"Permissions");
-            });
-            return;
+    if ([[defaults objectForKey:CONTACTS_IMPORTED] isEqualToString:@"False"]) {
+        CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+        if (status == CNAuthorizationStatusDenied || status == CNAuthorizationStatusRestricted) {
+            [GlobalAPI presentAddressBookErrorDialog];
+            failure(@"Permissions");
         }
         
-        NSMutableArray *contacts = [NSMutableArray array];
-        
-        NSError *fetchError;
-        CNContactFetchRequest *request = [[CNContactFetchRequest alloc] initWithKeysToFetch:@[CNContactIdentifierKey, CNContactPhoneNumbersKey, CNContactPostalAddressesKey, CNContactEmailAddressesKey, CNContactBirthdayKey, [CNContactFormatter descriptorForRequiredKeysForStyle:CNContactFormatterStyleFullName]]];
-        
-        BOOL fetched = [store enumerateContactsWithFetchRequest:request
-                                                          error:&fetchError
-                                                     usingBlock:^(CNContact *contact, BOOL *stop) {
-                                                         if (contact.phoneNumbers.count > 0
-                                                             || contact.emailAddresses.count > 0
-                                                             || contact.postalAddresses.count > 0) {
-                                                             
-                                                             [contacts addObject:contact];
-                                                         }
-                                                     }];
-        if (!fetched) {
-            failure(fetchError.description);
-        }
-                
-        NSMutableArray<Contact *> *filteredContacts = [[NSMutableArray alloc] init];
-        
-        for (CNContact *contact in contacts) {
-            Contact *cleanedContact = [[Contact alloc] initWithContact:contact];
-            if (cleanedContact) {
-                [filteredContacts addObject:cleanedContact];
+        CNContactStore *store = [[CNContactStore alloc] init];
+        [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            
+            // make sure the user granted us access
+            
+            if (!granted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [GlobalAPI presentAddressBookErrorDialog];
+                    failure(@"Permissions");
+                });
+                return;
             }
-        }
-        success([[NSArray alloc] initWithArray:filteredContacts]);
-    }];
+            
+            NSMutableArray *contacts = [NSMutableArray array];
+            
+            NSError *fetchError;
+            CNContactFetchRequest *request = [[CNContactFetchRequest alloc] initWithKeysToFetch:@[
+                                                                                                  CNContactIdentifierKey,
+                                                                                                  CNContactPhoneNumbersKey,
+                                                                                                  CNContactPostalAddressesKey,
+                                                                                                  CNContactEmailAddressesKey,
+                                                                                                  CNContactBirthdayKey,
+                                                                                                  CNContactImageDataAvailableKey,
+                                                                                                  CNContactImageDataKey,
+                                                                                                  [CNContactFormatter descriptorForRequiredKeysForStyle:CNContactFormatterStyleFullName]
+                                                                                                  ]];
+            
+            BOOL fetched = [store enumerateContactsWithFetchRequest:request
+                                                              error:&fetchError
+                                                         usingBlock:^(CNContact *contact, BOOL *stop) {
+                                                             if (contact.phoneNumbers.count > 0
+                                                                 || contact.emailAddresses.count > 0
+                                                                 || contact.postalAddresses.count > 0) {
+                                                                 
+                                                                 [contacts addObject:contact];
+                                                             }
+                                                         }];
+            if (!fetched) {
+                failure(fetchError.description);
+                [defaults setObject:@[] forKey:ALL_CONTACTS];
+            }
+            
+            NSMutableArray<Contact *> *filteredContacts = [[NSMutableArray alloc] init];
+            
+            for (CNContact *contact in contacts) {
+                Contact *cleanedContact = [[Contact alloc] initWithContact:contact];
+                if (cleanedContact) {
+                    [filteredContacts addObject:cleanedContact];
+                }
+            }
+            [defaults setObject:@"True" forKey:CONTACTS_IMPORTED];
+            [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:filteredContacts] forKey:ALL_CONTACTS];
+            success([[NSArray alloc] initWithArray:filteredContacts]);
+        }];
+    } else {
+        NSData *data = [defaults objectForKey:ALL_CONTACTS];
+        NSArray<Contact *> *allContacts = [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+        success(allContacts);
+    }
 }
 
 + (void)getElections:(void (^)(NSArray<Election *> *elections))success
@@ -97,6 +117,12 @@
              failure(response.statusCode);
          }];
     
+}
+
++ (void)saveContacts:(NSArray<Contact *> *)contacts {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"True" forKey:CONTACTS_IMPORTED];
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:contacts] forKey:ALL_CONTACTS];
 }
 
 #pragma mark - AddressBook UIAlertController Dialog Method

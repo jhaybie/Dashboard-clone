@@ -34,6 +34,24 @@
     self.isChecked = !self.isChecked;
     UIImage *buttonImage = (self.isChecked) ? self.checkedImage : self.uncheckedImage;
     [self setImage:buttonImage forState:UIControlStateNormal];
+    [self setNeedsLayout];
+}
+
+- (void)setCheckedImage:(UIImage *)checkedImage {
+    _checkedImage = checkedImage;
+    [self setNeedsLayout];
+}
+
+- (void)setIsChecked:(BOOL)isChecked {
+    _isChecked = isChecked;
+    UIImage *buttonImage = (isChecked) ? self.checkedImage : self.uncheckedImage;
+    [self setImage:buttonImage forState:UIControlStateNormal];
+    [self setNeedsLayout];
+}
+
+- (void)setUncheckedImage:(UIImage *)uncheckedImage {
+    _uncheckedImage = uncheckedImage;
+    [self setNeedsLayout];
 }
 
 - (void)setDefaultValues {

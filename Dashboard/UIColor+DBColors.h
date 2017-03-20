@@ -12,7 +12,7 @@
 
 + (UIColor *)buttonDeselectedGray;
 + (UIColor *)buttonTextInactiveGray;
-
++ (UIColor *)color4D4D4D;
 + (UIColor *)dbBlue1;
 + (UIColor *)dbBlue2;
 + (UIColor *)dbBlue2Disabled;

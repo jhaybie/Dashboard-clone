@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @import Contacts;
 
@@ -22,6 +23,9 @@
 @property (nonatomic, strong) NSString *mobile;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) UIImage *profileImage;
+@property (nonatomic) BOOL isSelected;
+@property (nonatomic) BOOL isInvited;
 
 /// Returns a contact object. Returns nil if contact has no home address,
 /// phones, and email addresses.

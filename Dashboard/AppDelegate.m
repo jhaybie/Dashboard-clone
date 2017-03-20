@@ -48,6 +48,9 @@
     if (![defaults objectForKey:USER_ADDRESS_EXISTS]) {
         [defaults setObject:@"False" forKey:USER_ADDRESS_EXISTS];
     }
+    if (![defaults objectForKey:CONTACTS_IMPORTED]) {
+        [defaults setObject:@"False" forKey:CONTACTS_IMPORTED];
+    }
 
     return YES;
 }

@@ -7,7 +7,9 @@
 //
 
 #import "DBViewController.h"
+#import "ContactCell.h"
+#import "TableViewHeaderView.h"
 
-@interface ContactsViewController : DBViewController
+@interface ContactsViewController : DBViewController <ContactCellDelegate, TableViewHeaderViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @end

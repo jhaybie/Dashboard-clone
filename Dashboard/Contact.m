@@ -12,6 +12,46 @@
 
 #pragma mark - Init Methods
 
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.contactID forKey:@"ContactID"];
+    
+    [aCoder encodeObject:self.firstName forKey:@"FirstName"];
+    [aCoder encodeObject:self.lastName forKey:@"LastName"];
+    [aCoder encodeObject:self.street forKey:@"Street"];
+    [aCoder encodeObject:self.city forKey:@"City"];
+    [aCoder encodeObject:self.state forKey:@"State"];
+    [aCoder encodeObject:self.zip forKey:@"Zip"];
+
+    [aCoder encodeObject:self.phone forKey:@"Phone"];
+    [aCoder encodeObject:self.mobile forKey:@"Mobile"];
+    [aCoder encodeObject:self.email forKey:@"Email"];
+    
+    [aCoder encodeBool:self.isSelected forKey:@"IsSelected"];
+    [aCoder encodeBool:self.isInvited forKey:@"IsInvited"];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        _contactID = [aDecoder decodeObjectForKey:@"ContactID"];
+        
+        _firstName = [aDecoder decodeObjectForKey:@"FirstName"];
+        _lastName = [aDecoder decodeObjectForKey:@"LastName"];
+        _street = [aDecoder decodeObjectForKey:@"Street"];
+        _city = [aDecoder decodeObjectForKey:@"City"];
+        _state = [aDecoder decodeObjectForKey:@"State"];
+        _zip = [aDecoder decodeObjectForKey:@"Zip"];
+        
+        _phone = [aDecoder decodeObjectForKey:@"Phone"];
+        _mobile = [aDecoder decodeObjectForKey:@"Mobile"];
+        _email = [aDecoder decodeObjectForKey:@"Email"];
+        
+        _isSelected = [aDecoder decodeBoolForKey:@"IsSelected"];
+        _isInvited = [aDecoder decodeBoolForKey:@"IsInvited"];
+    }
+    return self;
+}
+
 - (instancetype)initWithContact:(CNContact *)contact {
     self = [super init];
     if (self) {
@@ -24,6 +64,9 @@
         self.zip = @"";
         
         self.contactID = contact.identifier;
+        if (contact.imageDataAvailable) {
+            self.profileImage = [UIImage imageWithData:contact.thumbnailImageData];
+        }
         
         for (int i = 0; i < contact.postalAddresses.count; i++) {
             CNLabeledValue *address = contact.postalAddresses[i];
@@ -34,7 +77,6 @@
                 self.city = homeAddress.city;
                 self.state = homeAddress.state;
                 self.zip = homeAddress.postalCode;
-
             }
         }
         
@@ -66,12 +108,15 @@
             break; // Getting the first email in the list -- FOR NOW
         }
         
+        self.isSelected = false;
+        self.isInvited = false;
     }
     if ((self.firstName.length == 0 && self.lastName.length == 0)
         || (self.city.length == 0 && self.state.length == 0 && self.zip.length == 0
         && self.phone.length == 0
         && self.mobile.length == 0
         && self.email.length == 0)) {
+            
         return nil;
     } else {
         return self;

@@ -40,11 +40,11 @@
                     <rect key="frame" x="1" y="20" width="374" height="647"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-container" translatesAutoresizingMaskIntoConstraints="NO" id="0nR-1K-TUj">
-                            <rect key="frame" x="0.0" y="0.0" width="376" height="200"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                             <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yeO-63-47Z" customClass="iCarousel">
-                            <rect key="frame" x="0.0" y="0.0" width="376" height="200"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="200" id="a2j-JD-LpE"/>
@@ -58,7 +58,7 @@
                             <rect key="frame" x="0.0" y="200" width="375" height="32"/>
                             <subviews>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Y6l-0h-C2k" customClass="DBSegmentedControl">
-                                    <rect key="frame" x="-1" y="-1" width="378" height="43"/>
+                                    <rect key="frame" x="-1" y="-1" width="377" height="43"/>
                                     <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <segments>
                                         <segment title="LOGIN"/>
@@ -78,10 +78,10 @@
                             </constraints>
                         </view>
                         <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAG-1s-uOS">
-                            <rect key="frame" x="60" y="240" width="256" height="397"/>
+                            <rect key="frame" x="60" y="240" width="255" height="397"/>
                             <subviews>
                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ok0-by-tAT" customClass="FBSDKLoginButton">
-                                    <rect key="frame" x="0.0" y="20" width="256" height="40"/>
+                                    <rect key="frame" x="0.0" y="20" width="255" height="40"/>
                                     <color key="backgroundColor" red="0.41176470590000003" green="0.56862745100000001" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="1RH-F6-gkv"/>
@@ -93,27 +93,27 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BC5-3X-haq">
-                                    <rect key="frame" x="0.0" y="100" width="83" height="1"/>
+                                    <rect key="frame" x="0.0" y="100" width="81.5" height="1"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="0.5" id="B1f-8e-2K3"/>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woE-0Y-dVe">
-                                    <rect key="frame" x="99" y="90" width="60" height="21"/>
+                                    <rect key="frame" x="97.5" y="90" width="60" height="21"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgs-eL-V12">
-                                    <rect key="frame" x="175" y="100" width="81" height="1"/>
+                                    <rect key="frame" x="173.5" y="100" width="81.5" height="1"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="0.5" id="if6-ag-Qdb"/>
                                     </constraints>
                                 </view>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e8q-Sr-81X" customClass="DBDarkTextField">
-                                    <rect key="frame" x="0.0" y="135" width="256" height="40"/>
+                                    <rect key="frame" x="0.0" y="135" width="255" height="40"/>
                                     <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="AyR-kN-2a6"/>
@@ -129,7 +129,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="V5N-bo-gNq" customClass="DBDarkTextField">
-                                    <rect key="frame" x="0.0" y="185" width="256" height="40"/>
+                                    <rect key="frame" x="0.0" y="185" width="255" height="40"/>
                                     <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -168,7 +168,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wsO-nM-8qI">
-                                    <rect key="frame" x="137" y="239" width="119" height="40"/>
+                                    <rect key="frame" x="137" y="239" width="118" height="40"/>
                                     <color key="backgroundColor" red="0.12156862745098039" green="0.50196078431372548" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <state key="normal" title="Login">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

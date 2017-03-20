@@ -23,7 +23,7 @@
 
 @interface ContactLineView : UIView
 
-@property (nonatomic, strong) id<ContactLineViewDelegate>delegate;
+@property (nonatomic, strong) id<ContactLineViewDelegate> delegate;
 @property (strong, nonatomic) IBOutlet DBCheckboxButton *checkbox;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UIButton *emailButton;

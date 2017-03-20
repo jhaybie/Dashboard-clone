@@ -44,6 +44,8 @@
 #define USER_STATE          @"UserState"
 #define USER_ZIP_CODE       @"UserZipCode"
 #define USER_ADDRESS_EXISTS @"UserAddressExists"
+#define CONTACTS_IMPORTED   @"ContactsImported"
+#define ALL_CONTACTS        @"AllContacts"
 
 
 
