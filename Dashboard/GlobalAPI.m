@@ -54,6 +54,7 @@
                                                                                                   CNContactPostalAddressesKey,
                                                                                                   CNContactEmailAddressesKey,
                                                                                                   CNContactBirthdayKey,
+                                                                                                  CNContactThumbnailImageDataKey,
                                                                                                   CNContactImageDataAvailableKey,
                                                                                                   CNContactImageDataKey,
                                                                                                   [CNContactFormatter descriptorForRequiredKeysForStyle:CNContactFormatterStyleFullName]

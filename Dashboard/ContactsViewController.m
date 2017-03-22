@@ -43,7 +43,7 @@
                                                  name:UIApplicationWillTerminateNotification
                                                object:nil];
 
-    CGRect frame = self.tableView.bounds;
+    CGRect frame = self.tableView.frame;
     frame.origin.y = -frame.size.height;
     UIView* grayView = [[UIView alloc] initWithFrame:frame];
     grayView.backgroundColor = [UIColor globalDarkColor];

@@ -25,6 +25,7 @@
     [aCoder encodeObject:self.phone forKey:@"Phone"];
     [aCoder encodeObject:self.mobile forKey:@"Mobile"];
     [aCoder encodeObject:self.email forKey:@"Email"];
+    [aCoder encodeObject:self.profileImage forKey:@"ProfileImage"];
     
     [aCoder encodeBool:self.isSelected forKey:@"IsSelected"];
     [aCoder encodeBool:self.isInvited forKey:@"IsInvited"];
@@ -45,6 +46,7 @@
         _phone = [aDecoder decodeObjectForKey:@"Phone"];
         _mobile = [aDecoder decodeObjectForKey:@"Mobile"];
         _email = [aDecoder decodeObjectForKey:@"Email"];
+        _profileImage = [aDecoder decodeObjectForKey:@"ProfileImage"];
         
         _isSelected = [aDecoder decodeBoolForKey:@"IsSelected"];
         _isInvited = [aDecoder decodeBoolForKey:@"IsInvited"];
