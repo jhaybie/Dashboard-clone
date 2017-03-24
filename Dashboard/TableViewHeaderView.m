@@ -28,8 +28,8 @@
 
 #pragma mark - IBActions
 
-- (IBAction)addButtonTapped:(id)sender {
-    [self.delegate addButtonTapped];
+- (IBAction)refreshButtonTapped:(id)sender {
+    [self.delegate tableHeaderViewRefreshButtonTapped];
 }
 
 @end

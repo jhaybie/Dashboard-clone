@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Constant.h"
+#import "SVProgressHUD.h"
 #import "UIColor+DBColors.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -52,6 +53,8 @@
         [defaults setObject:@"False" forKey:CONTACTS_IMPORTED];
     }
 
+    [self configureSVProgressHUD];
+    
     return YES;
 }
 
@@ -93,5 +96,9 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)configureSVProgressHUD {
+    [SVProgressHUD setBackgroundColor:[UIColor clearColor]];
+    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+}
 
 @end

@@ -11,6 +11,7 @@
 #import "Contact.h"
 #import "ContactCell.h"
 #import "GlobalAPI.h"
+#import "SVProgressHUD.h"
 #import "UIColor+DBColors.h"
 
 @interface ContactsViewController ()
@@ -18,6 +19,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSArray<Contact *> *contacts;
+
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -49,9 +52,18 @@
     grayView.backgroundColor = [UIColor globalDarkColor];
     [self.tableView addSubview:grayView];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
+    
+    // Enable pull-to-refresh functionality
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor clearColor];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(tableHeaderViewRefreshButtonTapped)
+                  forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
  
     [self registerTableViewCells];
-    [self displayContactList];
+    [self displayContactListForcedReload:false];
 }
 
 - (void)appWillResignActive:(NSNotification*)note {
@@ -75,22 +87,30 @@
 
 #pragma mark - Private Methods
 
-- (void)displayContactList {
-    [GlobalAPI getAddressBookValidContactsSuccess:^(NSArray<Contact *> *contacts) {
-        self.contacts = contacts;
-        
-        [self.tableView reloadData];
-    } failure:^(NSString *message) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
-                                                                       message:@"There was a problem accessing your Address Book."
-                                                                preferredStyle:UIAlertControllerStyleActionSheet];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                  style:UIAlertActionStyleDefault
-                                                handler:nil]];
-        [self presentViewController:alert
-                           animated:true
-                         completion:nil];
-    }];
+- (void)displayContactListForcedReload:(BOOL)forcedReload {
+    [SVProgressHUD show];
+    [GlobalAPI getAddressBookValidContactsForced:forcedReload
+                                         success:^(NSArray<Contact *> *contacts) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [SVProgressHUD dismiss];
+                                             });
+                                             self.contacts = contacts;
+                                             
+                                             [self.tableView reloadData];
+                                         } failure:^(NSString *message) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [SVProgressHUD dismiss];
+                                             });
+                                             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
+                                                                                                            message:@"There was a problem accessing your Address Book."
+                                                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
+                                             [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                                       style:UIAlertActionStyleDefault
+                                                                                     handler:nil]];
+                                             [self presentViewController:alert
+                                                                animated:true
+                                                              completion:nil];
+                                         }];
 }
 
 - (void)registerTableViewCells {
@@ -103,7 +123,6 @@
 - (void)checkBoxButtonTapped:(id)sender {
     DBCheckboxButton *button = sender;
     Contact *contact = self.contacts[button.tag];
-    
     contact.isSelected = button.isChecked;
 }
 
@@ -122,9 +141,11 @@
 
 #pragma mark - TableViewHeaderView Delegate Method
 
-- (void)addButtonTapped {
-    NSLog(@"Add button tapped!");
-    // TODO: do something here
+- (void)tableHeaderViewRefreshButtonTapped {
+    [self.refreshControl endRefreshing];
+    self.contacts = [[NSMutableArray alloc] init];
+    [self.tableView reloadData];
+    [self displayContactListForcedReload:true];
 }
 
 #pragma mark - UITableView DataSource & Delegate Methods

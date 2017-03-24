@@ -20,12 +20,13 @@
     return [NSString stringWithFormat:@"Bearer %@", API_KEY];
 }
 
-+ (void)getAddressBookValidContactsSuccess:(void (^)(NSArray<Contact *> *contacts))success
-                                   failure:(void (^)(NSString *message))failure {
++ (void)getAddressBookValidContactsForced:(BOOL)forced
+                                  success:(void (^)(NSArray<Contact *> *contacts))success
+                                  failure:(void (^)(NSString *message))failure {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ([[defaults objectForKey:CONTACTS_IMPORTED] isEqualToString:@"False"]) {
+    if ([[defaults objectForKey:CONTACTS_IMPORTED] isEqualToString:@"False"] || forced) {
         CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
         if (status == CNAuthorizationStatusDenied || status == CNAuthorizationStatusRestricted) {
             [GlobalAPI presentAddressBookErrorDialog];

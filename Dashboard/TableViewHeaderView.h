@@ -10,7 +10,7 @@
 
 @protocol TableViewHeaderViewDelegate <NSObject>
 
-- (void)addButtonTapped;
+- (void)tableHeaderViewRefreshButtonTapped;
 
 @end
 

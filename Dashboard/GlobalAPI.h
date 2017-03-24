@@ -13,8 +13,9 @@
 
 @interface GlobalAPI : NSObject
 
-+ (void)getAddressBookValidContactsSuccess:(void (^)(NSArray<Contact *> *contacts))success
-                                   failure:(void (^)(NSString *message))failure;
++ (void)getAddressBookValidContactsForced:(BOOL)forced
+                                  success:(void (^)(NSArray<Contact *> *contacts))success
+                                  failure:(void (^)(NSString *message))failure;
 
 + (void)getElections:(void (^)(NSArray<Election *> *elections))success
              failure:(void (^)(NSInteger statusCode))failure;

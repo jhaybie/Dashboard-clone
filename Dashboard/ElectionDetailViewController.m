@@ -61,32 +61,33 @@ BOOL isPinnedHeaderViewVisible;
 #pragma mark - Private Methods
 
 - (void)displayContactList {
-    [GlobalAPI getAddressBookValidContactsSuccess:^(NSArray<Contact *> *contacts) {
-        self.contacts = contacts;
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-            ContactListView *clv = [[ContactListView alloc] initWithContacts:self.contacts];
-            self.contactListViewHeightConstraint.constant = clv.frame.size.height;
-            CGRect frame = self.contactListView.frame;
-            int width = [[UIScreen mainScreen] bounds].size.width - 48;
-            clv.frame = CGRectMake(0, 0, width, clv.frame.size.height);
-            self.contactListView.frame = CGRectMake(frame.origin.x, frame.origin.y, width, clv.frame.size.height);
-            clv.delegate = self;
-            [self.contactListView addSubview:clv];
-            [self.scrollView setNeedsDisplay];
-        }];
-        
-    } failure:^(NSString *message) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
-                                                                       message:@"There was a problem accessing your Address Book."
-                                                                preferredStyle:UIAlertControllerStyleActionSheet];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                  style:UIAlertActionStyleDefault
-                                                handler:nil]];
-        [self presentViewController:alert
-                           animated:true
-                         completion:nil];
-    }];
+    [GlobalAPI getAddressBookValidContactsForced:false
+                                         success:^(NSArray<Contact *> *contacts) {
+                                             self.contacts = contacts;
+                                             
+                                             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+                                                 ContactListView *clv = [[ContactListView alloc] initWithContacts:self.contacts];
+                                                 self.contactListViewHeightConstraint.constant = clv.frame.size.height;
+                                                 CGRect frame = self.contactListView.frame;
+                                                 int width = [[UIScreen mainScreen] bounds].size.width - 48;
+                                                 clv.frame = CGRectMake(0, 0, width, clv.frame.size.height);
+                                                 self.contactListView.frame = CGRectMake(frame.origin.x, frame.origin.y, width, clv.frame.size.height);
+                                                 clv.delegate = self;
+                                                 [self.contactListView addSubview:clv];
+                                                 [self.scrollView setNeedsDisplay];
+                                             }];
+                                             
+                                         } failure:^(NSString *message) {
+                                             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
+                                                                                                            message:@"There was a problem accessing your Address Book."
+                                                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
+                                             [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                                       style:UIAlertActionStyleDefault
+                                                                                     handler:nil]];
+                                             [self presentViewController:alert
+                                                                animated:true
+                                                              completion:nil];
+                                         }];
 }
 
 - (void)displaySelectedElectionCard {

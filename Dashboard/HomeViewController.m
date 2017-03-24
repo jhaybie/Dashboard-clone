@@ -14,6 +14,7 @@
 #import "ElectionDetailViewController.h"
 #import "GlobalAPI.h"
 #import "LoginViewController.h"
+#import "SVProgressHUD.h"
 #import "UIColor+DBColors.h"
 #import "UserCardView.h"
 
@@ -27,6 +28,8 @@
 @property (strong, nonatomic) NSMutableArray<UIColor *> *colors;
 
 @property (strong, nonatomic) NSArray<Election *> *elections;
+
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -63,6 +66,15 @@
                                                object:nil];
     [self registerTableViewCells];
     
+    // Enable pull-to-refresh functionality
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor clearColor];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(getElections)
+                  forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
+    
     self.colors = [[NSMutableArray alloc] init];
     [self.colors addObject:[UIColor dbBlue1]];
     [self.colors addObject:[UIColor dbBlue2]];
@@ -88,10 +100,18 @@
 }
 
 - (void)getElections {
+    [self.refreshControl endRefreshing];
+    [SVProgressHUD show];
     [GlobalAPI getElections:^(NSArray<Election *> *elections) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+        });
         self.elections = [[NSArray alloc] initWithArray:elections];
         [self processElections];
     } failure:^(NSInteger statusCode) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+        });
         //
     }];
 }
