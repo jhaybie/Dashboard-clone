@@ -20,6 +20,13 @@
 + (void)getElections:(void (^)(NSArray<Election *> *elections))success
              failure:(void (^)(NSInteger statusCode))failure;
 
++ (void)getElectionsForContact:(Contact *)contact
+                       success:(void (^)(NSArray<Election *> *elections))success
+                       failure:(void (^)(NSInteger statusCode))failure;
+
++ (void)getRandomElectionsSuccess:(void (^)(NSArray<Election *> *elections))success
+                          failure:(void (^)(NSInteger statusCode))failure;
+
 + (void)presentAddressBookErrorDialog;
 
 + (void)saveContacts:(NSArray<Contact *> *)contacts;

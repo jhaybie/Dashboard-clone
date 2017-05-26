@@ -10,7 +10,8 @@
 #import "AFNetworking.h"
 #import "Constant.h"
 #import "Contact.h"
-#import "Person.h"
+#import "Election.h"
+#import "Race.h"
 
 @import Contacts;
 
@@ -37,7 +38,6 @@
         [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
             
             // make sure the user granted us access
-            
             if (!granted) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [GlobalAPI presentAddressBookErrorDialog];
@@ -102,23 +102,138 @@
     
     NSString *token = [self apiKey];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSDictionary *paramDict = [[NSMutableDictionary alloc] init];
+    
+    if ([[prefs objectForKey:USER_ADDRESS_EXISTS] isEqualToString:@"True"]) {
+        paramDict = @{
+                      @"search_type" : @"zip",
+                      @"zip5"        : [prefs objectForKey:USER_ZIP_CODE],
+                      @"zip4"        : @"",
+                      @"state"       : [prefs objectForKey:USER_STATE],
+                      };
+    } else {
+        paramDict = @{
+                          @"search_type" : @"zip",
+                          @"zip5"        : @"29851",
+                          @"zip4"        : @"3162",
+                          @"state"       : @"SC",
+                          };
+    }
+
+    
+    [manager POST:urlString
+       parameters:paramDict
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              NSDictionary *dataDumpDict = [responseObject objectForKey:@"Elections"];
+              NSArray *tempElections = [[NSArray alloc] initWithArray:[dataDumpDict objectForKey:@"Elections"]];
+              
+              if ([tempElections isKindOfClass:[NSNull class]]) {
+                  tempElections = [[NSArray alloc] init];
+              }
+              
+              // TODO: specify class contained within elections
+              NSMutableArray *elections = [[NSMutableArray alloc] init];
+              for (NSDictionary *electionDict in tempElections) {
+                  NSError *error = nil;
+                  Election *election = [MTLJSONAdapter modelOfClass:[Election class]
+                                                 fromJSONDictionary:electionDict
+                                                              error:&error];
+                  [elections addObject:election];
+              }
+              success(elections);
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+              failure(response.statusCode);
+          }];
+}
+
++ (void)getElectionsForContact:(Contact *)contact
+                       success:(void (^)(NSArray<Election *> *elections))success
+                       failure:(void (^)(NSInteger statusCode))failure {
+    
+    NSString *addressString = [NSString stringWithFormat:@"%@, %@ %@", contact.street, contact.city, contact.state];
+    addressString = [addressString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/election?search_type=address&address=%@", BASE_URL, addressString];
+    
+    NSString *token = [self apiKey];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    
+    [manager GET:urlString
+       parameters:nil
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              NSDictionary *dataDumpDict = [responseObject objectForKey:@"Elections"];
+              
+              if ([[dataDumpDict objectForKey:@"Elections"] isKindOfClass:[NSNull class]]) {
+                  success([[NSArray alloc] init]);
+              } else {
+                  NSArray *tempElections = [[NSArray alloc] initWithArray:[dataDumpDict objectForKey:@"Elections"]];
+                  
+                  if ([tempElections isKindOfClass:[NSNull class]]) {
+                      tempElections = [[NSArray alloc] init];
+                  }
+                  
+                  // TODO: specify class contained within elections
+                  NSMutableArray *elections = [[NSMutableArray alloc] init];
+                  for (NSDictionary *electionDict in tempElections) {
+                      NSError *error = nil;
+                      Election *election = [MTLJSONAdapter modelOfClass:[Election class]
+                                                     fromJSONDictionary:electionDict
+                                                                  error:&error];
+                      [elections addObject:election];
+                  }
+                  success(elections);
+              }
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+              failure(response.statusCode);
+          }];
+}
+
++ (void)getRandomElectionsSuccess:(void (^)(NSArray<Election *> *elections))success
+                          failure:(void (^)(NSInteger statusCode))failure {
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/random", BASE_URL];
+    
+    NSString *token = [self apiKey];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     
     [manager GET:urlString
       parameters:nil
         progress:nil
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-             NSError *error = nil;
-             NSDictionary *dict = [responseObject objectForKey:@"people"];
-             Person *person = [MTLJSONAdapter modelOfClass:[Person class]
-                                        fromJSONDictionary:dict
-                                                     error:&error];
-             success(person.elections);
+             NSDictionary *dataDumpDict = [responseObject objectForKey:@"Elections"];
+             NSArray *tempElections = [[NSArray alloc] initWithArray:[dataDumpDict objectForKey:@"Elections"]];
+             
+             if ([tempElections isKindOfClass:[NSNull class]]) {
+                 tempElections = [[NSArray alloc] init];
+             }
+             
+             // TODO: specify class contained within elections
+             NSMutableArray *elections = [[NSMutableArray alloc] init];
+             for (NSDictionary *electionDict in tempElections) {
+                 NSError *error = nil;
+                 Election *election = [MTLJSONAdapter modelOfClass:[Election class]
+                                                fromJSONDictionary:electionDict
+                                                             error:&error];
+                 [elections addObject:election];
+             }
+             success(elections);
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
              failure(response.statusCode);
          }];
-    
 }
 
 + (void)saveContacts:(NSArray<Contact *> *)contacts {

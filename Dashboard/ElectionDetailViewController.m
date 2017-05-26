@@ -7,18 +7,22 @@
 //
 
 #import "ElectionDetailViewController.h"
+#import "Constant.h"
 #import "Contact.h"
 #import "DBCheckboxButton.h"
 #import "Election.h"
 #import "ElectionCardView.h"
 #import "GlobalAPI.h"
+#import "OtherElection.h"
 #import "PinnedHeaderView.h"
+#import "Race.h"
 #import "UIColor+DBColors.h"
 
 @interface ElectionDetailViewController ()
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIView *electionCardView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *electionCardViewHeightConstraint;
 @property (nonatomic, strong) IBOutlet UITextView *candidatesTextView;
 @property (nonatomic, strong) IBOutlet UIView *contactListView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *contactListViewHeightConstraint;
@@ -27,7 +31,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *previousButton;
 @property (nonatomic, strong) IBOutlet UIButton *nextButton;
 
-@property (nonatomic, strong) PinnedHeaderView *pinnedHeaderView;
+@property (strong, nonatomic) IBOutlet UILabel *contactsHeaderLabel;
+@property (nonatomic, strong) UIView/*PinnedHeaderView*/ *pinnedHeaderView;
 
 @property (strong, nonatomic) NSArray<Contact *> *contacts;
 @property (strong, nonatomic) NSMutableArray<Contact *> *selectedContacts;
@@ -38,6 +43,7 @@
 BOOL isPinnedHeaderViewVisible;
 
 #pragma mark - Override Methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
         
@@ -50,6 +56,12 @@ BOOL isPinnedHeaderViewVisible;
     [self.nextButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
 }
 
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear:animated];
+//    
+//    [self.view layoutSubviews];
+//}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
@@ -61,33 +73,22 @@ BOOL isPinnedHeaderViewVisible;
 #pragma mark - Private Methods
 
 - (void)displayContactList {
-    [GlobalAPI getAddressBookValidContactsForced:false
-                                         success:^(NSArray<Contact *> *contacts) {
-                                             self.contacts = contacts;
-                                             
-                                             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-                                                 ContactListView *clv = [[ContactListView alloc] initWithContacts:self.contacts];
-                                                 self.contactListViewHeightConstraint.constant = clv.frame.size.height;
-                                                 CGRect frame = self.contactListView.frame;
-                                                 int width = [[UIScreen mainScreen] bounds].size.width - 48;
-                                                 clv.frame = CGRectMake(0, 0, width, clv.frame.size.height);
-                                                 self.contactListView.frame = CGRectMake(frame.origin.x, frame.origin.y, width, clv.frame.size.height);
-                                                 clv.delegate = self;
-                                                 [self.contactListView addSubview:clv];
-                                                 [self.scrollView setNeedsDisplay];
-                                             }];
-                                             
-                                         } failure:^(NSString *message) {
-                                             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
-                                                                                                            message:@"There was a problem accessing your Address Book."
-                                                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
-                                             [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                                                       style:UIAlertActionStyleDefault
-                                                                                     handler:nil]];
-                                             [self presentViewController:alert
-                                                                animated:true
-                                                              completion:nil];
-                                         }];
+    self.contacts = (self.forContacts) ? self.otherElections[self.electionIndex].contacts : [[NSArray alloc] init];
+    
+    if (self.contacts.count == 0) {
+        [self.contactsHeaderLabel removeFromSuperview];
+    }
+    
+    self.contactsHeaderLabel.hidden = false;
+    ContactListView *clv = [[ContactListView alloc] initWithContacts:self.contacts];
+    self.contactListViewHeightConstraint.constant = clv.frame.size.height;
+    CGRect frame = self.contactListView.frame;
+    int width = [[UIScreen mainScreen] bounds].size.width - 48;
+    clv.frame = CGRectMake(0, 0, width, clv.frame.size.height);
+    self.contactListView.frame = CGRectMake(frame.origin.x, frame.origin.y, width, clv.frame.size.height);
+    clv.delegate = self;
+    [self.contactListView addSubview:clv];
+    [self.scrollView setNeedsDisplay];
 }
 
 - (void)displaySelectedElectionCard {
@@ -96,24 +97,24 @@ BOOL isPinnedHeaderViewVisible;
     for (UIView *view in self.electionCardView.subviews) {
         [view removeFromSuperview];
     }
-    Election *election = self.elections[self.electionIndex];
+    Election *election = (self.forContacts) ? self.otherElections[self.electionIndex].election : self.elections[self.electionIndex];
     
-    ElectionCardView *ecv = [[ElectionCardView alloc] initWithElection:election];
-    CGRect frame = CGRectMake(-8, -8, [[UIScreen mainScreen] bounds].size.width + 16, 222);
-    ecv.frame = frame;
-    ecv.badgeView.hidden = true;
-    [self.electionCardView addSubview:ecv];
+    DetailCardView *dcv = [[DetailCardView alloc] initWithRace:election.races[0] forDate:election.electionDate];
+    dcv.delegate = self;
+    [self.electionCardView addSubview:dcv];
     
     if (isPinnedHeaderViewVisible) {
         [self.pinnedHeaderView removeFromSuperview];
     }
-    CGRect pinnedFrame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, 74);
-    self.pinnedHeaderView = [[PinnedHeaderView alloc] initWithPosition:election.positionName cityState:ecv.cityStateLabel.text];
+    CGRect pinnedFrame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, dcv.positionView.frame.size.height + 10);//74);
+    self.pinnedHeaderView = [[PinnedHeaderView alloc] initWithPosition:[NSString stringWithFormat:@"%@ (%@)", election.races[0].raceName, election.races[0].state]];//ecv.cityStateLabel.text];
     self.pinnedHeaderView.frame = pinnedFrame;
+
     if (isPinnedHeaderViewVisible) {
         [self.view addSubview:self.pinnedHeaderView];
     }
     
+    [self.view layoutSubviews];
     // TODO: update candidate textview
     
     [self displayContactList];
@@ -151,7 +152,9 @@ BOOL isPinnedHeaderViewVisible;
 
 - (void)updateButtonStatus {
     self.previousButton.enabled = self.electionIndex > 0;
-    self.nextButton.enabled = self.electionIndex < self.elections.count - 1;
+    
+    int count = (self.forContacts) ? (int)self.otherElections.count - 1 : (int)self.elections.count - 1;
+    self.nextButton.enabled = self.electionIndex < count;
 }
 
 - (void)updateScrollViewContentSize {
@@ -217,7 +220,9 @@ BOOL isPinnedHeaderViewVisible;
 }
 
 - (IBAction)nextButtonTapped:(id)sender {
-    if (self.electionIndex <= self.elections.count - 1) {
+    int count = (self.forContacts) ? (int)self.otherElections.count - 1 : (int)self.elections.count - 1;
+    
+    if (self.electionIndex <= count) {
         self.electionIndex++;
     }
     [self displaySelectedElectionCard];
@@ -243,9 +248,9 @@ BOOL isPinnedHeaderViewVisible;
 - (void)emailButtonTapped:(id)sender {
     int index = (int)((UIButton *)sender).tag;
     NSArray *recipients = @[self.contacts[index].email];
-    NSString *emailTitle = @"Test Email";
-    NSString *messageBody = @"This is a test email.";
-    
+    NSString *nameString = [[NSUserDefaults standardUserDefaults] objectForKey:USER_FULL_NAME];
+    NSString *emailTitle = @"%@ invited you to join EveryElection";
+    NSString *messageBody = [NSString stringWithFormat:@"%@ has invited you to join EveryElection and keep track of upcoming elections! newfounders.us", nameString];
     MFMailComposeViewController *messageController = [[MFMailComposeViewController alloc] init];
     messageController.mailComposeDelegate = self;
     [messageController setSubject:emailTitle];
@@ -260,7 +265,9 @@ BOOL isPinnedHeaderViewVisible;
     NSString *smsString = self.contacts[index].mobile;
     
     NSArray *recipients = @[smsString];
-    NSString *message = @"This is a test message.";
+    
+    NSString *nameString = [[NSUserDefaults standardUserDefaults] objectForKey:USER_FULL_NAME];
+    NSString *message = [NSString stringWithFormat:@"%@ has invited you to join EveryElection and keep track of upcoming elections! newfounders.us", nameString];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;
@@ -353,5 +360,19 @@ BOOL isPinnedHeaderViewVisible;
     }
     
 }
+
+#pragma mark - DetailCardView Delegate Method
+
+- (void)detailCardViewStatusButtonTappedMessage:(NSString *)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"IMPORTANT"
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                              style:UIAlertActionStyleCancel
+                                            handler:nil]];
+    [self presentViewController:alert
+                       animated:true
+                     completion:nil];}
 
 @end

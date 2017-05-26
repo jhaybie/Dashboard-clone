@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F17A02E1ECB88DD00A7249A /* DetailCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F17A02D1ECB88DD00A7249A /* DetailCardView.m */; };
+		6F17A0301ECB88EC00A7249A /* DetailCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F17A02F1ECB88EC00A7249A /* DetailCardView.xib */; };
+		6F28DF881EC3AB4F008DE223 /* ElectionCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F28DF871EC3AB4F008DE223 /* ElectionCardView.xib */; };
 		6F3FE9111E76D7E900134EF5 /* PinnedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FE9101E76D7E900134EF5 /* PinnedHeaderView.xib */; };
 		6F3FE9141E76D80500134EF5 /* PinnedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE9131E76D80500134EF5 /* PinnedHeaderView.m */; };
 		6F3FE9181E76EF8800134EF5 /* DBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE9161E76EF8800134EF5 /* DBViewController.m */; };
@@ -29,6 +32,7 @@
 		6F3FE93D1E772F2000134EF5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FE93C1E772F2000134EF5 /* OpenGLES.framework */; };
 		6F3FE93F1E772F3000134EF5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FE93E1E772F3000134EF5 /* SystemConfiguration.framework */; };
 		6F3FE9411E772F3600134EF5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FE9401E772F3600134EF5 /* UIKit.framework */; };
+		6F5177F81ECCB04500F78BDF /* WRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5177F71ECCB04500F78BDF /* WRGMSMarker.m */; };
 		6F8D2FE31E7B0B28006969A9 /* DBNagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D2FE21E7B0B28006969A9 /* DBNagView.m */; };
 		6F8D2FE51E7B0B67006969A9 /* DBNagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F8D2FE41E7B0B67006969A9 /* DBNagView.xib */; };
 		6F8D2FEE1E7C5D13006969A9 /* TableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D2FED1E7C5D13006969A9 /* TableViewHeaderView.m */; };
@@ -77,6 +81,7 @@
 		6FA3BCBB1E62641000962D55 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3BCB41E62641000962D55 /* SVProgressHUD.bundle */; };
 		6FA3BCBC1E62641000962D55 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BCB61E62641000962D55 /* SVProgressHUD.m */; };
 		6FA3BCBD1E62641000962D55 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BCB81E62641000962D55 /* SVRadialGradientLayer.m */; };
+		6FA4B9931ED47BB700969BC5 /* OtherElection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA4B9921ED47BB700969BC5 /* OtherElection.m */; };
 		6FCB58CF1E64DEAD005A3D66 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB58CD1E64DEAD005A3D66 /* LoginViewController.m */; };
 		6FCB58D01E64DEAD005A3D66 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCB58CE1E64DEAD005A3D66 /* LoginViewController.xib */; };
 		6FCB58D61E64DF55005A3D66 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB58D41E64DF55005A3D66 /* iCarousel.m */; };
@@ -96,7 +101,6 @@
 		6FCB59091E6608FC005A3D66 /* UserCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB59081E6608FC005A3D66 /* UserCardView.m */; };
 		6FCB590D1E671609005A3D66 /* RegisterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCB590C1E671609005A3D66 /* RegisterView.xib */; };
 		6FCB59101E671681005A3D66 /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB590F1E671681005A3D66 /* RegisterView.m */; };
-		6FCB59121E673A94005A3D66 /* ElectionCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCB59111E673A94005A3D66 /* ElectionCardView.xib */; };
 		6FCB59151E673AA4005A3D66 /* ElectionCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB59141E673AA4005A3D66 /* ElectionCardView.m */; };
 		6FCB591B1E6762C5005A3D66 /* ElectionCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB59191E6762C5005A3D66 /* ElectionCardCell.m */; };
 		6FCB591C1E6762C5005A3D66 /* ElectionCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCB591A1E6762C5005A3D66 /* ElectionCardCell.xib */; };
@@ -129,9 +133,14 @@
 		6FCB59C31E6A038E005A3D66 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FCB59C21E6A038E005A3D66 /* Contacts.framework */; };
 		6FCB59C81E6A1983005A3D66 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB59C71E6A1983005A3D66 /* MapViewController.m */; };
 		6FCB59CC1E6A1A76005A3D66 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB59CB1E6A1A76005A3D66 /* ContactsViewController.m */; };
+		6FCC05EF1EB7852D00BECCAB /* Race.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC05EE1EB7852D00BECCAB /* Race.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F17A02C1ECB88DD00A7249A /* DetailCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCardView.h; sourceTree = "<group>"; };
+		6F17A02D1ECB88DD00A7249A /* DetailCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCardView.m; sourceTree = "<group>"; };
+		6F17A02F1ECB88EC00A7249A /* DetailCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCardView.xib; sourceTree = "<group>"; };
+		6F28DF871EC3AB4F008DE223 /* ElectionCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElectionCardView.xib; sourceTree = "<group>"; };
 		6F3FE9101E76D7E900134EF5 /* PinnedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinnedHeaderView.xib; sourceTree = "<group>"; };
 		6F3FE9121E76D80500134EF5 /* PinnedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinnedHeaderView.h; sourceTree = "<group>"; };
 		6F3FE9131E76D80500134EF5 /* PinnedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinnedHeaderView.m; sourceTree = "<group>"; };
@@ -158,6 +167,8 @@
 		6F3FE93C1E772F2000134EF5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		6F3FE93E1E772F3000134EF5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6F3FE9401E772F3600134EF5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6F5177F61ECCB04500F78BDF /* WRGMSMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WRGMSMarker.h; path = ../WRGMSMarker.h; sourceTree = "<group>"; };
+		6F5177F71ECCB04500F78BDF /* WRGMSMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WRGMSMarker.m; path = ../WRGMSMarker.m; sourceTree = "<group>"; };
 		6F8D2FE11E7B0B28006969A9 /* DBNagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBNagView.h; sourceTree = "<group>"; };
 		6F8D2FE21E7B0B28006969A9 /* DBNagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBNagView.m; sourceTree = "<group>"; };
 		6F8D2FE41E7B0B67006969A9 /* DBNagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBNagView.xib; sourceTree = "<group>"; };
@@ -250,6 +261,8 @@
 		6FA3BCB61E62641000962D55 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		6FA3BCB71E62641000962D55 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		6FA3BCB81E62641000962D55 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		6FA4B9911ED47BB700969BC5 /* OtherElection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherElection.h; sourceTree = "<group>"; };
+		6FA4B9921ED47BB700969BC5 /* OtherElection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherElection.m; sourceTree = "<group>"; };
 		6FCB58CC1E64DEAD005A3D66 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		6FCB58CD1E64DEAD005A3D66 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		6FCB58CE1E64DEAD005A3D66 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -280,7 +293,6 @@
 		6FCB590C1E671609005A3D66 /* RegisterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterView.xib; sourceTree = "<group>"; };
 		6FCB590E1E671681005A3D66 /* RegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterView.h; sourceTree = "<group>"; };
 		6FCB590F1E671681005A3D66 /* RegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterView.m; sourceTree = "<group>"; };
-		6FCB59111E673A94005A3D66 /* ElectionCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElectionCardView.xib; sourceTree = "<group>"; };
 		6FCB59131E673AA4005A3D66 /* ElectionCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectionCardView.h; sourceTree = "<group>"; };
 		6FCB59141E673AA4005A3D66 /* ElectionCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElectionCardView.m; sourceTree = "<group>"; };
 		6FCB59181E6762C5005A3D66 /* ElectionCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectionCardCell.h; sourceTree = "<group>"; };
@@ -344,6 +356,8 @@
 		6FCB59C71E6A1983005A3D66 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		6FCB59CA1E6A1A76005A3D66 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
 		6FCB59CB1E6A1A76005A3D66 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
+		6FCC05ED1EB7852D00BECCAB /* Race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Race.h; sourceTree = "<group>"; };
+		6FCC05EE1EB7852D00BECCAB /* Race.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Race.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -661,7 +675,7 @@
 				6FCB59051E6608E5005A3D66 /* UserCardView.xib */,
 				6FCB59071E6608FC005A3D66 /* UserCardView.h */,
 				6FCB59081E6608FC005A3D66 /* UserCardView.m */,
-				6FCB59111E673A94005A3D66 /* ElectionCardView.xib */,
+				6F28DF871EC3AB4F008DE223 /* ElectionCardView.xib */,
 				6FCB59131E673AA4005A3D66 /* ElectionCardView.h */,
 				6FCB59141E673AA4005A3D66 /* ElectionCardView.m */,
 			);
@@ -687,6 +701,8 @@
 				6FCB59211E68711E005A3D66 /* Election.m */,
 				6FCB59601E687FE4005A3D66 /* Person.h */,
 				6FCB59611E687FE4005A3D66 /* Person.m */,
+				6FCC05ED1EB7852D00BECCAB /* Race.h */,
+				6FCC05EE1EB7852D00BECCAB /* Race.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -696,6 +712,8 @@
 			children = (
 				6FA3BC331E62426100962D55 /* HomeViewController.h */,
 				6FA3BC341E62426100962D55 /* HomeViewController.m */,
+				6FA4B9911ED47BB700969BC5 /* OtherElection.h */,
+				6FA4B9921ED47BB700969BC5 /* OtherElection.m */,
 				6FCB591A1E6762C5005A3D66 /* ElectionCardCell.xib */,
 				6FCB59181E6762C5005A3D66 /* ElectionCardCell.h */,
 				6FCB59191E6762C5005A3D66 /* ElectionCardCell.m */,
@@ -749,6 +767,9 @@
 		6FCB59B61E68AB21005A3D66 /* ElectionDetail */ = {
 			isa = PBXGroup;
 			children = (
+				6F17A02F1ECB88EC00A7249A /* DetailCardView.xib */,
+				6F17A02C1ECB88DD00A7249A /* DetailCardView.h */,
+				6F17A02D1ECB88DD00A7249A /* DetailCardView.m */,
 				6FCB59B31E68AB17005A3D66 /* ElectionDetailViewController.h */,
 				6FCB59B41E68AB17005A3D66 /* ElectionDetailViewController.m */,
 				6FCB59B71E69C795005A3D66 /* ContactLineView.xib */,
@@ -777,6 +798,8 @@
 			children = (
 				6FCB59C61E6A1983005A3D66 /* MapViewController.h */,
 				6FCB59C71E6A1983005A3D66 /* MapViewController.m */,
+				6F5177F61ECCB04500F78BDF /* WRGMSMarker.h */,
+				6F5177F71ECCB04500F78BDF /* WRGMSMarker.m */,
 			);
 			name = "Map View";
 			sourceTree = "<group>";
@@ -863,6 +886,7 @@
 				6FCB58D01E64DEAD005A3D66 /* LoginViewController.xib in Resources */,
 				6FCB591C1E6762C5005A3D66 /* ElectionCardCell.xib in Resources */,
 				6F3FE91B1E76EFD700134EF5 /* DBToastView.xib in Resources */,
+				6F28DF881EC3AB4F008DE223 /* ElectionCardView.xib in Resources */,
 				6F8D2FF51E7C5F06006969A9 /* ContactCell.xib in Resources */,
 				6F8D2FF01E7C5D23006969A9 /* TableViewHeaderView.xib in Resources */,
 				6FA3BC401E62426100962D55 /* LaunchScreen.storyboard in Resources */,
@@ -874,11 +898,11 @@
 				6FA3BC3B1E62426100962D55 /* Main.storyboard in Resources */,
 				6FCB59061E6608E5005A3D66 /* UserCardView.xib in Resources */,
 				6FCB59B81E69C795005A3D66 /* ContactLineView.xib in Resources */,
+				6F17A0301ECB88EC00A7249A /* DetailCardView.xib in Resources */,
 				6FCB59A41E68921D005A3D66 /* Info.plist in Resources */,
 				6FCB59041E660835005A3D66 /* AddressViewController.xib in Resources */,
 				6F3FE9111E76D7E900134EF5 /* PinnedHeaderView.xib in Resources */,
 				6FA3BCBB1E62641000962D55 /* SVProgressHUD.bundle in Resources */,
-				6FCB59121E673A94005A3D66 /* ElectionCardView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -942,12 +966,14 @@
 				6FA3BC971E62637B00962D55 /* SDWebImageManager.m in Sources */,
 				6FA3BC951E62637B00962D55 /* SDWebImageDownloader.m in Sources */,
 				6FCB58EB1E64EE80005A3D66 /* UIFloatLabelTextField.m in Sources */,
+				6FA4B9931ED47BB700969BC5 /* OtherElection.m in Sources */,
 				6FCB59C11E69D424005A3D66 /* ContactListView.m in Sources */,
 				6FCB591B1E6762C5005A3D66 /* ElectionCardCell.m in Sources */,
 				6FCB59AC1E68921D005A3D66 /* NSDictionary+MTLJSONKeyPath.m in Sources */,
 				6FA3BC9E1E62637B00962D55 /* UIImageView+WebCache.m in Sources */,
 				6FCB59B51E68AB17005A3D66 /* ElectionDetailViewController.m in Sources */,
 				6FA3BC9D1E62637B00962D55 /* UIImageView+HighlightedWebCache.m in Sources */,
+				6FCC05EF1EB7852D00BECCAB /* Race.m in Sources */,
 				6FCB59A91E68921D005A3D66 /* MTLTransformerErrorHandling.m in Sources */,
 				6FA3BCBA1E62641000962D55 /* SVProgressAnimatedView.m in Sources */,
 				6FCB59AE1E68921E005A3D66 /* NSDictionary+MTLMappingAdditions.m in Sources */,
@@ -963,7 +989,9 @@
 				6FCB58EE1E64F286005A3D66 /* DBCheckboxButton.m in Sources */,
 				6FCB59091E6608FC005A3D66 /* UserCardView.m in Sources */,
 				6FA3BC991E62637B00962D55 /* UIButton+WebCache.m in Sources */,
+				6F17A02E1ECB88DD00A7249A /* DetailCardView.m in Sources */,
 				6FCB59101E671681005A3D66 /* RegisterView.m in Sources */,
+				6F5177F81ECCB04500F78BDF /* WRGMSMarker.m in Sources */,
 				6FA3BC9B1E62637B00962D55 /* UIImage+MultiFormat.m in Sources */,
 				6FCB59A71E68921D005A3D66 /* MTLModel.m in Sources */,
 				6FCB595F1E687582005A3D66 /* NSDate+Util.m in Sources */,
@@ -1097,6 +1125,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Dashboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.risemovement.Dashboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1117,6 +1146,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Dashboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.risemovement.Dashboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";

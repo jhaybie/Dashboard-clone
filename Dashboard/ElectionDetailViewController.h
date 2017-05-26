@@ -10,12 +10,16 @@
 
 #import "ContactListView.h"
 #import "DBViewController.h"
+#import "DetailCardView.h"
 
 @class Election;
+@class OtherElection;
 
-@interface ElectionDetailViewController : DBViewController <ContactListViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIScrollViewDelegate>
+@interface ElectionDetailViewController : DBViewController <ContactListViewDelegate, DetailCardViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic) int electionIndex;
+@property (nonatomic) BOOL forContacts;
 @property (nonatomic, strong) NSArray<Election *> *elections;
+@property (nonatomic, strong) NSArray<OtherElection *> *otherElections;
 
 @end

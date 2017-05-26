@@ -8,12 +8,14 @@
 
 #import "HomeViewController.h"
 #import "Constant.h"
+#import "Contact.h"
 #import "Election.h"
 #import "ElectionCardCell.h"
-#import "ElectionCardView.h"
 #import "ElectionDetailViewController.h"
+#import "OtherElection.h"
 #import "GlobalAPI.h"
 #import "LoginViewController.h"
+#import "Race.h"
 #import "SVProgressHUD.h"
 #import "UIColor+DBColors.h"
 #import "UserCardView.h"
@@ -28,14 +30,38 @@
 @property (strong, nonatomic) NSMutableArray<UIColor *> *colors;
 
 @property (strong, nonatomic) NSArray<Election *> *elections;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *messageTopHeightConstraint;
+@property (strong, nonatomic) IBOutlet UIView *emptyView;
+@property (strong, nonatomic) IBOutlet UILabel *emptyTitleLabel;
+@property (strong, nonatomic) IBOutlet UITextView *emptyTextView;
+
+@property (strong, nonatomic) NSMutableArray<ElectionCardCell *> *electionCells;
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+
+@property (strong, nonatomic) NSArray <Contact *> *contacts;
+@property (strong, nonatomic) NSMutableArray<OtherElection *> *otherElections;
+@property (strong, nonatomic) NSMutableArray<ElectionCardView *> *otherElectionCards;
+@property (strong, nonatomic) NSMutableArray<ElectionCardCell *> *otherElectionCells;
 
 @end
 
 @implementation HomeViewController
+BOOL yourElectionsSelected = true;
+
+static NSString *yourEmptyTitleString = @"We couldn't find any upcoming elections in your area.";
+static NSString *yourEmptyTextViewString = @"This could be for a couple of reasons:\n\n1. Your state, county, district, municipality, and/or city have not yet listed any upcoming elections, or\n\n2. We have not received the information necessary to post its upcoming election from your city.\n\nIf you think this was in error, please email info@newfounders.us";
+
+static NSString *contactsEmptyTitleString = @"We couldn't find any upcoming elections near your contacts.";
+static NSString *contactsEmptyTextViewString = @"This could be for a couple of reasons:\n\n1. All of your contacts' states, counties, districts, municipalities, and/or cities have not yet listed any upcoming elections, or\n\n2. We have not received the information necessary to post upcoming elections from your contacts' cities or states.\n\nIf you think this was in error, please email info@newfounders.us";
 
 #pragma mark - Override Methods
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:ADDRESS_UPDATED
+                                                  object:nil];
+}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -73,7 +99,7 @@
     [self.refreshControl addTarget:self
                             action:@selector(getElections)
                   forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
+    self.tableView.refreshControl = self.refreshControl;
     
     self.colors = [[NSMutableArray alloc] init];
     [self.colors addObject:[UIColor dbBlue1]];
@@ -83,51 +109,214 @@
     [self.colors addObject:[UIColor dbBlue3]];
     [self.colors addObject:[UIColor dbBlue2]];
     
-    [self.segmentedControl addTarget:self
-                              action:@selector(segmentedControlValueChanged)
-                    forControlEvents:UIControlEventValueChanged];
+    if (IS_IPHONE_5_5_INCH) {
+        self.messageTopHeightConstraint.constant = 150;
+    } else if (IS_IPHONE_4_7_INCH) {
+        self.messageTopHeightConstraint.constant = 100;
+    }
+    
+    [self createObservers];
     
     [self loadUserCardView];
     
     [self getElections];
+    
+    [self getContactList];
 }
 
 #pragma mark - Private Methods
+
+- (void)addContact:(Contact *)contact toOtherElection:(Election *)election {
+    for (OtherElection *oE in self.otherElections) {
+        if (oE.contacts.count == 0) {
+            oE.contacts = [[NSMutableArray alloc] init];
+        }
+        if (oE.election.electionID == election.electionID) {
+            BOOL found = false;
+            for (Contact *c in oE.contacts) {
+                if ([c.contactID isEqualToString:contact.contactID]) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                [oE.contacts addObject:contact];
+                break;
+            }
+        }
+    }
+}
 
 - (UIColor *)colorForIndex:(NSInteger)row {
     NSInteger colorIndex = (row + 1) % self.colors.count;
     return self.colors[colorIndex];
 }
 
+- (void)createObservers {
+    [self.segmentedControl addTarget:self
+                              action:@selector(segmentedControlValueChanged)
+                    forControlEvents:UIControlEventValueChanged];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(getElections)
+                                                 name:ADDRESS_UPDATED object:nil];
+}
+
+- (BOOL)electionExistsInOtherElections:(Election *)election {
+    int eID = election.electionID;
+    for (OtherElection *e in self.otherElections) {
+        if (e.election.electionID == eID) {
+            return true;
+        }
+    }
+    return false;
+}
+
+- (void)getContactList {
+    self.contacts = [[NSArray alloc] init];
+    [GlobalAPI getAddressBookValidContactsForced:false
+                                         success:^(NSArray<Contact *> *contacts) {
+                                             self.contacts = contacts;
+                                             
+                                             [self processContacts];
+                                             
+                                         } failure:^(NSString *message) {
+                                             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
+                                                                                                            message:@"There was a problem accessing your Address Book."
+                                                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
+                                             [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                                       style:UIAlertActionStyleDefault
+                                                                                     handler:nil]];
+                                             [self presentViewController:alert
+                                                                animated:true
+                                                              completion:nil];
+                                         }];
+}
+
 - (void)getElections {
     [self.refreshControl endRefreshing];
     [SVProgressHUD show];
-    [GlobalAPI getElections:^(NSArray<Election *> *elections) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-        });
-        self.elections = [[NSArray alloc] initWithArray:elections];
-        [self processElections];
-    } failure:^(NSInteger statusCode) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-        });
-        //
-    }];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if ([[prefs objectForKey:USER_ADDRESS_EXISTS] isEqualToString:@"True"]) {
+        [GlobalAPI getElections:^(NSArray<Election *> *elections) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+            self.elections = [[NSArray alloc] initWithArray:elections];
+            [self processElections];
+        } failure:^(NSInteger statusCode) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+            //
+        }];
+    } else {
+        [GlobalAPI getRandomElectionsSuccess:^(NSArray<Election *> *elections) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+            self.elections = [[NSArray alloc] initWithArray:elections];
+            [self processElections];
+        } failure:^(NSInteger statusCode) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+            //
+        }];
+    }
+}
+
+- (void)processContacts {
+    self.otherElections = [[NSMutableArray alloc] init];
+    self.otherElectionCards = [[NSMutableArray alloc] init];
+    self.otherElectionCells = [[NSMutableArray alloc] init];
+    
+    dispatch_group_t group = dispatch_group_create();
+    
+    for (Contact *contact in self.contacts) {
+        dispatch_group_enter(group);
+        [GlobalAPI getElectionsForContact:contact success:^(NSArray<Election *> *elections) {
+            if (elections.count > 0) {
+                for (Election *election in elections) {
+                    if (![self electionExistsInOtherElections:election]) {
+                        OtherElection *otherElection = [[OtherElection alloc] init];
+                        otherElection.election = election;
+                        otherElection.contacts = [[NSMutableArray alloc] init];
+                        [otherElection.contacts addObject:contact];
+                        [self.otherElections addObject:otherElection];
+                    } else {
+                        [self addContact:contact toOtherElection:election];
+                    }
+                }
+            }
+            dispatch_group_leave(group);
+        } failure:^(NSInteger statusCode) {
+            dispatch_group_leave(group);
+        }];
+    }
+    dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [self processOtherElections];
+    });
 }
 
 - (void)processElections {
     self.electionCards = [[NSMutableArray alloc] init];
-    CGRect evFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width - 36, 220);
+    self.electionCells = [[NSMutableArray alloc] init];
     
-    for (NSInteger i = 0; i < self.elections.count; i++) {
+    for (int i = 0; i < self.elections.count; i++) {
         Election *election = self.elections[i];
-        ElectionCardView *ecv = [[ElectionCardView alloc] initWithElection:election];
-        ecv.frame = evFrame;
-        ecv.positionView.backgroundColor = [self colorForIndex:i];
-        [self.electionCards addObject:ecv];
+        for (Race *race in election.races) {
+            // TODO: maybe add some logic to filter out extraneous races???
+            ElectionCardView *ecv = [[ElectionCardView alloc] initWithRace:race forDate:election.electionDate forContact:false contactCount:0 preferredWidth:[[UIScreen mainScreen] bounds].size.width - 16];
+            ecv.delegate = self;
+            ecv.positionView.backgroundColor = [self colorForIndex:i];
+            [self.electionCards addObject:ecv];
+            
+            ElectionCardCell *cell = [[ElectionCardCell alloc] initWithElectionCardView:ecv];
+            [self.electionCells addObject:cell];
+        }
     }
+    if (self.electionCards.count == 0) {
+        self.tableView.hidden = true;
+        self.emptyView.hidden = false;
+        [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:false];
+    } else {
+        self.tableView.hidden = false;
+        self.emptyView.hidden = true;
+        [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:true];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:YOUR_ELECTIONS_RECEIVED
+                                                        object:nil
+                                                      userInfo:@{
+                                                                 @"YourElections" : self.elections
+                                                                 }];
     [self.tableView reloadData];
+}
+
+- (void)processOtherElections {
+    if (self.otherElections.count > 0) {
+        for (int i = 0; i < self.otherElections.count; i++) {
+            OtherElection *oe = self.otherElections[i];
+            for (Race *race in oe.election.races) {
+                ElectionCardView *ecv = [[ElectionCardView alloc] initWithRace:race
+                                                                       forDate:oe.election.electionDate
+                                                                    forContact:true
+                                                                  contactCount:(int)oe.contacts.count
+                                                                preferredWidth:[[UIScreen mainScreen] bounds].size.width - 16];
+                ecv.positionView.backgroundColor = [self colorForIndex:i];
+                [self.otherElectionCards addObject:ecv];
+                
+                ElectionCardCell *cell = [[ElectionCardCell alloc] initWithElectionCardView:ecv];
+                [self.otherElectionCells addObject:cell];
+            }
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:CONTACTS_ELECTIONS_RECEIVED
+                                                            object:nil
+                                                          userInfo:@{
+                                                                     @"OtherElections" : self.otherElections
+                                                                     }];
+    }
 }
 
 - (void)loadUserCardView {
@@ -157,29 +346,43 @@
 }
 
 - (void)presentElectionsNearYou {
-    [UIView animateWithDuration:0.15f animations:^{
-        self.tableView.alpha = 1;
-    } completion:^(BOOL finished) {
-        // TODO: reload tableview with elections near you
-        [UIView animateWithDuration:0.15f animations:^{
-            self.tableView.alpha = 0;
-        } completion:^(BOOL finished) {
+    self.emptyTitleLabel.text = yourEmptyTitleString;
+    self.emptyTextView.text = yourEmptyTextViewString;
+    
+    yourElectionsSelected = true;
+    
+    if (self.electionCells.count > 0) {
+        self.tableView.hidden = false;
+        self.emptyView.hidden = true;
+        self.tableView.alpha = 0;
+        [self.tableView reloadData];
+        [UIView animateWithDuration:0.25f animations:^{
             self.tableView.alpha = 1;
-        }];
-    }];
+        } completion:nil];
+    } else {
+        self.tableView.hidden = true;
+        self.emptyView.hidden = false;
+    }
 }
 
 - (void)presentElectionsNearYourContacts {
-    [UIView animateWithDuration:0.15f animations:^{
-        self.tableView.alpha = 1;
-    } completion:^(BOOL finished) {
-        // TODO: reload tableview with elections near your contacts
-        [UIView animateWithDuration:0.15f animations:^{
-            self.tableView.alpha = 0;
-        } completion:^(BOOL finished) {
+    self.emptyTitleLabel.text = contactsEmptyTitleString;
+    self.emptyTextView.text = contactsEmptyTextViewString;
+    
+    yourElectionsSelected = false;
+    
+    if (self.otherElectionCells.count > 0) {
+        self.tableView.hidden = false;
+        self.emptyView.hidden = true;
+        self.tableView.alpha = 0;
+        [self.tableView reloadData];
+        [UIView animateWithDuration:0.25f animations:^{
             self.tableView.alpha = 1;
-        }];
-    }];
+        } completion:nil];
+    } else {
+        self.tableView.hidden = true;
+        self.emptyView.hidden = false;
+    }
 }
 
 - (void)registerTableViewCells {
@@ -248,25 +451,74 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ElectionDetailViewControllerSegue"]) {
+        NSDictionary *payload = (NSDictionary *)sender;
+        int row = (int)[(NSIndexPath *)[payload objectForKey:@"IndexPath"] row];
+        BOOL forContact = [[payload objectForKey:@"ForContact"] boolValue];
         ElectionDetailViewController *edvc = segue.destinationViewController;
-        edvc.electionIndex = (int)((NSIndexPath *)sender).row;
-        edvc.elections = self.elections;
+        edvc.electionIndex = row;
+        
+        if (forContact) {
+            edvc.forContacts = true;
+            edvc.elections = [[NSArray alloc] init];
+            edvc.otherElections = self.otherElections;
+        } else {
+            edvc.forContacts = false;
+            edvc.elections = self.elections;
+            edvc.otherElections = [[NSArray alloc] init];
+        }
     }
 }
 
 #pragma mark - UITableView DataSource & Delegate Methods
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 217;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 217;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"ElectionDetailViewControllerSegue" sender:indexPath];
+    BOOL forContact = !yourElectionsSelected;
+    NSDictionary *payload = @{
+                              @"IndexPath"  : indexPath,
+                              @"ForContact" : [NSNumber numberWithBool:forContact]
+                              };
+    [self performSegueWithIdentifier:@"ElectionDetailViewControllerSegue" sender:payload];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ElectionCardCell *cell = [[ElectionCardCell alloc] initWithElectionCardView:self.electionCards[indexPath.row]];
-    return cell;
+    if (yourElectionsSelected) {
+        return self.electionCells[indexPath.row];
+    } else {
+        return self.otherElectionCells[indexPath.row];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.electionCards.count;
+    if (yourElectionsSelected) {
+        return self.electionCells.count;
+    } else {
+        return self.otherElectionCells.count;
+    }
+}
+
+#pragma mark - ElectionCardViewDelegate
+
+- (void)electionCardViewStatusButtonTappedMessage:(NSString *)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"IMPORTANT"
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                              style:UIAlertActionStyleCancel
+                                            handler:nil]];
+    [self presentViewController:alert
+                       animated:true
+                     completion:nil];
+    
+    //[self displayToastWithMessage:@"Please enter valid email and password" backgroundColor:[UIColor globalFailureColor]];
 }
 
 @end

@@ -10,9 +10,9 @@
 
 @implementation PinnedHeaderView
 
-- (instancetype)initWithPosition:(NSString *)position cityState:(NSString *)cityState {
+- (instancetype)initWithPosition:(NSString *)position {
     int width = [[UIScreen mainScreen] bounds].size.width;
-    CGRect frame = CGRectMake(0, 0, width, 74);
+    CGRect frame = CGRectMake(0, 0, width, 63);
     
     if (self = [super initWithFrame:frame]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"PinnedHeaderView"
@@ -20,8 +20,6 @@
                                             options:nil] objectAtIndex:0];
         
         self.positionLabel.text = position;
-        self.cityStateLabel.text = cityState;
-        self.shadowImageView.image = [UIImage imageNamed:@"background-card-shadow"];
     }
     return self;
 }

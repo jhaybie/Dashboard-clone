@@ -12,20 +12,28 @@
 @implementation ElectionCardCell
 
 - (instancetype)initWithElectionCardView:(UIView *)electionCardView {
-    if (self = [super init]) {
+    CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 217);
+    if (self = [super initWithFrame:frame]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ElectionCardCell"
                                               owner:self
                                             options:nil] objectAtIndex:0];
-        CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 228);
-        self.frame = frame;
+        
+        //self.frame = frame;
         self.clipsToBounds = true;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        CGRect evFrame = CGRectMake(0, 0, self.cardView.frame.size.width, self.cardView.frame.size.height);
+
+        CGRect evFrame = CGRectMake(0, 0, self.cardView.frame.size.width, electionCardView.frame.size.height);
         electionCardView.frame = evFrame;
         [self.cardView addSubview:electionCardView];
+        [self.cardView layoutIfNeeded];
+        [self layoutIfNeeded];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self.contentView layoutIfNeeded];
 }
 
 @end

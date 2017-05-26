@@ -10,8 +10,9 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "DBViewController.h"
+#import "ElectionCardView.h"
 
-@interface HomeViewController : DBViewController <FBSDKLoginButtonDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface HomeViewController : DBViewController <ElectionCardViewDelegate, FBSDKLoginButtonDelegate, UITableViewDataSource, UITableViewDelegate>
 
 
 @end

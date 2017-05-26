@@ -13,6 +13,7 @@
 @interface ElectionCardCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UIView *cardView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *cardViewHeightConstraint;
 
 - (instancetype)initWithElectionCardView:(UIView *)electionCardView;
 

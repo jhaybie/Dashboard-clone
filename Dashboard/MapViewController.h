@@ -12,9 +12,11 @@
 #import "DBViewController.h"
 
 @class Election;
+@class OtherElection;
 
 @interface MapViewController : DBViewController <GMSMapViewDelegate>
 
 @property (nonatomic, strong) NSArray<Election *> *elections;
+@property (nonatomic, strong) NSArray<OtherElection *> *otherElections;
 
 @end

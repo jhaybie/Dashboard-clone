@@ -14,6 +14,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *cityStateLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *shadowImageView;
 
-- (instancetype)initWithPosition:(NSString *)position cityState:(NSString *)cityState;
+- (instancetype)initWithPosition:(NSString *)position;
 
 @end

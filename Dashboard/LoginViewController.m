@@ -71,6 +71,8 @@ NSTimer *carouselTimer;
     self.facebookLoginButton.delegate = self;
     self.facebookLoginButton.readPermissions = @[@"email", @"public_profile", @"user_birthday", @"user_friends", @"user_location"];
     [FBSDKProfile enableUpdatesOnAccessTokenChange:true];
+    
+    [self.rememberMeButton setIsChecked:false];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -111,10 +113,17 @@ NSTimer *carouselTimer;
     UIImage *image1 = [UIImage imageNamed:@"sample-logo-1"];
     UIImage *image2 = [UIImage imageNamed:@"sample-logo-2"];
     UIImage *image3 = [UIImage imageNamed:@"sample-logo-3"];
-    self.carouselImages = [[NSMutableArray alloc] initWithCapacity:3];
+    UIImage *image4 = [UIImage imageNamed:@"sample-logo-4"];
+    UIImage *image5 = [UIImage imageNamed:@"sample-logo-5"];
+    UIImage *image6 = [UIImage imageNamed:@"sample-logo-6"];
+
+    self.carouselImages = [[NSMutableArray alloc] initWithCapacity:6];
     [self.carouselImages addObject:image1];
     [self.carouselImages addObject:image2];
     [self.carouselImages addObject:image3];
+    [self.carouselImages addObject:image4];
+    [self.carouselImages addObject:image5];
+    [self.carouselImages addObject:image6];
 
     [self.carouselView reloadData];
 }

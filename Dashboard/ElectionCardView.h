@@ -8,22 +8,32 @@
 
 #import <UIKit/UIKit.h>
 
-@class Election;
+@protocol ElectionCardViewDelegate <NSObject>
+
+- (void)electionCardViewStatusButtonTappedMessage:(NSString *)message;
+
+@end
+
+@class Race;
 
 @interface ElectionCardView : UIView
 
+@property (nonatomic, strong)id<ElectionCardViewDelegate> delegate;
+
+@property (strong, nonatomic) IBOutlet UIView *topView;
 @property (strong, nonatomic) IBOutlet UIImageView *cityImageView;
 @property (strong, nonatomic) IBOutlet UIView *electionLabelView;
 @property (strong, nonatomic) IBOutlet UILabel *electionInLabel;
 @property (strong, nonatomic) IBOutlet UILabel *electionTimeLabel;
+
+@property (strong, nonatomic) IBOutlet UIButton *statusButton;
 
 @property (strong, nonatomic) IBOutlet UIView *badgeView;
 @property (strong, nonatomic) IBOutlet UILabel *badgeCountLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *positionView;
 @property (strong, nonatomic) IBOutlet UILabel *positionLabel;
-@property (strong, nonatomic) IBOutlet UILabel *cityStateLabel;
 
-- (instancetype)initWithElection:(Election *)election;
+- (instancetype)initWithRace:(Race *)race forDate:(NSDate *)electionDate forContact:(BOOL)forContact contactCount:(int)contactCount preferredWidth:(CGFloat)width;
 
 @end

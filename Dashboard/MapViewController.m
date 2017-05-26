@@ -8,12 +8,19 @@
 
 #import "MapViewController.h"
 #import "Constant.h"
+#import "Contact.h"
 #import "Election.h"
 #import "ElectionCardView.h"
+#import "ElectionDetailViewController.h"
 #import "GlobalAPI.h"
+#import "OtherElection.h"
+#import "Race.h"
 #import "UIColor+DBColors.h"
+#import "WRGMSMarker.h"
 
-@interface MapViewController ()
+@interface MapViewController()
+
+@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 
 @end
 
@@ -26,6 +33,30 @@ BOOL userAddressExists;
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:ADDRESS_UPDATED
                                                   object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:YOUR_ELECTIONS_RECEIVED
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:CONTACTS_ELECTIONS_RECEIVED
+                                                  object:nil];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addressUpdated)
+                                                 name:ADDRESS_UPDATED
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(displayYourElections:)
+                                                 name:YOUR_ELECTIONS_RECEIVED
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(displayContactElections:)
+                                                 name:CONTACTS_ELECTIONS_RECEIVED
+                                               object:nil];
+    
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -35,13 +66,33 @@ BOOL userAddressExists;
     
     self.shouldShowNagView = true;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(addressUpdated)
-                                                 name:ADDRESS_UPDATED
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(addressUpdated)
+//                                                 name:ADDRESS_UPDATED
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(displayYourElections:)
+//                                                 name:YOUR_ELECTIONS_RECEIVED
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(displayContactElections:)
+//                                                 name:CONTACTS_ELECTIONS_RECEIVED
+//                                               object:nil];
     
-    [self getElections];
+    //[self getElections];
+    
+    [self initializeMapView];
+    [self loadYourElectionsInMapView];
+    [self loadContactElectionsInMapView];
 }
+
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear:animated];
+//    
+//    [self initializeMapView];
+//    [self loadYourElectionsInMapView];
+//    [self loadContactElectionsInMapView];
+//}
 
 #pragma mark - Private Methods
 
@@ -50,55 +101,123 @@ BOOL userAddressExists;
     [self getElections];
 }
 
-- (void)loadMapViewWithCoordinates:(CLLocationCoordinate2D)coordinate {
-    float zoom = (userAddressExists) ? 13 : 3;
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:coordinate.latitude
-                                                            longitude:coordinate.longitude
+- (void)displayContactElections:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    NSArray<OtherElection *> *otherElections = [dict objectForKey:@"OtherElections"];
+    self.otherElections = otherElections;
+    //[self loadContactElectionsInMapView];
+}
+
+- (void)displayYourElections:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    NSArray<Election *> *elections = [dict objectForKey:@"YourElections"];
+    self.elections = elections;
+    //[self loadYourElectionsInMapView];
+}
+
+- (int)electionIndexForRace:(Race *)race forContacts:(BOOL)forContacts {
+    int electionIndex = -1;
+    if (!forContacts) {
+        for (int i = 0; i < self.elections.count; i++) {
+            Election *election = self.elections[i];
+            for (Race *raceToCompare in election.races) {
+                if (race.raceID == raceToCompare.raceID) {
+                    return i;
+                }
+            }
+        }
+    } else {
+        for (int i = 0; i < self.otherElections.count; i++) {
+            OtherElection *oe = self.otherElections[i];
+            for (Race *raceToCompare in oe.election.races) {
+                if (race.raceID == raceToCompare.raceID) {
+                    return i;
+                }
+            }
+        }
+    }
+    return electionIndex;
+}
+
+-(void)initializeMapView {
+    self.mapView.delegate = self;
+    self.mapView.myLocationEnabled = false;
+
+    float zoom = 3;
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:39.833333
+                                                            longitude:-98.585522
                                                                  zoom:zoom];
-    GMSMapView *mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-    mapView.myLocationEnabled = false;
-    mapView.delegate = self;
-    mapView.frame = self.view.frame;
-    [self.view insertSubview:mapView belowSubview:self.nagView];
+    self.mapView.camera = camera;
+}
+
+- (void)loadContactElectionsInMapView {
+    for (OtherElection *oe in self.otherElections) {
+        for (Race *race in oe.election.races) {
+            NSString *addressString = [NSString stringWithFormat:@"%@, %@", race.city, race.state];
+            [self getCoordinatesFromAddressString:addressString
+                                          forRace:race
+                                          forDate:oe.election.electionDate
+                                         contacts:oe.contacts];
+        }
+    }
+}
+
+- (void)loadYourElectionsInMapView {
+    for (Election *election in self.elections) {
+        for (Race *race in election.races) {
+            NSString *addressString = [NSString stringWithFormat:@"%@, %@", race.city, race.state];
+            [self getCoordinatesFromAddressString:addressString
+                                          forRace:race
+                                          forDate:election.electionDate
+                                         contacts:nil];
+        }
+    }
+}
+
+- (void)loadMapViewWithCoordinates:(CLLocationCoordinate2D)coordinate forRace:(Race*) race forDate:(NSDate *)date contacts:(NSArray<Contact *> *)contacts {
     
     // Creates a marker in the center of the map.
-    GMSMarker *marker = [[GMSMarker alloc] init];
+    WRGMSMarker *marker = [[WRGMSMarker alloc] init];
     marker.icon = [UIImage imageNamed:@"icon-map-marker"];
     marker.infoWindowAnchor = CGPointMake(0.44f, 0.45f);
     marker.position = coordinate;
-    //marker.title = @"You";
-    //marker.snippet = @"Here";
-    marker.map = mapView;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.title = race.raceName;
+    marker.race = race;
+    marker.date = date;
+    marker.contacts = contacts;
+    marker.map = self.mapView;
+    
+    //self.mapView.camera = [GMSCameraPosition cameraWithTarget:marker.position zoom:13];
 }
 
-- (void)getCoordinatesFromAddressString:(NSString *)addressString {
+- (void)getCoordinatesFromAddressString:(NSString *)addressString forRace:(Race *)race forDate:(NSDate *)date contacts:(NSArray<Contact *> *)contacts {
     CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
     [geoCoder geocodeAddressString:addressString completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark *placemark = [placemarks objectAtIndex:0];
         CLLocation *location = placemark.location;
         CLLocationCoordinate2D coordinate = location.coordinate;
-        [self loadMapViewWithCoordinates:coordinate];
+        [self loadMapViewWithCoordinates:coordinate
+                                 forRace:race
+                                 forDate:date
+                                contacts:contacts];
     }];
 }
 
 #pragma mark - API Calls
 
 - (void)getElections {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *fullAddress = @"";
-    if (userAddressExists) {
-        NSString *street = [defaults objectForKey:USER_STREET];
-        NSString *city = [defaults objectForKey:USER_CITY];
-        NSString *state = [defaults objectForKey:USER_STATE];
-        NSString *zip = [defaults objectForKey:USER_ZIP_CODE];
-        fullAddress = [NSString stringWithFormat:@"%@, %@ %@ %@", street, city, state, zip];
-    } else {
-        fullAddress = @"United States";
-    }
-    
     [GlobalAPI getElections:^(NSArray<Election *> *elections) {
         self.elections = [[NSArray alloc] initWithArray:elections];
-        [self getCoordinatesFromAddressString:fullAddress];
+        for (Election *election in self.elections) {
+            for (Race *race in election.races) {
+                NSString *addressString = [NSString stringWithFormat:@"%@, %@ County, %@", race.city, race.county, race.state];
+                [self getCoordinatesFromAddressString:addressString
+                                              forRace:race
+                                              forDate:election.electionDate
+                                             contacts:nil];
+            }
+        }
     } failure:^(NSInteger statusCode) {
         //
     }];
@@ -106,15 +225,25 @@ BOOL userAddressExists;
 
 #pragma mark - GMSMapView Delegate Methods
 
-- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
-    if (self.elections.count > 0) {
-        ElectionCardView *cardView = [[ElectionCardView alloc] initWithElection:self.elections[0]];
-        CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width - 48, cardView.frame.size.height);
-        cardView.frame = frame;
-        return cardView;
-    } else {
-        return nil;
-    }
+- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(WRGMSMarker *)marker {
+    ElectionDetailViewController *edvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ElectionDetailViewController"];
+    edvc.electionIndex = [self electionIndexForRace:marker.race forContacts:marker.forContacts];
+    edvc.elections = self.elections;
+    edvc.forContacts = marker.forContacts;
+    edvc.otherElections = self.otherElections;
+    edvc.modalPresentationStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:edvc
+                       animated:true
+                     completion:nil];
+}
+
+- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(WRGMSMarker *)marker {
+    ElectionCardView *cardView = [[ElectionCardView alloc] initWithRace:marker.race
+                                                                forDate:marker.date
+                                                             forContact:false
+                                                           contactCount:marker.contacts.count
+                                                         preferredWidth:[[UIScreen mainScreen] bounds].size.width - 80];
+    return cardView;
 }
 
 @end

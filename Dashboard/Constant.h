@@ -29,8 +29,9 @@
 
 #pragma mark - NSNOTIFICATIONCENTER KEYS
 
-#define ADDRESS_UPDATED     @"AddressUpdated"
-
+#define ADDRESS_UPDATED             @"AddressUpdated"
+#define YOUR_ELECTIONS_RECEIVED     @"YourElectionsReceived"
+#define CONTACTS_ELECTIONS_RECEIVED @"ContactsElectionsReceived"
 
 
 #pragma mark - NSUSERDEFAULT KEYS

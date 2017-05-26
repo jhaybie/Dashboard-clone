@@ -9,23 +9,35 @@
 #import "MTLModel.h"
 #import "MTLJSONAdapter.h"
 
+@class Race;
+
 @interface Election : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic, strong) NSString *officeName;
-@property (nonatomic, strong) NSString *positionName;
-@property (nonatomic, strong) NSString *frequencyString;
-@property (nonatomic) NSInteger nextYear;
-@property (nonatomic) NSInteger numberOfSeats;
-@property (nonatomic) BOOL isPrimary;
-@property (nonatomic, strong) NSDate *primaryDate;
-@property (nonatomic, strong) NSDate *generalDate;
-@property (nonatomic, strong) NSString *generalDateDescription;
-@property (nonatomic, strong) NSString *termLimitDescription;
-@property (nonatomic) NSInteger termLimitYears;
-@property (nonatomic, strong) NSString *location;
+@property (nonatomic) int electionID;
 @property (nonatomic, strong) NSString *state;
-@property (nonatomic, strong) id extra;
+@property (nonatomic, strong) NSString *electionName;
+@property (nonatomic, strong) NSDate *electionDate;
 
-// Where are the candidate names?
+@property (nonatomic, strong) id electionMonthDateOnly;
+
+@property (nonatomic) BOOL isPrimary;
+@property (nonatomic) BOOL isCounty;
+@property (nonatomic) BOOL isLower;
+@property (nonatomic) BOOL isUpper;
+@property (nonatomic) BOOL isCongress;
+@property (nonatomic) BOOL isStatewide;
+@property (nonatomic) BOOL isCancelled;
+@property (nonatomic) BOOL isComplete;
+@property (nonatomic) BOOL isAllMail;
+@property (nonatomic, strong) NSString *voterRegURLString;
+@property (nonatomic, strong) NSString *electionDateTimesString;
+@property (nonatomic, strong) NSString *pollingPlaceURLString;
+@property (nonatomic, strong) NSString *earlyVotinDatesString;
+@property (nonatomic, strong) NSString *earlyVotingTimesString;
+@property (nonatomic, strong) NSString *earlyVotingURLString;
+@property (nonatomic, strong) NSString *absenteeVotingURLString;
+@property (nonatomic, strong) NSString *absenteeVotingDeadlines;
+
+@property (nonatomic, strong) NSArray<Race *> *races;
 
 @end
