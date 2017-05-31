@@ -82,6 +82,7 @@
 		6FA3BCBC1E62641000962D55 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BCB61E62641000962D55 /* SVProgressHUD.m */; };
 		6FA3BCBD1E62641000962D55 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BCB81E62641000962D55 /* SVRadialGradientLayer.m */; };
 		6FA4B9931ED47BB700969BC5 /* OtherElection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA4B9921ED47BB700969BC5 /* OtherElection.m */; };
+		6FAF06F41ED8BB2200AD3D43 /* Candidate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF06F31ED8BB2200AD3D43 /* Candidate.m */; };
 		6FCB58CF1E64DEAD005A3D66 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB58CD1E64DEAD005A3D66 /* LoginViewController.m */; };
 		6FCB58D01E64DEAD005A3D66 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCB58CE1E64DEAD005A3D66 /* LoginViewController.xib */; };
 		6FCB58D61E64DF55005A3D66 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB58D41E64DF55005A3D66 /* iCarousel.m */; };
@@ -263,6 +264,8 @@
 		6FA3BCB81E62641000962D55 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		6FA4B9911ED47BB700969BC5 /* OtherElection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherElection.h; sourceTree = "<group>"; };
 		6FA4B9921ED47BB700969BC5 /* OtherElection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherElection.m; sourceTree = "<group>"; };
+		6FAF06F21ED8BB2200AD3D43 /* Candidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Candidate.h; sourceTree = "<group>"; };
+		6FAF06F31ED8BB2200AD3D43 /* Candidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Candidate.m; sourceTree = "<group>"; };
 		6FCB58CC1E64DEAD005A3D66 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		6FCB58CD1E64DEAD005A3D66 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		6FCB58CE1E64DEAD005A3D66 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -695,6 +698,8 @@
 		6FCB59161E675520005A3D66 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6FAF06F21ED8BB2200AD3D43 /* Candidate.h */,
+				6FAF06F31ED8BB2200AD3D43 /* Candidate.m */,
 				6FCB59BC1E69CD74005A3D66 /* Contact.h */,
 				6FCB59BD1E69CD74005A3D66 /* Contact.m */,
 				6FCB59201E68711E005A3D66 /* Election.h */,
@@ -951,6 +956,7 @@
 				6FCB59221E68711E005A3D66 /* Election.m in Sources */,
 				6FA3BC5C1E62636800962D55 /* AFHTTPSessionManager.m in Sources */,
 				6F8D2FEE1E7C5D13006969A9 /* TableViewHeaderView.m in Sources */,
+				6FAF06F41ED8BB2200AD3D43 /* Candidate.m in Sources */,
 				6FA3BC901E62637B00962D55 /* NSImage+WebCache.m in Sources */,
 				6F3FE9181E76EF8800134EF5 /* DBViewController.m in Sources */,
 				6FA3BC931E62637B00962D55 /* SDWebImageCompat.m in Sources */,

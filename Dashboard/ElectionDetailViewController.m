@@ -7,6 +7,7 @@
 //
 
 #import "ElectionDetailViewController.h"
+#import "Candidate.h"
 #import "Constant.h"
 #import "Contact.h"
 #import "DBCheckboxButton.h"
@@ -56,12 +57,6 @@ BOOL isPinnedHeaderViewVisible;
     [self.nextButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
 }
 
-//- (void)viewDidAppear:(BOOL)animated {
-//    [super viewDidAppear:animated];
-//    
-//    [self.view layoutSubviews];
-//}
-
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
@@ -91,6 +86,376 @@ BOOL isPinnedHeaderViewVisible;
     [self.scrollView setNeedsDisplay];
 }
 
+- (void)displayElectionDetails {
+    Election *election = (self.forContacts) ? self.otherElections[self.electionIndex].election : self.elections[self.electionIndex];
+    self.candidatesTextView.text = @"";
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
+    
+    // display state info
+    if (election.races[0].state.length > 0) {
+        NSString *stateHeaderString = @"State\n";
+        NSMutableAttributedString *aStateHeaderString = [[NSMutableAttributedString alloc] initWithString:stateHeaderString];
+        [aStateHeaderString addAttribute:NSFontAttributeName
+                                   value:[UIFont boldSystemFontOfSize:16.0]
+                                   range:NSMakeRange(0, stateHeaderString.length)];
+        [aStateHeaderString addAttribute:NSForegroundColorAttributeName
+                                   value:[UIColor whiteColor]
+                                   range:NSMakeRange(0, stateHeaderString.length)];
+        
+        [attributedString appendAttributedString:aStateHeaderString];
+        
+        NSString *stateBodyString = [NSString stringWithFormat:@"%@\n\n", election.races[0].state];
+        NSMutableAttributedString *aStateBodyString = [[NSMutableAttributedString alloc] initWithString:stateBodyString];
+        [aStateBodyString addAttribute:NSFontAttributeName
+                                 value:[UIFont systemFontOfSize:14.0]
+                                 range:NSMakeRange(0, stateBodyString.length)];
+        [aStateBodyString addAttribute:NSForegroundColorAttributeName
+                                 value:[UIColor whiteColor]
+                                 range:NSMakeRange(0, stateBodyString.length)];
+        
+        [attributedString appendAttributedString:aStateBodyString];
+    }
+    
+    // display city info
+    if (election.races[0].city.length > 0) {
+        NSString *cityHeaderString = @"City\n";
+        NSMutableAttributedString *aCityHeaderString = [[NSMutableAttributedString alloc] initWithString:cityHeaderString];
+        [aCityHeaderString addAttribute:NSFontAttributeName
+                                  value:[UIFont boldSystemFontOfSize:16.0]
+                                  range:NSMakeRange(0, cityHeaderString.length)];
+        [aCityHeaderString addAttribute:NSForegroundColorAttributeName
+                                  value:[UIColor whiteColor]
+                                  range:NSMakeRange(0, cityHeaderString.length)];
+        
+        [attributedString appendAttributedString:aCityHeaderString];
+        
+        NSString *cityBodyString = [NSString stringWithFormat:@"%@\n\n", election.races[0].city];
+        NSMutableAttributedString *aCityBodyString = [[NSMutableAttributedString alloc] initWithString:cityBodyString];
+        [aCityBodyString addAttribute:NSFontAttributeName
+                                value:[UIFont systemFontOfSize:14.0]
+                                range:NSMakeRange(0, cityBodyString.length)];
+        [aCityBodyString addAttribute:NSForegroundColorAttributeName
+                                value:[UIColor whiteColor]
+                                range:NSMakeRange(0, cityBodyString.length)];
+        
+        [attributedString appendAttributedString:aCityBodyString];
+    }
+    
+    // display special district info
+    if (election.races[0].specialDistrict.length > 0) {
+        NSString *sdHeaderString = @"Special District\n";
+        NSMutableAttributedString *aSDHeaderString = [[NSMutableAttributedString alloc] initWithString:sdHeaderString];
+        [aSDHeaderString addAttribute:NSFontAttributeName
+                                value:[UIFont boldSystemFontOfSize:16.0]
+                                range:NSMakeRange(0, sdHeaderString.length)];
+        [aSDHeaderString addAttribute:NSForegroundColorAttributeName
+                                value:[UIColor whiteColor]
+                                range:NSMakeRange(0, sdHeaderString.length)];
+        
+        [attributedString appendAttributedString:aSDHeaderString];
+        
+        NSString *sdBodyString = [NSString stringWithFormat:@"%@\n\n", election.races[0].city];
+        NSMutableAttributedString *aSDBodyString = [[NSMutableAttributedString alloc] initWithString:sdBodyString];
+        [aSDBodyString addAttribute:NSFontAttributeName
+                              value:[UIFont systemFontOfSize:14.0]
+                              range:NSMakeRange(0, sdBodyString.length)];
+        [aSDBodyString addAttribute:NSForegroundColorAttributeName
+                              value:[UIColor whiteColor]
+                              range:NSMakeRange(0, sdBodyString.length)];
+        
+        [attributedString appendAttributedString:aSDBodyString];
+    }
+    
+    NSString *incumbentName = @"";
+    // display candidate info
+    if (election.races[0].candidates.count > 0) {
+        NSString *candidateHeaderString = @"Candidates\n";
+        NSMutableAttributedString *aCandidateHeaderString = [[NSMutableAttributedString alloc] initWithString:candidateHeaderString];
+        [aCandidateHeaderString addAttribute:NSFontAttributeName
+                                       value:[UIFont boldSystemFontOfSize:16.0]
+                                       range:NSMakeRange(0, candidateHeaderString.length)];
+        [aCandidateHeaderString addAttribute:NSForegroundColorAttributeName
+                                       value:[UIColor whiteColor]
+                                       range:NSMakeRange(0, candidateHeaderString.length)];
+        
+        [attributedString appendAttributedString:aCandidateHeaderString];
+        
+        NSString *candidateBodyString = @"";
+        for (Candidate *candidate in election.races[0].candidates) {
+            NSString *name = [NSString stringWithFormat:@"%@ %@ %@ (%@)\n", candidate.firstName, candidate.middleName, candidate.lastName, candidate.party];
+            candidateBodyString = [candidateBodyString stringByAppendingString:name];
+            if (candidate.isIncumbent) {
+                incumbentName = name;
+            }
+        }
+        NSMutableAttributedString *aCandidateBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", candidateBodyString]];
+        [aCandidateBodyString addAttribute:NSFontAttributeName
+                                     value:[UIFont systemFontOfSize:14.0]
+                                     range:NSMakeRange(0, candidateBodyString.length)];
+        [aCandidateBodyString addAttribute:NSForegroundColorAttributeName
+                                     value:[UIColor whiteColor]
+                                     range:NSMakeRange(0, candidateBodyString.length)];
+        
+        [attributedString appendAttributedString:aCandidateBodyString];
+    }
+    
+    // display incumbent info
+    if (incumbentName.length > 0) {
+        NSString *incumbentHeaderString = @"Incumbent\n";
+        NSMutableAttributedString *aIncumbentHeaderString = [[NSMutableAttributedString alloc] initWithString:incumbentHeaderString];
+        [aIncumbentHeaderString addAttribute:NSFontAttributeName
+                                       value:[UIFont boldSystemFontOfSize:16.0]
+                                       range:NSMakeRange(0, incumbentHeaderString.length)];
+        [aIncumbentHeaderString addAttribute:NSForegroundColorAttributeName
+                                       value:[UIColor whiteColor]
+                                       range:NSMakeRange(0, incumbentHeaderString.length)];
+        
+        [attributedString appendAttributedString:aIncumbentHeaderString];
+        
+        NSString *incumbentBodyString = [NSString stringWithFormat:@"%@\n\n", incumbentName];
+        NSMutableAttributedString *aIncumbentBodyString = [[NSMutableAttributedString alloc] initWithString:incumbentBodyString];
+        [aIncumbentBodyString addAttribute:NSFontAttributeName
+                                     value:[UIFont systemFontOfSize:14.0]
+                                     range:NSMakeRange(0, incumbentBodyString.length)];
+        [aIncumbentBodyString addAttribute:NSForegroundColorAttributeName
+                                     value:[UIColor whiteColor]
+                                     range:NSMakeRange(0, incumbentBodyString.length)];
+        
+        [attributedString appendAttributedString:aIncumbentBodyString];
+    }
+    
+    // display election date info
+    NSString *electionDateHeaderString = @"Election Date\n";
+    NSMutableAttributedString *aElectionDateHeaderString = [[NSMutableAttributedString alloc] initWithString:electionDateHeaderString];
+    [aElectionDateHeaderString addAttribute:NSFontAttributeName
+                                   value:[UIFont boldSystemFontOfSize:16.0]
+                                   range:NSMakeRange(0, electionDateHeaderString.length)];
+    [aElectionDateHeaderString addAttribute:NSForegroundColorAttributeName
+                                   value:[UIColor whiteColor]
+                                   range:NSMakeRange(0, electionDateHeaderString.length)];
+    
+    [attributedString appendAttributedString:aElectionDateHeaderString];
+    
+    NSString *electionDateBodyString = [NSDateFormatter localizedStringFromDate:election.electionDate
+                                                                      dateStyle:NSDateFormatterMediumStyle
+                                                                      timeStyle:NSDateFormatterNoStyle];
+    NSMutableAttributedString *aElectionDateBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", electionDateBodyString]];
+    [aElectionDateBodyString addAttribute:NSFontAttributeName
+                                 value:[UIFont systemFontOfSize:14.0]
+                                 range:NSMakeRange(0, electionDateBodyString.length)];
+    [aElectionDateBodyString addAttribute:NSForegroundColorAttributeName
+                                 value:[UIColor whiteColor]
+                                 range:NSMakeRange(0, electionDateBodyString.length)];
+    
+    [attributedString appendAttributedString:aElectionDateBodyString];
+    
+    // display election time info
+    if (election.electionDateTimesString.length > 0) {
+        NSString *etHeaderString = @"Approximate Election Times\n";
+        NSMutableAttributedString *aETHeaderString = [[NSMutableAttributedString alloc] initWithString:etHeaderString];
+        [aETHeaderString addAttribute:NSFontAttributeName
+                                       value:[UIFont boldSystemFontOfSize:16.0]
+                                       range:NSMakeRange(0, etHeaderString.length)];
+        [aETHeaderString addAttribute:NSForegroundColorAttributeName
+                                       value:[UIColor whiteColor]
+                                       range:NSMakeRange(0, etHeaderString.length)];
+        
+        [attributedString appendAttributedString:aETHeaderString];
+        
+        NSString *etBodyString = election.electionDateTimesString;
+        NSMutableAttributedString *aETBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", etBodyString]];
+        [aETBodyString addAttribute:NSFontAttributeName
+                                     value:[UIFont systemFontOfSize:14.0]
+                                     range:NSMakeRange(0, etBodyString.length)];
+        [aETBodyString addAttribute:NSForegroundColorAttributeName
+                                     value:[UIColor whiteColor]
+                                     range:NSMakeRange(0, etBodyString.length)];
+        
+        [attributedString appendAttributedString:aETBodyString];
+    }
+    
+    // display early voting date info
+    if (election.earlyVotinDatesString.length > 0) {
+        NSString *evdHeaderString = @"Early Voting Dates\n";
+        NSMutableAttributedString *aEVDHeaderString = [[NSMutableAttributedString alloc] initWithString:evdHeaderString];
+        [aEVDHeaderString addAttribute:NSFontAttributeName
+                                value:[UIFont boldSystemFontOfSize:16.0]
+                                range:NSMakeRange(0, evdHeaderString.length)];
+        [aEVDHeaderString addAttribute:NSForegroundColorAttributeName
+                                value:[UIColor whiteColor]
+                                range:NSMakeRange(0, evdHeaderString.length)];
+        
+        [attributedString appendAttributedString:aEVDHeaderString];
+        
+        NSString *evdBodyString = election.earlyVotinDatesString;
+        NSMutableAttributedString *aEVDBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", evdBodyString]];
+        [aEVDBodyString addAttribute:NSFontAttributeName
+                              value:[UIFont systemFontOfSize:14.0]
+                              range:NSMakeRange(0, evdBodyString.length)];
+        [aEVDBodyString addAttribute:NSForegroundColorAttributeName
+                              value:[UIColor whiteColor]
+                              range:NSMakeRange(0, evdBodyString.length)];
+        
+        [attributedString appendAttributedString:aEVDBodyString];
+    }
+
+    // display early voting time info
+    if (election.earlyVotingTimesString.length > 0) {
+        NSString *evtHeaderString = @"Approximate Early Voting Times\n";
+        NSMutableAttributedString *aEVTHeaderString = [[NSMutableAttributedString alloc] initWithString:evtHeaderString];
+        [aEVTHeaderString addAttribute:NSFontAttributeName
+                                 value:[UIFont boldSystemFontOfSize:16.0]
+                                 range:NSMakeRange(0, evtHeaderString.length)];
+        [aEVTHeaderString addAttribute:NSForegroundColorAttributeName
+                                 value:[UIColor whiteColor]
+                                 range:NSMakeRange(0, evtHeaderString.length)];
+        
+        [attributedString appendAttributedString:aEVTHeaderString];
+        
+        NSString *evtBodyString = election.earlyVotingTimesString;
+        NSMutableAttributedString *aEVTBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", evtBodyString]];
+        [aEVTBodyString addAttribute:NSFontAttributeName
+                               value:[UIFont systemFontOfSize:14.0]
+                               range:NSMakeRange(0, evtBodyString.length)];
+        [aEVTBodyString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor whiteColor]
+                               range:NSMakeRange(0, evtBodyString.length)];
+        
+        [attributedString appendAttributedString:aEVTBodyString];
+    }
+    
+    // display early voting link
+    if (election.earlyVotingURLString.length > 0) {
+        NSString *eviHeaderString = @"Early Voting Info\n";
+        NSMutableAttributedString *aEVIHeaderString = [[NSMutableAttributedString alloc] initWithString:eviHeaderString];
+        [aEVIHeaderString addAttribute:NSFontAttributeName
+                                 value:[UIFont boldSystemFontOfSize:16.0]
+                                 range:NSMakeRange(0, eviHeaderString.length)];
+        [aEVIHeaderString addAttribute:NSForegroundColorAttributeName
+                                 value:[UIColor whiteColor]
+                                 range:NSMakeRange(0, eviHeaderString.length)];
+        
+        [attributedString appendAttributedString:aEVIHeaderString];
+        
+        NSString *eviBodyString = election.earlyVotingURLString;
+        NSMutableAttributedString *aEVIBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", eviBodyString]];
+        [aEVIBodyString addAttribute:NSFontAttributeName
+                               value:[UIFont systemFontOfSize:14.0]
+                               range:NSMakeRange(0, eviBodyString.length)];
+        [aEVIBodyString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor whiteColor]
+                               range:NSMakeRange(0, eviBodyString.length)];
+        
+        [attributedString appendAttributedString:aEVIBodyString];
+    }
+    
+    // display voter registration link
+    if (election.voterRegURLString.length > 0) {
+        NSString *vruHeaderString = @"Voter Registration Link\n";
+        NSMutableAttributedString *aVRUHeaderString = [[NSMutableAttributedString alloc] initWithString:vruHeaderString];
+        [aVRUHeaderString addAttribute:NSFontAttributeName
+                                 value:[UIFont boldSystemFontOfSize:16.0]
+                                 range:NSMakeRange(0, vruHeaderString.length)];
+        [aVRUHeaderString addAttribute:NSForegroundColorAttributeName
+                                 value:[UIColor whiteColor]
+                                 range:NSMakeRange(0, vruHeaderString.length)];
+        
+        [attributedString appendAttributedString:aVRUHeaderString];
+        
+        NSString *vruBodyString = election.voterRegURLString;
+        NSMutableAttributedString *aVRUBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", vruBodyString]];
+        [aVRUBodyString addAttribute:NSFontAttributeName
+                               value:[UIFont systemFontOfSize:14.0]
+                               range:NSMakeRange(0, vruBodyString.length)];
+        [aVRUBodyString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor whiteColor]
+                               range:NSMakeRange(0, vruBodyString.length)];
+        
+        [attributedString appendAttributedString:aVRUBodyString];
+    }
+    
+    // display polling place link
+    if (election.pollingPlaceURLString.length > 0) {
+        NSString *ppuHeaderString = @"Voter Registration Link\n";
+        NSMutableAttributedString *aPPUHeaderString = [[NSMutableAttributedString alloc] initWithString:ppuHeaderString];
+        [aPPUHeaderString addAttribute:NSFontAttributeName
+                                 value:[UIFont boldSystemFontOfSize:16.0]
+                                 range:NSMakeRange(0, ppuHeaderString.length)];
+        [aPPUHeaderString addAttribute:NSForegroundColorAttributeName
+                                 value:[UIColor whiteColor]
+                                 range:NSMakeRange(0, ppuHeaderString.length)];
+        
+        [attributedString appendAttributedString:aPPUHeaderString];
+        
+        NSString *ppuBodyString = election.pollingPlaceURLString;
+        NSMutableAttributedString *aPPUBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", ppuBodyString]];
+        [aPPUBodyString addAttribute:NSFontAttributeName
+                               value:[UIFont systemFontOfSize:14.0]
+                               range:NSMakeRange(0, ppuBodyString.length)];
+        [aPPUBodyString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor whiteColor]
+                               range:NSMakeRange(0, ppuBodyString.length)];
+        
+        [attributedString appendAttributedString:aPPUBodyString];
+    }
+    
+    // display absentee voting deadline info
+    if (election.absenteeVotingDeadlines.length > 0) {
+        NSString *avdHeaderString = @"Absentee Voting Deadlines\n";
+        NSMutableAttributedString *aAVDHeaderString = [[NSMutableAttributedString alloc] initWithString:avdHeaderString];
+        [aAVDHeaderString addAttribute:NSFontAttributeName
+                                 value:[UIFont boldSystemFontOfSize:16.0]
+                                 range:NSMakeRange(0, avdHeaderString.length)];
+        [aAVDHeaderString addAttribute:NSForegroundColorAttributeName
+                                 value:[UIColor whiteColor]
+                                 range:NSMakeRange(0, avdHeaderString.length)];
+        
+        [attributedString appendAttributedString:aAVDHeaderString];
+        
+        NSString *avdBodyString = election.absenteeVotingDeadlines;
+        NSMutableAttributedString *aAVDBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", avdBodyString]];
+        [aAVDBodyString addAttribute:NSFontAttributeName
+                               value:[UIFont systemFontOfSize:14.0]
+                               range:NSMakeRange(0, avdBodyString.length)];
+        [aAVDBodyString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor whiteColor]
+                               range:NSMakeRange(0, avdBodyString.length)];
+        
+        [attributedString appendAttributedString:aAVDBodyString];
+    }
+    
+    // display absentee voter link
+    if (election.absenteeVotingURLString.length > 0) {
+        NSString *avuHeaderString = @"Absentee Voting Deadlines\n";
+        NSMutableAttributedString *aAVUHeaderString = [[NSMutableAttributedString alloc] initWithString:avuHeaderString];
+        [aAVUHeaderString addAttribute:NSFontAttributeName
+                                 value:[UIFont boldSystemFontOfSize:16.0]
+                                 range:NSMakeRange(0, avuHeaderString.length)];
+        [aAVUHeaderString addAttribute:NSForegroundColorAttributeName
+                                 value:[UIColor whiteColor]
+                                 range:NSMakeRange(0, avuHeaderString.length)];
+        
+        [attributedString appendAttributedString:aAVUHeaderString];
+        
+        NSString *avuBodyString = election.absenteeVotingURLString;
+        NSMutableAttributedString *aAVUBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", avuBodyString]];
+        [aAVUBodyString addAttribute:NSFontAttributeName
+                               value:[UIFont systemFontOfSize:14.0]
+                               range:NSMakeRange(0, avuBodyString.length)];
+        [aAVUBodyString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor whiteColor]
+                               range:NSMakeRange(0, avuBodyString.length)];
+        
+        [attributedString appendAttributedString:aAVUBodyString];
+    }
+    
+
+    
+    
+    self.candidatesTextView.attributedText = attributedString;
+}
+
 - (void)displaySelectedElectionCard {
     self.selectedContacts = [[NSMutableArray alloc] init];
     
@@ -115,10 +480,9 @@ BOOL isPinnedHeaderViewVisible;
     }
     
     [self.view layoutSubviews];
-    // TODO: update candidate textview
     
+    [self displayElectionDetails];
     [self displayContactList];
-    
     [self updateButtonStatus];
 }
 

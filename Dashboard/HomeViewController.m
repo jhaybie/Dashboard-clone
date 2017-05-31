@@ -328,8 +328,8 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
                  NSLog(@"Login error: %@", [error localizedDescription]);
                  return;
              }
-             NSLog(@"Gathered the following info from your logged in user: %@ email: %@ birthday: %@, profilePhotoURL: %@",
-                   result, result[@"email"], result[@"birthday"], result[@"picture"][@"data"][@"url"]);
+             //NSLog(@"Gathered the following info from your logged in user: %@ email: %@ birthday: %@, profilePhotoURL: %@",
+             //      result, result[@"email"], result[@"birthday"], result[@"picture"][@"data"][@"url"]);
              
              UserCardView *cardView = [[UserCardView alloc] initWithImageURL:result[@"picture"][@"data"][@"url"]
                                                                         name:result[@"name"]

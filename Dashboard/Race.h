@@ -9,6 +9,8 @@
 #import "MTLModel.h"
 #import "MTLJSONAdapter.h"
 
+@class Candidate;
+
 @interface Race : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic) int raceID;
@@ -25,7 +27,6 @@
 @property (nonatomic) BOOL recall;
 @property (nonatomic, strong) NSString *raceName;
 @property (nonatomic) int numberOfSeats;
-
-//@property (nonatomic, strong) NSArray *candidates;
+@property (nonatomic, strong) NSArray<Candidate *> *candidates;
 
 @end

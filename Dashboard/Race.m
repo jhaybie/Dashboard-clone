@@ -7,6 +7,7 @@
 //
 
 #import "Race.h"
+#import "Candidate.h"
 #import "MTLValueTransformer.h"
 
 @implementation Race
@@ -28,15 +29,14 @@
              @"recall"                        : @"Info.Recall",
              @"raceName"                      : @"Info.Race",
              @"numberOfSeats"                 : @"Info.NumSeats",
-             
-             //@"candidates"                    : @"Candidatates"
+             @"candidates"                    : @"Candidates"
              };
 }
 
 #pragma mark - JSON Transformers
 
-//+ (NSValueTransformer *)candidatesJSONTransformer {
-//    return [MTLJSONAdapter arrayTransformerWithModelClass:[NSNull class]];
-//}
++ (NSValueTransformer *)candidatesJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[Candidate class]];
+}
 
 @end

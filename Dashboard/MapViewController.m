@@ -65,34 +65,11 @@ BOOL userAddressExists;
     userAddressExists = ([[[NSUserDefaults standardUserDefaults] objectForKey:USER_ADDRESS_EXISTS] isEqualToString:@"True"]);
     
     self.shouldShowNagView = true;
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(addressUpdated)
-//                                                 name:ADDRESS_UPDATED
-//                                               object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(displayYourElections:)
-//                                                 name:YOUR_ELECTIONS_RECEIVED
-//                                               object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(displayContactElections:)
-//                                                 name:CONTACTS_ELECTIONS_RECEIVED
-//                                               object:nil];
-    
-    //[self getElections];
-    
+
     [self initializeMapView];
     [self loadYourElectionsInMapView];
     [self loadContactElectionsInMapView];
 }
-
-//- (void)viewDidAppear:(BOOL)animated {
-//    [super viewDidAppear:animated];
-//    
-//    [self initializeMapView];
-//    [self loadYourElectionsInMapView];
-//    [self loadContactElectionsInMapView];
-//}
 
 #pragma mark - Private Methods
 
@@ -153,7 +130,7 @@ BOOL userAddressExists;
 - (void)loadContactElectionsInMapView {
     for (OtherElection *oe in self.otherElections) {
         for (Race *race in oe.election.races) {
-            NSString *addressString = [NSString stringWithFormat:@"%@, %@", race.city, race.state];
+            NSString *addressString = [NSString stringWithFormat:@"%@ %@", race.city, race.state];
             [self getCoordinatesFromAddressString:addressString
                                           forRace:race
                                           forDate:oe.election.electionDate
@@ -165,7 +142,7 @@ BOOL userAddressExists;
 - (void)loadYourElectionsInMapView {
     for (Election *election in self.elections) {
         for (Race *race in election.races) {
-            NSString *addressString = [NSString stringWithFormat:@"%@, %@", race.city, race.state];
+            NSString *addressString = [NSString stringWithFormat:@"%@ %@", race.city, race.state];
             [self getCoordinatesFromAddressString:addressString
                                           forRace:race
                                           forDate:election.electionDate
@@ -185,6 +162,7 @@ BOOL userAddressExists;
     marker.title = race.raceName;
     marker.race = race;
     marker.date = date;
+    marker.forContacts = (contacts.count > 0);
     marker.contacts = contacts;
     marker.map = self.mapView;
     

@@ -178,4 +178,13 @@ BOOL firstDonateTry = true; // FOR TESTING ONLY -- REMOVE WHEN DONATE FEATURE IS
     [self deselectOtherDonateButtons:sender];
 }
 
+// TODO: delete method below when Donate feature is fully working
+- (IBAction)tempDonateNowButtonTapped:(id)sender {
+    NSURL *donateURL = [NSURL URLWithString:@"https://newfounders-riseparty.nationbuilder.com/donate"];
+    
+    [[UIApplication sharedApplication] openURL:donateURL
+                                       options:@{}
+                             completionHandler:nil];
+}
+
 @end

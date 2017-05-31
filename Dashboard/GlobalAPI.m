@@ -104,6 +104,13 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    
+//    NSMutableIndexSet* codes = [[NSMutableIndexSet alloc] init];
+//    [codes addIndex:200];
+//    [codes addIndex:500];
+//    [codes addIndex:400];
+//    manager.responseSerializer.acceptableStatusCodes = codes;
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSDictionary *paramDict = [[NSMutableDictionary alloc] init];
@@ -130,25 +137,33 @@
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
               NSDictionary *dataDumpDict = [responseObject objectForKey:@"Elections"];
-              NSArray *tempElections = [[NSArray alloc] initWithArray:[dataDumpDict objectForKey:@"Elections"]];
               
-              if ([tempElections isKindOfClass:[NSNull class]]) {
-                  tempElections = [[NSArray alloc] init];
+              if ([[dataDumpDict objectForKey:@"Elections"] isKindOfClass:[NSNull class]]) {
+                  success([[NSArray alloc] init]);
+              } else {
+                  NSArray *tempElections = [[NSArray alloc] initWithArray:[dataDumpDict objectForKey:@"Elections"]];
+                  
+                  if ([tempElections isKindOfClass:[NSNull class]]) {
+                      tempElections = [[NSArray alloc] init];
+                  }
+                  
+                  NSMutableArray *elections = [[NSMutableArray alloc] init];
+                  for (NSDictionary *electionDict in tempElections) {
+                      NSError *error = nil;
+                      Election *election = [MTLJSONAdapter modelOfClass:[Election class]
+                                                     fromJSONDictionary:electionDict
+                                                                  error:&error];
+                      [elections addObject:election];
+                  }
+                  success(elections);
               }
-              
-              // TODO: specify class contained within elections
-              NSMutableArray *elections = [[NSMutableArray alloc] init];
-              for (NSDictionary *electionDict in tempElections) {
-                  NSError *error = nil;
-                  Election *election = [MTLJSONAdapter modelOfClass:[Election class]
-                                                 fromJSONDictionary:electionDict
-                                                              error:&error];
-                  [elections addObject:election];
-              }
-              success(elections);
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-              failure(response.statusCode);
+              if (response.statusCode == 404) {
+                  success([[NSArray alloc] init]);
+              } else {
+                  failure(response.statusCode);
+              }
           }];
 }
 
@@ -156,7 +171,7 @@
                        success:(void (^)(NSArray<Election *> *elections))success
                        failure:(void (^)(NSInteger statusCode))failure {
     
-    NSString *addressString = [NSString stringWithFormat:@"%@, %@ %@", contact.street, contact.city, contact.state];
+    NSString *addressString = [NSString stringWithFormat:@"%@ %@ %@ %@", contact.street, contact.city, contact.state, contact.zip];
     addressString = [addressString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
     
     
