@@ -38,6 +38,8 @@
 @property (strong, nonatomic) NSArray<Contact *> *contacts;
 @property (strong, nonatomic) NSMutableArray<Contact *> *selectedContacts;
 
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *bulkViewHeightConstraint;
+
 @end
 
 @implementation ElectionDetailViewController
@@ -479,6 +481,8 @@ BOOL isPinnedHeaderViewVisible;
         [self.view addSubview:self.pinnedHeaderView];
     }
     
+    self.bulkViewHeightConstraint.constant = (self.forContacts) ? 50 : 0;
+    
     [self.view layoutSubviews];
     
     [self displayElectionDetails];
@@ -686,30 +690,18 @@ BOOL isPinnedHeaderViewVisible;
 
 #pragma mark - MFMessageComposeViewController Delegate Method
 
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result {
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
     
-    switch (result) {
-        case MessageComposeResultCancelled:
-            break;
-        case MessageComposeResultFailed: {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
-                                                                           message:@"Something went wrong"
-                                                                    preferredStyle:UIAlertControllerStyleActionSheet];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                      style:UIAlertActionStyleDefault
-                                                    handler:nil]];
-            [self presentViewController:alert
-                               animated:true
-                             completion:nil];
-            break;
-        }
-        case MessageComposeResultSent:
-            break;
-        default:
-            break;
+    if (result == MessageComposeResultCancelled){
+        NSLog(@"Message cancelled");
     }
-    
-    [self dismissViewControllerAnimated:true completion:nil];
+    else if (result == MessageComposeResultSent){
+        NSLog(@"Message sent");
+    }
+    else{
+        NSLog(@"Message failed");
+    }
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - UIScrollView Delegate Methods
@@ -727,8 +719,11 @@ BOOL isPinnedHeaderViewVisible;
 
 #pragma mark - DetailCardView Delegate Method
 
-- (void)detailCardViewStatusButtonTappedMessage:(NSString *)message {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"IMPORTANT"
+- (void)detailCardViewStatusButtonTappedMessage:(NSDictionary *)messageDict {
+    NSString *title = [messageDict objectForKey:@"Title"];
+    NSString *message = [messageDict objectForKey:@"Message"];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
                                                                    message:message
                                                             preferredStyle:UIAlertControllerStyleAlert];
     

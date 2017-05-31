@@ -19,6 +19,7 @@
 
 @property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *loginViewTopSpacingHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *tcButtonVerticalConstraint;
 
 @property (strong, nonatomic) IBOutlet iCarousel *carouselView;
 
@@ -52,12 +53,16 @@ NSTimer *carouselTimer;
     
     // Adjust spacing for devices
     int offset = 0;
+    int space = 8;
     if (IS_IPHONE_4_7_INCH) {
         offset = 40;
+        space = 64;
     } else if (IS_IPHONE_5_5_INCH) {
         offset = 60;
+        space = 100;
     }
     self.loginViewTopSpacingHeightConstraint.constant = offset;
+    self.tcButtonVerticalConstraint.constant = space;
     
     [self configureCarousel];
     [self.segmentedControl addTarget:self
@@ -248,6 +253,14 @@ NSTimer *carouselTimer;
 //    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 //    [prefs setObject:@"YES" forKey:IS_SESSION_ACTIVE];
 //    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (IBAction)tAndCButtonTapped:(id)sender {
+    NSURL *donateURL = [NSURL URLWithString:@"http://www.riseparty.org/terms_and_conditions"];
+    
+    [[UIApplication sharedApplication] openURL:donateURL
+                                       options:@{}
+                             completionHandler:nil];
 }
 
 #pragma mark - Facebook SDK Delegate Methods

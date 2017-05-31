@@ -10,7 +10,7 @@
 
 @protocol DetailCardViewDelegate <NSObject>
 
-- (void)detailCardViewStatusButtonTappedMessage:(NSString *)message;
+- (void)detailCardViewStatusButtonTappedMessage:(NSDictionary *)messageDict;
 
 @end
 

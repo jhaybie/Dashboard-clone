@@ -118,6 +118,22 @@
          forCellReuseIdentifier:@"ContactCell"];
 }
 
+#pragma mark - MFMessageComposeViewController Delegate Method
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+
+    if (result == MessageComposeResultCancelled){
+        NSLog(@"Message cancelled");
+    }
+    else if (result == MessageComposeResultSent){
+        NSLog(@"Message sent");
+    }
+    else{
+        NSLog(@"Message failed");
+    }
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 #pragma mark - CellContact Delegte Methods
 
 - (void)checkBoxButtonTapped:(id)sender {
@@ -147,10 +163,11 @@
         NSString *nameString = [[NSUserDefaults standardUserDefaults] objectForKey:USER_FULL_NAME];
         NSString *message = [NSString stringWithFormat:@"%@ has invited you to join EveryElection and keep track of upcoming elections! newfounders.us", nameString];
         
-        
         messageController.messageComposeDelegate = self;
         [messageController setRecipients:recipients];
         [messageController setBody:message];
+        
+        messageController.modalPresentationStyle = UIModalPresentationPageSheet;
         
         [self presentViewController:messageController
                            animated:true

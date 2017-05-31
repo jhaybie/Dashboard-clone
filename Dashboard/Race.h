@@ -29,4 +29,6 @@
 @property (nonatomic) int numberOfSeats;
 @property (nonatomic, strong) NSArray<Candidate *> *candidates;
 
+@property (nonatomic) BOOL isConfirmed;
+
 @end

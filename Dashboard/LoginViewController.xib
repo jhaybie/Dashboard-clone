@@ -21,6 +21,7 @@
                 <outlet property="rememberMeButton" destination="CP1-QW-PMl" id="4O1-OR-diE"/>
                 <outlet property="scrollView" destination="tO6-4q-9hl" id="1cm-7b-wl0"/>
                 <outlet property="segmentedControl" destination="Y6l-0h-C2k" id="ftT-Eg-uQK"/>
+                <outlet property="tcButtonVerticalConstraint" destination="o2N-h1-Mff" id="ShP-fP-6U1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -36,8 +37,8 @@
                         <constraint firstAttribute="height" constant="20" id="7JK-ed-3Qm"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="tO6-4q-9hl" customClass="TPKeyboardAvoidingScrollView">
-                    <rect key="frame" x="1" y="20" width="374" height="647"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="tO6-4q-9hl" customClass="TPKeyboardAvoidingScrollView">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-container" translatesAutoresizingMaskIntoConstraints="NO" id="0nR-1K-TUj">
                             <rect key="frame" x="0.0" y="0.0" width="376" height="200"/>
@@ -114,24 +115,24 @@
                                 </view>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e8q-Sr-81X" customClass="DBDarkTextField">
                                     <rect key="frame" x="0.0" y="135" width="256" height="40"/>
-                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="AyR-kN-2a6"/>
                                     </constraints>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="textColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="icon-email"/>
                                         <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
-                                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="V5N-bo-gNq" customClass="DBDarkTextField">
                                     <rect key="frame" x="0.0" y="185" width="256" height="40"/>
-                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                     <userDefinedRuntimeAttributes>
@@ -143,7 +144,7 @@
                                             <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
-                                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
@@ -164,14 +165,14 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="remember me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uju-h0-Jfw">
                                     <rect key="frame" x="26" y="250" width="95" height="18"/>
                                     <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="15"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="textColor" red="0.35686274509803922" green="0.35686274509803922" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wsO-nM-8qI">
                                     <rect key="frame" x="137" y="239" width="119" height="40"/>
-                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.20392156862745098" green="0.26666666666666666" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
                                     <state key="normal" title="Login">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleColor" red="0.23921568627450979" green="0.34901960784313724" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -182,10 +183,21 @@
                                         <action selector="loginButtonTapped:" destination="-1" eventType="touchUpInside" id="oAM-cs-T7g"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vhA-O2-90b">
+                                    <rect key="frame" x="71" y="287" width="115" height="26"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                    <state key="normal" title="Terms and Conditions">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="tAndCButtonTapped:" destination="-1" eventType="touchUpInside" id="elS-cb-YFY"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="e8q-Sr-81X" firstAttribute="width" secondItem="V5N-bo-gNq" secondAttribute="width" id="1PL-fS-RWi"/>
+                                <constraint firstItem="vhA-O2-90b" firstAttribute="centerX" secondItem="WAG-1s-uOS" secondAttribute="centerX" id="2sb-fm-WTT"/>
                                 <constraint firstItem="V5N-bo-gNq" firstAttribute="height" secondItem="e8q-Sr-81X" secondAttribute="height" id="8UN-9b-fEc"/>
                                 <constraint firstItem="uju-h0-Jfw" firstAttribute="leading" secondItem="CP1-QW-PMl" secondAttribute="trailing" constant="5" id="9IF-0l-g1E"/>
                                 <constraint firstAttribute="height" constant="397" id="ANe-cx-zHU"/>
@@ -210,6 +222,7 @@
                                 <constraint firstItem="V5N-bo-gNq" firstAttribute="top" secondItem="e8q-Sr-81X" secondAttribute="bottom" constant="10" id="l1j-pV-RtU"/>
                                 <constraint firstItem="V5N-bo-gNq" firstAttribute="centerX" secondItem="WAG-1s-uOS" secondAttribute="centerX" id="lz3-7I-ITf"/>
                                 <constraint firstItem="BC5-3X-haq" firstAttribute="centerY" secondItem="woE-0Y-dVe" secondAttribute="centerY" id="mvi-6u-OcM"/>
+                                <constraint firstItem="vhA-O2-90b" firstAttribute="top" secondItem="wsO-nM-8qI" secondAttribute="bottom" constant="8" id="o2N-h1-Mff"/>
                                 <constraint firstItem="uju-h0-Jfw" firstAttribute="centerY" secondItem="CP1-QW-PMl" secondAttribute="centerY" id="qDJ-HW-7FV"/>
                                 <constraint firstAttribute="trailing" secondItem="cgs-eL-V12" secondAttribute="trailing" id="zkb-wr-dWE"/>
                             </constraints>

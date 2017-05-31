@@ -381,6 +381,7 @@
                     <connections>
                         <outlet property="bulkEmailButton" destination="F1S-rq-k6u" id="zvG-w2-sJk"/>
                         <outlet property="bulkTextButton" destination="7Q8-qI-gip" id="MhF-bV-ydJ"/>
+                        <outlet property="bulkViewHeightConstraint" destination="ICq-qw-LIx" id="OXi-39-XsQ"/>
                         <outlet property="candidatesTextView" destination="O4v-LW-LbP" id="aLP-Qc-Dmj"/>
                         <outlet property="contactListView" destination="uXM-Tm-uWu" id="aoH-pq-zIu"/>
                         <outlet property="contactListViewHeightConstraint" destination="SLg-7R-k2d" id="Ufe-Qs-Psa"/>

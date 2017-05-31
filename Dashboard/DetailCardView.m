@@ -8,6 +8,7 @@
 
 #import "DetailCardView.h"
 #import "Race.h"
+#import "UIColor+DBColors.h"
 
 @implementation DetailCardView
 
@@ -30,6 +31,14 @@
         
         self.cityImageView.image = images[i];
         
+        if (race.isConfirmed) {
+            [self.statusButton setTitle:@"Confirmed" forState:UIControlStateNormal];
+            [self.statusButton setBackgroundColor:[UIColor globalSuccessColor]];
+        } else {
+            [self.statusButton setTitle:@"Projected" forState:UIControlStateNormal];
+            [self.statusButton setBackgroundColor:[UIColor globalFailureColor]];
+        }
+
         if ([electionDate timeIntervalSinceNow] < 0.0) {
             self.electionInLabel.text = @"ELECTION WAS";
             self.timeLeftLabel.text = [NSDateFormatter localizedStringFromDate:electionDate
@@ -92,10 +101,19 @@
 #pragma mark - IBActions
 
 - (IBAction)statusButtonTapped:(id)sender {
+    NSString *title = @"";
+    NSString *message = @"";
     if (![self.statusButton.titleLabel.text isEqualToString:@"Confirmed"]) {
-        NSString *message = @"The data for this eleciton is subject to change and may not apply to your locale. Please check back as we get closer to the final date.";
-        [self.delegate detailCardViewStatusButtonTappedMessage:message];
+        title = @"Projected Election";
+        message = @"The data for this election is subject to change and may not apply to your locale. Please check back as we get closer to the final date. Please see our terms and conditions for more details.";
+    } else {
+        title = @"Confirmed Election";
+        message = @"We are reasonably confident that the information provided is accurate and complete. Please see our terms and conditions for more details.";
     }
+    
+    [self.delegate detailCardViewStatusButtonTappedMessage:@{ @"Title"   : title,
+                                                              @"Message" : message
+                                                              }];
 }
 
 @end

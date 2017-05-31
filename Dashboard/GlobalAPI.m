@@ -155,7 +155,8 @@
                                                                   error:&error];
                       [elections addObject:election];
                   }
-                  success(elections);
+                  NSMutableArray *results = [GlobalAPI sortElections:elections];
+                  success(results);
               }
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -206,7 +207,8 @@
                                                                   error:&error];
                       [elections addObject:election];
                   }
-                  success(elections);
+                  NSMutableArray *results = [GlobalAPI sortElections:elections];
+                  success(results);
               }
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -244,7 +246,15 @@
                                                              error:&error];
                  [elections addObject:election];
              }
-             success(elections);
+             
+             for (Election *election in elections) {
+                 for (Race *race in election.races) {
+                     race.isConfirmed = election.isComplete;
+                 }
+             }
+             
+             NSMutableArray *results = [GlobalAPI sortElections:elections];
+             success(results);
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
              failure(response.statusCode);
@@ -277,6 +287,13 @@
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alert
                                                                                      animated:true
                                                                                    completion:nil];
+}
+
++ (NSMutableArray<Election *> *)sortElections:(NSMutableArray<Election *> *)elections {
+    NSArray *sortedCollection = [elections sortedArrayUsingComparator:^NSComparisonResult(Election *option1, Election *option2) {
+        return [option2.electionDate compare:option1.electionDate];
+    }];
+    return [[NSMutableArray alloc] initWithArray:sortedCollection];
 }
 
 @end

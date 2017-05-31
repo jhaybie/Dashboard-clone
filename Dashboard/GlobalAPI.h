@@ -31,4 +31,6 @@
 
 + (void)saveContacts:(NSArray<Contact *> *)contacts;
 
++ (NSMutableArray<Election *> *)sortElections:(NSMutableArray<Election *> *)elections;
+
 @end

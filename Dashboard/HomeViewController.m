@@ -506,8 +506,11 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 
 #pragma mark - ElectionCardViewDelegate
 
-- (void)electionCardViewStatusButtonTappedMessage:(NSString *)message {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"IMPORTANT"
+- (void)electionCardViewStatusButtonTappedMessage:(NSDictionary *)messageDict {
+    NSString *title = [messageDict objectForKey:@"Title"];
+    NSString *message = [messageDict objectForKey:@"Message"];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
                                                                    message:message
                                                             preferredStyle:UIAlertControllerStyleAlert];
     

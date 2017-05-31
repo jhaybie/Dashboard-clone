@@ -10,7 +10,7 @@
 
 @protocol ElectionCardViewDelegate <NSObject>
 
-- (void)electionCardViewStatusButtonTappedMessage:(NSString *)message;
+- (void)electionCardViewStatusButtonTappedMessage:(NSDictionary *)messageDict;
 
 @end
 
