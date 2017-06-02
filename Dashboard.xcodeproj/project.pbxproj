@@ -179,7 +179,7 @@
 		6F8D2FF11E7C5F06006969A9 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
 		6F8D2FF21E7C5F06006969A9 /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
 		6F8D2FF31E7C5F06006969A9 /* ContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactCell.xib; sourceTree = "<group>"; };
-		6FA3BC2A1E62426100962D55 /* Dashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FA3BC2A1E62426100962D55 /* EveryElection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EveryElection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FA3BC2E1E62426100962D55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6FA3BC301E62426100962D55 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6FA3BC311E62426100962D55 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -407,7 +407,7 @@
 		6FA3BC2B1E62426100962D55 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6FA3BC2A1E62426100962D55 /* Dashboard.app */,
+				6FA3BC2A1E62426100962D55 /* EveryElection.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -841,7 +841,7 @@
 			);
 			name = Dashboard;
 			productName = Dashboard;
-			productReference = 6FA3BC2A1E62426100962D55 /* Dashboard.app */;
+			productReference = 6FA3BC2A1E62426100962D55 /* EveryElection.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1074,6 +1074,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = EveryElection;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1115,6 +1116,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = EveryElection;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1133,8 +1135,8 @@
 				INFOPLIST_FILE = Dashboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.risemovement.Dashboard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.risemovement.EveryElection;
+				PRODUCT_NAME = EveryElection;
 				PROVISIONING_PROFILE = "c29ac8ff-0f93-4404-b093-752a18173cab";
 				PROVISIONING_PROFILE_SPECIFIER = "Dashboard Development Profile";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1154,8 +1156,8 @@
 				INFOPLIST_FILE = Dashboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.risemovement.Dashboard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.risemovement.EveryElection;
+				PRODUCT_NAME = EveryElection;
 				PROVISIONING_PROFILE = "c29ac8ff-0f93-4404-b093-752a18173cab";
 				PROVISIONING_PROFILE_SPECIFIER = "Dashboard Development Profile";
 				TARGETED_DEVICE_FAMILY = 1;

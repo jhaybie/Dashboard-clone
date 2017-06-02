@@ -416,6 +416,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     [defaults setObject:@"" forKey:USER_CITY];
     [defaults setObject:@"" forKey:USER_STATE];
     [defaults setObject:@"" forKey:USER_ZIP_CODE];
+    [defaults setObject:@"NO" forKey:IS_SESSION_ACTIVE];
     [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
     if ([FBSDKAccessToken currentAccessToken]) {
         [FBSDKAccessToken setCurrentAccessToken:nil];

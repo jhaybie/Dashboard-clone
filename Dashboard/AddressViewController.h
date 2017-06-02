@@ -6,6 +6,8 @@
 //  Copyright © 2017 RiseMovement. All rights reserved.
 //
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <UIKit/UIKit.h>
 
 @class UserCardView;

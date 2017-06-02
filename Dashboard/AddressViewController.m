@@ -43,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.cardView != nil) {
+    if ([FBSDKAccessToken currentAccessToken]) {
         CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 80);
         self.cardView.frame = frame;
         [self.userCardView addSubview:self.cardView];
