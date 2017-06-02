@@ -14,11 +14,14 @@
 
 #define API_KEY           @"Lu__gDyuS2SEw7MJmxyUWw"
 #define GOOGLE_API_KEY    @"AIzaSyBfzd3igMBpI0FUiUsow0jmhoTWpt2LQLA"
+#define CLIENT_ID         @"123456"
+#define CLIENT_SECRET     @"secret123456"
 
 
 #pragma mark - URLs
 
 #define BASE_URL          @"https://riseapp-dot-rise-team-tool-qa.appspot.com"
+#define AUTH_URL          @"https://auth-dot-rise-team-tool-qa.appspot.com"
 
 
 #pragma mark - DEVICE IDENTIFICATION
@@ -47,7 +50,10 @@
 #define USER_ADDRESS_EXISTS @"UserAddressExists"
 #define CONTACTS_IMPORTED   @"ContactsImported"
 #define ALL_CONTACTS        @"AllContacts"
-
+#define USERNAME            @"Username"
+#define PASSWORD            @"Password"
+#define AUTH_TOKEN          @"AuthToken"
+#define REFRESH_TOKEN       @"RefreshToken"
 
 
 #pragma mark - FONTS

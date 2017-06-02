@@ -108,26 +108,31 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="R1E-mu-ykS"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6BU-sz-0B8" customClass="FBSDKLoginButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfd-Dm-MGJ">
                                 <rect key="frame" x="0.0" y="489" width="320" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="0Zb-Ie-UKn"/>
-                                </constraints>
-                            </view>
+                                <color key="backgroundColor" red="0.1215686275" green="0.50196078430000002" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="emailLogoutButtonTapped:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Md9-CH-BDK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Rfd-Dm-MGJ" firstAttribute="top" secondItem="HNT-iP-Ny6" secondAttribute="bottom" id="1VE-X6-sPM"/>
                             <constraint firstItem="DA7-Ol-Cgh" firstAttribute="leading" secondItem="HNT-iP-Ny6" secondAttribute="leading" id="1h4-Ro-0TU"/>
-                            <constraint firstItem="6BU-sz-0B8" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="3Ds-PN-jPk"/>
+                            <constraint firstItem="Rfd-Dm-MGJ" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="1qL-HU-H4z"/>
                             <constraint firstItem="vbx-u2-A9q" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="3OW-7R-WV3"/>
                             <constraint firstItem="LVN-Jm-RLW" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="9Zh-I4-HJb"/>
                             <constraint firstAttribute="trailing" secondItem="X2J-Tk-iPu" secondAttribute="trailing" id="D4r-l6-DIg"/>
                             <constraint firstItem="DA7-Ol-Cgh" firstAttribute="top" secondItem="HNT-iP-Ny6" secondAttribute="top" id="EdJ-nD-hRV"/>
                             <constraint firstItem="vbx-u2-A9q" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="Fpg-8W-U4E"/>
                             <constraint firstItem="HNT-iP-Ny6" firstAttribute="top" secondItem="X2J-Tk-iPu" secondAttribute="bottom" id="SuH-4R-9Yc"/>
-                            <constraint firstItem="6BU-sz-0B8" firstAttribute="top" secondItem="HNT-iP-Ny6" secondAttribute="bottom" id="YYq-kv-LFE"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="Rfd-Dm-MGJ" secondAttribute="bottom" id="UHB-hW-GgW"/>
                             <constraint firstAttribute="trailing" secondItem="RtC-er-po3" secondAttribute="trailing" id="aoC-gt-PEP"/>
+                            <constraint firstAttribute="trailing" secondItem="Rfd-Dm-MGJ" secondAttribute="trailing" id="dti-Je-hmC"/>
                             <constraint firstAttribute="trailing" secondItem="HNT-iP-Ny6" secondAttribute="trailing" id="eeK-XK-tQO"/>
                             <constraint firstItem="LVN-Jm-RLW" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="erU-Ck-Bxm"/>
                             <constraint firstItem="DA7-Ol-Cgh" firstAttribute="trailing" secondItem="HNT-iP-Ny6" secondAttribute="trailing" id="gWn-XW-vDA"/>
@@ -135,12 +140,9 @@
                             <constraint firstItem="RtC-er-po3" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="kSt-2d-BMj"/>
                             <constraint firstAttribute="trailing" secondItem="vbx-u2-A9q" secondAttribute="trailing" id="lFg-xD-rh5"/>
                             <constraint firstItem="X2J-Tk-iPu" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="mRZ-gw-mcA"/>
-                            <constraint firstItem="6BU-sz-0B8" firstAttribute="top" secondItem="HNT-iP-Ny6" secondAttribute="bottom" id="oF3-vK-0ry"/>
                             <constraint firstItem="RtC-er-po3" firstAttribute="top" secondItem="LVN-Jm-RLW" secondAttribute="bottom" id="on0-qf-JiS"/>
                             <constraint firstItem="HNT-iP-Ny6" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="rHt-B8-6yb"/>
-                            <constraint firstAttribute="trailing" secondItem="6BU-sz-0B8" secondAttribute="trailing" id="sVX-Te-L5n"/>
                             <constraint firstItem="DA7-Ol-Cgh" firstAttribute="bottom" secondItem="HNT-iP-Ny6" secondAttribute="bottom" id="vEv-Sl-VBe"/>
-                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="6BU-sz-0B8" secondAttribute="bottom" id="wFN-QV-qxP"/>
                             <constraint firstItem="X2J-Tk-iPu" firstAttribute="top" secondItem="RtC-er-po3" secondAttribute="bottom" id="yjT-Vx-iNd"/>
                         </constraints>
                     </view>
@@ -148,6 +150,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="cardView" destination="LVN-Jm-RLW" id="zYl-F2-PZX"/>
+                        <outlet property="cardViewHeightConstraint" destination="J5v-qg-NVF" id="M4E-VC-TzY"/>
                         <outlet property="emptyTextView" destination="jze-6K-1hk" id="C6w-lw-Ztc"/>
                         <outlet property="emptyTitleLabel" destination="0hv-pm-Wx7" id="SF3-lY-hxD"/>
                         <outlet property="emptyView" destination="DA7-Ol-Cgh" id="22S-YG-VFK"/>

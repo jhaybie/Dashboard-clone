@@ -23,6 +23,7 @@
 @interface HomeViewController ()
 
 @property (strong, nonatomic) IBOutlet UIView *cardView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *cardViewHeightConstraint;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
@@ -65,8 +66,9 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    if (![FBSDKAccessToken currentAccessToken]) {
+        
+    if (![FBSDKAccessToken currentAccessToken]
+        && ![[[NSUserDefaults standardUserDefaults] objectForKey:IS_SESSION_ACTIVE] isEqualToString:@"YES"]) {
         LoginViewController *lvc = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         lvc.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:lvc
@@ -342,6 +344,8 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
              cardView.frame = frame;
              [self.cardView addSubview:cardView];
          }];
+    } else {
+        self.cardViewHeightConstraint.constant = 0;
     }
 }
 
@@ -402,6 +406,32 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
             break;
     }
 }
+
+#pragma mark - IBActions 
+
+- (IBAction)emailLogoutButtonTapped:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"False" forKey:USER_ADDRESS_EXISTS];
+    [defaults setObject:@"" forKey:USER_STREET];
+    [defaults setObject:@"" forKey:USER_CITY];
+    [defaults setObject:@"" forKey:USER_STATE];
+    [defaults setObject:@"" forKey:USER_ZIP_CODE];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
+    if ([FBSDKAccessToken currentAccessToken]) {
+        [FBSDKAccessToken setCurrentAccessToken:nil];
+        [FBSDKProfile setCurrentProfile:nil];
+    }
+    LoginViewController *lvc = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    lvc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:lvc
+                       animated:true
+                     completion:^{
+                         NSLog(@"Done!");
+                         
+                         // TODO: load saved credentials here
+                     }];
+}
+
 
 #pragma mark - Facebook SDK Delegate Methods
 

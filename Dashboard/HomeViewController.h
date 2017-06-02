@@ -14,6 +14,5 @@
 
 @interface HomeViewController : DBViewController <ElectionCardViewDelegate, FBSDKLoginButtonDelegate, UITableViewDataSource, UITableViewDelegate>
 
-
 @end
 

@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *textField3VerticalHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *textField4VerticalHeightConstraint;
 
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *cardViewHeightConstraint;
 
 @property (strong, nonatomic) IBOutlet UIView *userCardView;
 @property (strong, nonatomic) IBOutlet UITextField *streetTextField;
@@ -41,10 +42,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
-    CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 80);
-    self.cardView.frame = frame;
-    [self.userCardView addSubview:self.cardView];
+    
+    if (self.cardView != nil) {
+        CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 80);
+        self.cardView.frame = frame;
+        [self.userCardView addSubview:self.cardView];
+        self.addressViewTopVerticalHeightConstraint.constant = 4;
+    } else {
+        self.addressViewTopVerticalHeightConstraint.constant = 40;
+        self.cardViewHeightConstraint.constant = 0;
+    }
     
     // Adjust spacing for devices
     int offset = 0;

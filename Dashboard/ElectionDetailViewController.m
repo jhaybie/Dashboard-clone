@@ -379,7 +379,7 @@ BOOL isPinnedHeaderViewVisible;
     
     // display polling place link
     if (election.pollingPlaceURLString.length > 0) {
-        NSString *ppuHeaderString = @"Voter Registration Link\n";
+        NSString *ppuHeaderString = @"Polling Place Link\n";
         NSMutableAttributedString *aPPUHeaderString = [[NSMutableAttributedString alloc] initWithString:ppuHeaderString];
         [aPPUHeaderString addAttribute:NSFontAttributeName
                                  value:[UIFont boldSystemFontOfSize:16.0]
@@ -451,9 +451,6 @@ BOOL isPinnedHeaderViewVisible;
         
         [attributedString appendAttributedString:aAVUBodyString];
     }
-    
-
-    
     
     self.candidatesTextView.attributedText = attributedString;
 }

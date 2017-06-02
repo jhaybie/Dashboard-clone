@@ -21,6 +21,11 @@
     return [NSString stringWithFormat:@"Bearer %@", API_KEY];
 }
 
++ (NSString *)authToken {
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:AUTH_TOKEN];
+    return [NSString stringWithFormat:@"Bearer %@", token];
+}
+
 + (void)getAddressBookValidContactsForced:(BOOL)forced
                                   success:(void (^)(NSArray<Contact *> *contacts))success
                                   failure:(void (^)(NSString *message))failure {
@@ -100,7 +105,7 @@
     
     NSString *urlString = [NSString stringWithFormat:@"%@/election", BASE_URL];
     
-    NSString *token = [self apiKey];
+    NSString *token = [self authToken];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
@@ -178,7 +183,7 @@
     
     NSString *urlString = [NSString stringWithFormat:@"%@/election?search_type=address&address=%@", BASE_URL, addressString];
     
-    NSString *token = [self apiKey];
+    NSString *token = [self authToken];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
@@ -221,7 +226,7 @@
     
     NSString *urlString = [NSString stringWithFormat:@"%@/random", BASE_URL];
     
-    NSString *token = [self apiKey];
+    NSString *token = [self authToken];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
@@ -259,6 +264,112 @@
              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
              failure(response.statusCode);
          }];
+}
+
++ (void)loginWithEmail:(NSString *)email
+              password:(NSString *)password
+               success:(void (^)(void))success
+               failure:(void (^)(NSString *message))failure {
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/login?grant_type=password&username=%@&password=%@&client_id=%@&client_secret=%@", AUTH_URL, email, password, CLIENT_ID, CLIENT_SECRET];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [manager POST:urlString
+       parameters:nil
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              NSLog(@"Successful!");
+              NSDictionary *sessionDict = responseObject;
+              
+              if ([[sessionDict objectForKey:@"error"] isEqualToString:@"access_denied"]) {
+                  failure(@"Invalid username or password");
+              } else {
+                  NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                  NSString *authToken = [sessionDict objectForKey:@"access_token"];
+                  NSString *refreshToken = [sessionDict objectForKey:@"refresh_token"];
+                  
+                  [prefs setObject:@"YES" forKey:IS_SESSION_ACTIVE];
+                  [prefs setObject:authToken forKey:AUTH_TOKEN];
+                  [prefs setObject:refreshToken forKey:REFRESH_TOKEN];
+                  success();
+              }
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+              failure(@"Error connecting to server");
+          }];
+}
+
++ (void)registerWithEmail:(NSString *)email
+                 password:(NSString *)password
+                  success:(void (^)(void))success
+                  failure:(void (^)(NSString *message))failure {
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/register?username=%@&password=%@&client_id=%@&client_secret=%@/", AUTH_URL, email, password, CLIENT_ID, CLIENT_SECRET];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager POST:urlString
+       parameters:nil
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              [GlobalAPI loginWithEmail:email
+                               password:password
+                                success:^{
+                                    success();
+                                } failure:^(NSString *message) {
+                                    failure(@"There was an error registering your account");
+                                }];
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+              if (response.statusCode == 400) {
+                  failure(@"This email is already registered");
+              } else {
+                  failure(@"There was an error registering your account");
+              }
+          }];
+}
+
++ (void)registerWithFacebookEmail:(NSString *)email
+                           userID:(NSString *)userID
+                  success:(void (^)(void))success
+                  failure:(void (^)(NSString *message))failure {
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/register?username=%@&password=%@&client_id=%@&client_secret=%@/", AUTH_URL, email, userID, CLIENT_ID, CLIENT_SECRET];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager POST:urlString
+       parameters:nil
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              [GlobalAPI loginWithEmail:email
+                               password:userID
+                                success:^{
+                                    success();
+                                } failure:^(NSString *message) {
+                                    failure(@"There was an error registering your account");
+                                }];
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+              if (response.statusCode == 400) {
+                  [GlobalAPI loginWithEmail:email
+                                   password:userID
+                                    success:^{
+                                        success();
+                                    } failure:^(NSString *message) {
+                                        failure(@"There was an error registering your account");
+                                    }];
+              } else {
+                  failure(@"There was an error registering your account");
+              }
+          }];
 }
 
 + (void)saveContacts:(NSArray<Contact *> *)contacts {

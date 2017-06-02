@@ -15,7 +15,7 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     // model_property_name : json_field_name
     return @{
-             @"raceID"                        : @"Info.ExternalId",
+             @"raceID"                        : @"Info.RaceId",
              @"electionID"                    : @"Info.ElectionId",
              @"state"                         : @"Info.State",
              @"infoSource"                    : @"Info.InfoSource",

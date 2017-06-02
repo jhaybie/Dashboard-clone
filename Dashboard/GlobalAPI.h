@@ -27,7 +27,22 @@
 + (void)getRandomElectionsSuccess:(void (^)(NSArray<Election *> *elections))success
                           failure:(void (^)(NSInteger statusCode))failure;
 
++ (void)loginWithEmail:(NSString *)email
+              password:(NSString *)password
+               success:(void (^)(void))success
+               failure:(void (^)(NSString *message))failure;
+
 + (void)presentAddressBookErrorDialog;
+
++ (void)registerWithEmail:(NSString *)email
+                 password:(NSString *)password
+                  success:(void (^)(void))success
+                  failure:(void (^)(NSString *message))failure;
+
++ (void)registerWithFacebookEmail:(NSString *)email
+                           userID:(NSString *)userID
+                          success:(void (^)(void))success
+                          failure:(void (^)(NSString *message))failure;
 
 + (void)saveContacts:(NSArray<Contact *> *)contacts;
 
