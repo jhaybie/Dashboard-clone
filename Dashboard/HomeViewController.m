@@ -279,7 +279,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
             [self.electionCells addObject:cell];
         }
     }
-    if (self.electionCards.count == 0) {
+    if (self.electionCards.count == 0 && self.otherElectionCards.count == 0) {
         self.tableView.hidden = true;
         self.emptyView.hidden = false;
         [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:false];
