@@ -160,6 +160,13 @@
                                                                   error:&error];
                       [elections addObject:election];
                   }
+                  
+                  for (Election *election in elections) {
+                      for (Race *race in election.races) {
+                          race.isConfirmed = election.isComplete;
+                      }
+                  }
+                  
                   NSMutableArray *results = [GlobalAPI sortElections:elections];
                   success(results);
               }
@@ -212,6 +219,13 @@
                                                                   error:&error];
                       [elections addObject:election];
                   }
+                  
+                  for (Election *election in elections) {
+                      for (Race *race in election.races) {
+                          race.isConfirmed = election.isComplete;
+                      }
+                  }
+                  
                   NSMutableArray *results = [GlobalAPI sortElections:elections];
                   success(results);
               }
