@@ -1137,7 +1137,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.risemovement.EveryElection;
 				PRODUCT_NAME = EveryElection;
-				PROVISIONING_PROFILE = "c29ac8ff-0f93-4404-b093-752a18173cab";
+				PROVISIONING_PROFILE = "a59d8ddc-954e-4bd2-8489-35a21bf463b0";
 				PROVISIONING_PROFILE_SPECIFIER = "Dashboard Development Profile";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
