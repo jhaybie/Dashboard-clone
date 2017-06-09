@@ -124,7 +124,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     
     [self getElections];
     
-    //[self getContactList];
+    [self getContactList];
 }
 
 #pragma mark - Private Methods
@@ -161,7 +161,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
                     forControlEvents:UIControlEventValueChanged];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(getElections)
+                                             selector:@selector(refresh)
                                                  name:ADDRESS_UPDATED object:nil];
 }
 
@@ -176,6 +176,8 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)getContactList {
+    [self.segmentedControl setEnabled:false forSegmentAtIndex:1];
+    [self.segmentedControl setTitle:@"LOADING..." forSegmentAtIndex:1];
     self.contacts = [[NSArray alloc] init];
     [GlobalAPI getAddressBookValidContactsForced:false
                                          success:^(NSArray<Contact *> *contacts) {
@@ -197,9 +199,6 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)getElections {
-    [self.segmentedControl setEnabled:false forSegmentAtIndex:1];
-    [self.segmentedControl setTitle:@"LOADING..." forSegmentAtIndex:1];
-
     [self.refreshControl endRefreshing];
     [SVProgressHUD show];
     
@@ -211,7 +210,6 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
             });
             self.elections = [[NSArray alloc] initWithArray:elections];
             [self processElections];
-            [self getContactList];
         } failure:^(NSInteger statusCode) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
@@ -268,6 +266,12 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     });
 }
 
+- (void)enableContactSegment {
+    [self.segmentedControl setEnabled:true forSegmentAtIndex:1];
+    [self.segmentedControl setTitle:@"NEAR YOUR CONTACTS" forSegmentAtIndex:1];
+    [self.segmentedControl setNeedsDisplay];
+}
+
 - (void)processElections {
     self.electionCards = [[NSMutableArray alloc] init];
     self.electionCells = [[NSMutableArray alloc] init];
@@ -303,9 +307,6 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)processOtherElections {
-    [self.segmentedControl setEnabled:true forSegmentAtIndex:1];
-    [self.segmentedControl setTitle:@"NEAR YOUR CONTACTS" forSegmentAtIndex:1];
-
     if (self.otherElections.count > 0) {
         for (int i = 0; i < self.otherElections.count; i++) {
             OtherElection *oe = self.otherElections[i];
@@ -327,6 +328,10 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
                                                           userInfo:@{
                                                                      @"OtherElections" : self.otherElections
                                                                      }];
+        [self performSelectorOnMainThread:@selector(enableContactSegment)
+                               withObject:nil
+                            waitUntilDone:false];
+
     }
 }
 
@@ -401,6 +406,11 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 - (void)registerTableViewCells {
     [self.tableView registerNib:[UINib nibWithNibName:@"ElectionCardCell" bundle:nil]
          forCellReuseIdentifier:@"ElectionCardCell"];
+}
+
+- (void)refresh {
+    [self getElections];
+    [self getContactList];
 }
 
 - (void)segmentedControlValueChanged {
