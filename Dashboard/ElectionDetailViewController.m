@@ -70,7 +70,7 @@ BOOL isPinnedHeaderViewVisible;
 #pragma mark - Private Methods
 
 - (void)displayContactList {
-    self.contacts = (self.forContacts) ? self.otherElections[self.electionIndex].contacts : [[NSArray alloc] init];
+    self.contacts = (self.forContacts) ? self.otherElections[self.electionIndex.section].contacts : [[NSArray alloc] init];
     
     if (self.contacts.count == 0) {
         [self.contactsHeaderLabel removeFromSuperview];
@@ -89,13 +89,26 @@ BOOL isPinnedHeaderViewVisible;
 }
 
 - (void)displayElectionDetails {
-    Election *election = (self.forContacts) ? self.otherElections[self.electionIndex].election : self.elections[self.electionIndex];
+    Election *election = (self.forContacts) ? self.otherElections[self.electionIndex.section].election : self.elections[self.electionIndex.section];
+    Race *race = election.races[self.electionIndex.row];
     self.candidatesTextView.text = @"";
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
     
+    // display Election Name
+    NSString *electionNameString = [NSString stringWithFormat:@"%@\n\n", election.electionName];
+    NSMutableAttributedString *aElectionNameString = [[NSMutableAttributedString alloc] initWithString:electionNameString];
+    [aElectionNameString addAttribute:NSFontAttributeName
+                               value:[UIFont boldSystemFontOfSize:16.0]
+                               range:NSMakeRange(0, electionNameString.length)];
+    [aElectionNameString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor whiteColor]
+                               range:NSMakeRange(0, electionNameString.length)];
+    
+    [attributedString appendAttributedString:aElectionNameString];
+    
     // display state info
-    if (election.races[0].state.length > 0) {
+    if (race.state.length > 0) {
         NSString *stateHeaderString = @"State\n";
         NSMutableAttributedString *aStateHeaderString = [[NSMutableAttributedString alloc] initWithString:stateHeaderString];
         [aStateHeaderString addAttribute:NSFontAttributeName
@@ -120,7 +133,7 @@ BOOL isPinnedHeaderViewVisible;
     }
     
     // display city info
-    if (election.races[0].city.length > 0) {
+    if (race.city.length > 0) {
         NSString *cityHeaderString = @"City\n";
         NSMutableAttributedString *aCityHeaderString = [[NSMutableAttributedString alloc] initWithString:cityHeaderString];
         [aCityHeaderString addAttribute:NSFontAttributeName
@@ -145,7 +158,7 @@ BOOL isPinnedHeaderViewVisible;
     }
     
     // display special district info
-    if (election.races[0].specialDistrict.length > 0) {
+    if (race.specialDistrict.length > 0) {
         NSString *sdHeaderString = @"Special District\n";
         NSMutableAttributedString *aSDHeaderString = [[NSMutableAttributedString alloc] initWithString:sdHeaderString];
         [aSDHeaderString addAttribute:NSFontAttributeName
@@ -171,7 +184,7 @@ BOOL isPinnedHeaderViewVisible;
     
     NSString *incumbentName = @"";
     // display candidate info
-    if (election.races[0].candidates.count > 0) {
+    if (race.candidates.count > 0) {
         NSString *candidateHeaderString = @"Candidates\n";
         NSMutableAttributedString *aCandidateHeaderString = [[NSMutableAttributedString alloc] initWithString:candidateHeaderString];
         [aCandidateHeaderString addAttribute:NSFontAttributeName
@@ -185,12 +198,20 @@ BOOL isPinnedHeaderViewVisible;
         
         NSString *candidateBodyString = @"";
         for (Candidate *candidate in election.races[0].candidates) {
-            NSString *name = [NSString stringWithFormat:@"%@ %@ %@ (%@)\n", candidate.firstName, candidate.middleName, candidate.lastName, candidate.party];
+            NSString *name = [NSString stringWithFormat:@"%@ %@ %@", candidate.firstName, candidate.middleName, candidate.lastName];
+            if (name.length > 2) {
+                name = [name stringByAppendingString:[NSString stringWithFormat:@" (%@)\n", candidate.party]];
+            }
             candidateBodyString = [candidateBodyString stringByAppendingString:name];
             if (candidate.isIncumbent) {
                 incumbentName = name;
             }
         }
+        
+        if ([candidateBodyString stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
+            candidateBodyString = @"This election is pending and candidates have not yet been announced. This information will be updated when it is available.\n";
+        }
+        
         NSMutableAttributedString *aCandidateBodyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", candidateBodyString]];
         [aCandidateBodyString addAttribute:NSFontAttributeName
                                      value:[UIFont systemFontOfSize:14.0]
@@ -461,17 +482,18 @@ BOOL isPinnedHeaderViewVisible;
     for (UIView *view in self.electionCardView.subviews) {
         [view removeFromSuperview];
     }
-    Election *election = (self.forContacts) ? self.otherElections[self.electionIndex].election : self.elections[self.electionIndex];
+    Election *election = (self.forContacts) ? self.otherElections[self.electionIndex.section].election : self.elections[self.electionIndex.section];
+    Race *race = election.races[self.electionIndex.row];
     
-    DetailCardView *dcv = [[DetailCardView alloc] initWithRace:election.races[0] forDate:election.electionDate];
+    DetailCardView *dcv = [[DetailCardView alloc] initWithRace:race forDate:election.electionDate];
     dcv.delegate = self;
     [self.electionCardView addSubview:dcv];
     
     if (isPinnedHeaderViewVisible) {
         [self.pinnedHeaderView removeFromSuperview];
     }
-    CGRect pinnedFrame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, dcv.positionView.frame.size.height + 10);//74);
-    self.pinnedHeaderView = [[PinnedHeaderView alloc] initWithPosition:[NSString stringWithFormat:@"%@ (%@)", election.races[0].raceName, election.races[0].state]];//ecv.cityStateLabel.text];
+    CGRect pinnedFrame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, dcv.positionView.frame.size.height + 10);
+    self.pinnedHeaderView = [[PinnedHeaderView alloc] initWithPosition:[NSString stringWithFormat:@"%@ (%@)", election.races[0].raceName, election.races[0].state]];
     self.pinnedHeaderView.frame = pinnedFrame;
 
     if (isPinnedHeaderViewVisible) {
@@ -516,10 +538,16 @@ BOOL isPinnedHeaderViewVisible;
 }
 
 - (void)updateButtonStatus {
-    self.previousButton.enabled = self.electionIndex > 0;
+    BOOL isAtBeginning = (self.electionIndex.section == 0 && self.electionIndex.row == 0);
+    self.previousButton.enabled = !isAtBeginning;
     
-    int count = (self.forContacts) ? (int)self.otherElections.count - 1 : (int)self.elections.count - 1;
-    self.nextButton.enabled = self.electionIndex < count;
+    BOOL isAtEnd = false;
+    if (self.forContacts) {
+        isAtEnd = (self.electionIndex.section == self.otherElections.count - 1) && (self.electionIndex.row == [self.otherElections lastObject].election.races.count - 1);
+    } else {
+        isAtEnd = (self.electionIndex.section == self.elections.count - 1) && (self.electionIndex.row == [self.elections lastObject].races.count - 1);
+    }
+    self.nextButton.enabled = !isAtEnd;
 }
 
 - (void)updateScrollViewContentSize {
@@ -580,15 +608,33 @@ BOOL isPinnedHeaderViewVisible;
                      completion:nil];}
 
 - (IBAction)previousButtonTapped:(id)sender {
-    self.electionIndex == (self.electionIndex == 0) ? 0 : (self.electionIndex--);
+    if (self.electionIndex.row > 0) {
+        self.electionIndex = [NSIndexPath indexPathForRow:self.electionIndex.row - 1 inSection:self.electionIndex.section];
+    } else if (self.electionIndex.section > 0) {
+        self.electionIndex = [NSIndexPath indexPathForRow:self.electionIndex.row inSection:self.electionIndex.section - 1];
+    } else {
+        self.electionIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+    }
     [self displaySelectedElectionCard];
 }
 
 - (IBAction)nextButtonTapped:(id)sender {
-    int count = (self.forContacts) ? (int)self.otherElections.count - 1 : (int)self.elections.count - 1;
-    
-    if (self.electionIndex <= count) {
-        self.electionIndex++;
+    if (self.forContacts) {
+        if (self.electionIndex.row < self.otherElections[self.electionIndex.section].election.races.count - 1) {
+            self.electionIndex = [NSIndexPath indexPathForRow:self.electionIndex.row + 1 inSection:self.electionIndex.section];
+        } else if (self.electionIndex.section < self.otherElections.count - 1) {
+            self.electionIndex = [NSIndexPath indexPathForRow:0 inSection:self.electionIndex.section + 1];
+        } else {
+            self.electionIndex = [NSIndexPath indexPathForRow:[self.otherElections lastObject].election.races.count - 1 inSection:self.otherElections.count - 1];
+        }
+    } else {
+        if (self.electionIndex.row < self.elections[self.electionIndex.section].races.count - 1) {
+            self.electionIndex = [NSIndexPath indexPathForRow:self.electionIndex.row + 1 inSection:self.electionIndex.section];
+        } else if (self.electionIndex.section < self.elections.count - 1) {
+            self.electionIndex = [NSIndexPath indexPathForRow:0 inSection:self.electionIndex.section + 1];
+        } else {
+            self.electionIndex = [NSIndexPath indexPathForRow:[self.elections lastObject].races.count - 1 inSection:self.elections.count - 1];
+        }
     }
     [self displaySelectedElectionCard];
 }

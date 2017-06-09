@@ -92,28 +92,30 @@ BOOL userAddressExists;
     //[self loadYourElectionsInMapView];
 }
 
-- (int)electionIndexForRace:(Race *)race forContacts:(BOOL)forContacts {
-    int electionIndex = -1;
+- (NSIndexPath *)electionIndexForRace:(Race *)race forContacts:(BOOL)forContacts {
+    NSIndexPath *indexPath = [[NSIndexPath alloc] init];
     if (!forContacts) {
-        for (int i = 0; i < self.elections.count; i++) {
-            Election *election = self.elections[i];
-            for (Race *raceToCompare in election.races) {
+        for (int section = 0; section < self.elections.count; section++) {
+            Election *election = self.elections[section];
+            for (int row = 0; row < election.races.count; row++) {
+                Race *raceToCompare = election.races[row];
                 if (race.raceID == raceToCompare.raceID) {
-                    return i;
+                    indexPath = [NSIndexPath indexPathForRow:row inSection:section];
                 }
             }
         }
     } else {
-        for (int i = 0; i < self.otherElections.count; i++) {
-            OtherElection *oe = self.otherElections[i];
-            for (Race *raceToCompare in oe.election.races) {
+        for (int section = 0; section < self.otherElections.count; section++) {
+            OtherElection *oe = self.otherElections[section];
+            for (int row = 0; row < oe.election.races.count; row++) {
+                Race *raceToCompare = oe.election.races[row];
                 if (race.raceID == raceToCompare.raceID) {
-                    return i;
+                    indexPath = [NSIndexPath indexPathForRow:row inSection:section];
                 }
             }
         }
     }
-    return electionIndex;
+    return indexPath;
 }
 
 -(void)initializeMapView {
@@ -219,7 +221,7 @@ BOOL userAddressExists;
     ElectionCardView *cardView = [[ElectionCardView alloc] initWithRace:marker.race
                                                                 forDate:marker.date
                                                              forContact:false
-                                                           contactCount:marker.contacts.count
+                                                           contactCount:(int)marker.contacts.count
                                                          preferredWidth:[[UIScreen mainScreen] bounds].size.width - 80];
     return cardView;
 }

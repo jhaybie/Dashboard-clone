@@ -16,6 +16,7 @@
 #import "GlobalAPI.h"
 #import "LoginViewController.h"
 #import "Race.h"
+#import "SectionHeaderView.h"
 #import "SVProgressHUD.h"
 #import "UIColor+DBColors.h"
 #import "UserCardView.h"
@@ -483,10 +484,10 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ElectionDetailViewControllerSegue"]) {
         NSDictionary *payload = (NSDictionary *)sender;
-        int row = (int)[(NSIndexPath *)[payload objectForKey:@"IndexPath"] row];
+        NSIndexPath *indexPath = (NSIndexPath *)[payload objectForKey:@"IndexPath"];
         BOOL forContact = [[payload objectForKey:@"ForContact"] boolValue];
         ElectionDetailViewController *edvc = segue.destinationViewController;
-        edvc.electionIndex = row;
+        edvc.electionIndex = indexPath;
         
         if (forContact) {
             edvc.forContacts = true;
@@ -501,6 +502,10 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 }
 
 #pragma mark - UITableView DataSource & Delegate Methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.elections.count;
+}
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 217;
@@ -521,18 +526,44 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (yourElectionsSelected) {
-        return self.electionCells[indexPath.row];
+        Election *election = self.elections[indexPath.section];
+        Race *race = election.races[indexPath.row];
+        ElectionCardView *ecv = [[ElectionCardView alloc] initWithRace:race forDate:election.electionDate forContact:false contactCount:0 preferredWidth:[[UIScreen mainScreen] bounds].size.width - 16];
+        ecv.delegate = self;
+        ecv.positionView.backgroundColor = [self colorForIndex:indexPath.row];
+        
+        ElectionCardCell *cell = [[ElectionCardCell alloc] initWithElectionCardView:ecv];
+        return cell;
     } else {
-        return self.otherElectionCells[indexPath.row];
+        OtherElection *oe = self.otherElections[indexPath.section];
+        Race *race = oe.election.races[indexPath.row];
+        ElectionCardView *ecv = [[ElectionCardView alloc] initWithRace:race
+                                                               forDate:oe.election.electionDate
+                                                            forContact:true
+                                                          contactCount:(int)oe.contacts.count
+                                                        preferredWidth:[[UIScreen mainScreen] bounds].size.width - 16];
+        ecv.positionView.backgroundColor = [self colorForIndex:indexPath.row];
+        
+        ElectionCardCell *cell = [[ElectionCardCell alloc] initWithElectionCardView:ecv];
+        return cell;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 60;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (yourElectionsSelected) {
-        return self.electionCells.count;
+        return self.elections[section].races.count;
     } else {
-        return self.otherElectionCells.count;
+        return self.otherElections[section].election.races.count;
     }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:self.elections[section].electionName];
+    return shv;
 }
 
 #pragma mark - ElectionCardViewDelegate

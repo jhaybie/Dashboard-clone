@@ -39,6 +39,8 @@
 		6F8D2FF01E7C5D23006969A9 /* TableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F8D2FEF1E7C5D23006969A9 /* TableViewHeaderView.xib */; };
 		6F8D2FF41E7C5F06006969A9 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D2FF21E7C5F06006969A9 /* ContactCell.m */; };
 		6F8D2FF51E7C5F06006969A9 /* ContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F8D2FF31E7C5F06006969A9 /* ContactCell.xib */; };
+		6F8EACBF1EEACE7000702BEF /* SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F8EACBE1EEACE7000702BEF /* SectionHeaderView.xib */; };
+		6F8EACC21EEACE8400702BEF /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8EACC11EEACE8400702BEF /* SectionHeaderView.m */; };
 		6FA3BC2F1E62426100962D55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC2E1E62426100962D55 /* main.m */; };
 		6FA3BC321E62426100962D55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC311E62426100962D55 /* AppDelegate.m */; };
 		6FA3BC351E62426100962D55 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC341E62426100962D55 /* HomeViewController.m */; };
@@ -179,6 +181,9 @@
 		6F8D2FF11E7C5F06006969A9 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
 		6F8D2FF21E7C5F06006969A9 /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
 		6F8D2FF31E7C5F06006969A9 /* ContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactCell.xib; sourceTree = "<group>"; };
+		6F8EACBE1EEACE7000702BEF /* SectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderView.xib; sourceTree = "<group>"; };
+		6F8EACC01EEACE8400702BEF /* SectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderView.h; sourceTree = "<group>"; };
+		6F8EACC11EEACE8400702BEF /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
 		6FA3BC2A1E62426100962D55 /* EveryElection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EveryElection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FA3BC2E1E62426100962D55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6FA3BC301E62426100962D55 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -722,6 +727,9 @@
 				6FCB591A1E6762C5005A3D66 /* ElectionCardCell.xib */,
 				6FCB59181E6762C5005A3D66 /* ElectionCardCell.h */,
 				6FCB59191E6762C5005A3D66 /* ElectionCardCell.m */,
+				6F8EACBE1EEACE7000702BEF /* SectionHeaderView.xib */,
+				6F8EACC01EEACE8400702BEF /* SectionHeaderView.h */,
+				6F8EACC11EEACE8400702BEF /* SectionHeaderView.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -901,6 +909,7 @@
 				6FCB590D1E671609005A3D66 /* RegisterView.xib in Resources */,
 				6F3FE9291E772E4000134EF5 /* GoogleMaps.bundle in Resources */,
 				6FA3BC3B1E62426100962D55 /* Main.storyboard in Resources */,
+				6F8EACBF1EEACE7000702BEF /* SectionHeaderView.xib in Resources */,
 				6FCB59061E6608E5005A3D66 /* UserCardView.xib in Resources */,
 				6FCB59B81E69C795005A3D66 /* ContactLineView.xib in Resources */,
 				6F17A0301ECB88EC00A7249A /* DetailCardView.xib in Resources */,
@@ -941,6 +950,7 @@
 				6FA3BC8F1E62637B00962D55 /* NSData+ImageContentType.m in Sources */,
 				6FA3BC911E62637B00962D55 /* SDImageCache.m in Sources */,
 				6FCB58E11E64E1FC005A3D66 /* UIColor+DBColors.m in Sources */,
+				6F8EACC21EEACE8400702BEF /* SectionHeaderView.m in Sources */,
 				6FA3BC961E62637B00962D55 /* SDWebImageDownloaderOperation.m in Sources */,
 				6FCB591F1E686DAA005A3D66 /* GlobalAPI.m in Sources */,
 				6FCB58FD1E65E98D005A3D66 /* DBDarkTextField.m in Sources */,

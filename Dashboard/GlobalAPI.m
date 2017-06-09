@@ -70,10 +70,16 @@
                                                               error:&fetchError
                                                          usingBlock:^(CNContact *contact, BOOL *stop) {
                                                              if (contact.phoneNumbers.count > 0
-                                                                 || contact.emailAddresses.count > 0
-                                                                 || contact.postalAddresses.count > 0) {
+                                                                 //&& contact.emailAddresses.count > 0
+                                                                 && contact.postalAddresses.count > 0) {
                                                                  
-                                                                 [contacts addObject:contact];
+                                                                 for (int i = 0; i < contact.postalAddresses.count; i++) {
+                                                                     CNLabeledValue *address = contact.postalAddresses[i];
+                                                                     if (address.label == CNLabelHome) {
+                                                                         [contacts addObject:contact];
+                                                                         break;
+                                                                     }
+                                                                 }
                                                              }
                                                          }];
             if (!fetched) {
@@ -103,7 +109,17 @@
 + (void)getElections:(void (^)(NSArray<Election *> *elections))success
              failure:(void (^)(NSInteger statusCode))failure {
     
-    NSString *urlString = [NSString stringWithFormat:@"%@/election", BASE_URL];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *street = [prefs objectForKey:USER_STREET];
+    NSString *city = [prefs objectForKey:USER_CITY];
+    NSString *state = [prefs objectForKey:USER_STATE];
+    NSString *zip = [prefs objectForKey:USER_ZIP_CODE];
+    
+    NSString *addressString = [NSString stringWithFormat:@"%@ %@ %@ %@", street, city, state, zip];
+    addressString = [addressString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/election?search_type=address&address=%@", BASE_URL, addressString];
     
     NSString *token = [self authToken];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -116,68 +132,48 @@
 //    [codes addIndex:500];
 //    [codes addIndex:400];
 //    manager.responseSerializer.acceptableStatusCodes = codes;
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSDictionary *paramDict = [[NSMutableDictionary alloc] init];
-    
-    if ([[prefs objectForKey:USER_ADDRESS_EXISTS] isEqualToString:@"True"]) {
-        paramDict = @{
-                      @"search_type" : @"zip",
-                      @"zip5"        : [prefs objectForKey:USER_ZIP_CODE],
-                      @"zip4"        : @"",
-                      @"state"       : [prefs objectForKey:USER_STATE],
-                      };
-    } else {
-        paramDict = @{
-                          @"search_type" : @"zip",
-                          @"zip5"        : @"29851",
-                          @"zip4"        : @"3162",
-                          @"state"       : @"SC",
-                          };
-    }
 
-    
-    [manager POST:urlString
-       parameters:paramDict
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              NSDictionary *dataDumpDict = [responseObject objectForKey:@"Elections"];
-              
-              if ([[dataDumpDict objectForKey:@"Elections"] isKindOfClass:[NSNull class]]) {
-                  success([[NSArray alloc] init]);
-              } else {
-                  NSArray *tempElections = [[NSArray alloc] initWithArray:[dataDumpDict objectForKey:@"Elections"]];
-                  
-                  if ([tempElections isKindOfClass:[NSNull class]]) {
-                      tempElections = [[NSArray alloc] init];
-                  }
-                  
-                  NSMutableArray *elections = [[NSMutableArray alloc] init];
-                  for (NSDictionary *electionDict in tempElections) {
-                      NSError *error = nil;
-                      Election *election = [MTLJSONAdapter modelOfClass:[Election class]
-                                                     fromJSONDictionary:electionDict
-                                                                  error:&error];
-                      [elections addObject:election];
-                  }
-                  
-                  for (Election *election in elections) {
-                      for (Race *race in election.races) {
-                          race.isConfirmed = election.isComplete;
-                      }
-                  }
-                  
-                  NSMutableArray *results = [GlobalAPI sortElections:elections];
-                  success(results);
-              }
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-              if (response.statusCode == 404) {
-                  success([[NSArray alloc] init]);
-              } else {
-                  failure(response.statusCode);
-              }
-          }];
+    [manager GET:urlString
+      parameters:nil
+        progress:nil
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+             NSDictionary *dataDumpDict = [responseObject objectForKey:@"Elections"];
+             
+             if ([[dataDumpDict objectForKey:@"Elections"] isKindOfClass:[NSNull class]]) {
+                 success([[NSArray alloc] init]);
+             } else {
+                 NSArray *tempElections = [[NSArray alloc] initWithArray:[dataDumpDict objectForKey:@"Elections"]];
+                 
+                 if ([tempElections isKindOfClass:[NSNull class]]) {
+                     tempElections = [[NSArray alloc] init];
+                 }
+                 
+                 NSMutableArray *elections = [[NSMutableArray alloc] init];
+                 for (NSDictionary *electionDict in tempElections) {
+                     NSError *error = nil;
+                     Election *election = [MTLJSONAdapter modelOfClass:[Election class]
+                                                    fromJSONDictionary:electionDict
+                                                                 error:&error];
+                     [elections addObject:election];
+                 }
+                 
+                 for (Election *election in elections) {
+                     for (Race *race in election.races) {
+                         race.isConfirmed = election.isComplete;
+                     }
+                 }
+                 
+                 NSMutableArray *results = [GlobalAPI sortElections:elections];
+                 success(results);
+             }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        if (response.statusCode == 404) {
+            success([[NSArray alloc] init]);
+        } else {
+            failure(response.statusCode);
+        }
+    }];
 }
 
 + (void)getElectionsForContact:(Contact *)contact
@@ -210,7 +206,6 @@
                       tempElections = [[NSArray alloc] init];
                   }
                   
-                  // TODO: specify class contained within elections
                   NSMutableArray *elections = [[NSMutableArray alloc] init];
                   for (NSDictionary *electionDict in tempElections) {
                       NSError *error = nil;

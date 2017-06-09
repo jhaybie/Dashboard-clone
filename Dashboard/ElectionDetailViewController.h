@@ -17,7 +17,7 @@
 
 @interface ElectionDetailViewController : DBViewController <ContactListViewDelegate, DetailCardViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIScrollViewDelegate>
 
-@property (nonatomic) int electionIndex;
+@property (nonatomic, strong) NSIndexPath *electionIndex;
 @property (nonatomic) BOOL forContacts;
 @property (nonatomic, strong) NSArray<Election *> *elections;
 @property (nonatomic, strong) NSArray<OtherElection *> *otherElections;

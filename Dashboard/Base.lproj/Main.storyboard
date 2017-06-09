@@ -127,6 +127,7 @@
                             <constraint firstItem="vbx-u2-A9q" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="3OW-7R-WV3"/>
                             <constraint firstItem="LVN-Jm-RLW" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="9Zh-I4-HJb"/>
                             <constraint firstAttribute="trailing" secondItem="X2J-Tk-iPu" secondAttribute="trailing" id="D4r-l6-DIg"/>
+                            <constraint firstItem="X2J-Tk-iPu" firstAttribute="top" secondItem="LVN-Jm-RLW" secondAttribute="bottom" constant="1" id="Dsc-Y1-s2V"/>
                             <constraint firstItem="DA7-Ol-Cgh" firstAttribute="top" secondItem="HNT-iP-Ny6" secondAttribute="top" id="EdJ-nD-hRV"/>
                             <constraint firstItem="vbx-u2-A9q" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="Fpg-8W-U4E"/>
                             <constraint firstItem="HNT-iP-Ny6" firstAttribute="top" secondItem="X2J-Tk-iPu" secondAttribute="bottom" id="SuH-4R-9Yc"/>
@@ -143,7 +144,6 @@
                             <constraint firstItem="RtC-er-po3" firstAttribute="top" secondItem="LVN-Jm-RLW" secondAttribute="bottom" id="on0-qf-JiS"/>
                             <constraint firstItem="HNT-iP-Ny6" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="rHt-B8-6yb"/>
                             <constraint firstItem="DA7-Ol-Cgh" firstAttribute="bottom" secondItem="HNT-iP-Ny6" secondAttribute="bottom" id="vEv-Sl-VBe"/>
-                            <constraint firstItem="X2J-Tk-iPu" firstAttribute="top" secondItem="RtC-er-po3" secondAttribute="bottom" id="yjT-Vx-iNd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="h1E-b9-zXS"/>

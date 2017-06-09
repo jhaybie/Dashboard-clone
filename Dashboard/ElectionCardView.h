@@ -34,6 +34,10 @@
 @property (strong, nonatomic) IBOutlet UIView *positionView;
 @property (strong, nonatomic) IBOutlet UILabel *positionLabel;
 
-- (instancetype)initWithRace:(Race *)race forDate:(NSDate *)electionDate forContact:(BOOL)forContact contactCount:(int)contactCount preferredWidth:(CGFloat)width;
+- (instancetype)initWithRace:(Race *)race
+                     forDate:(NSDate *)electionDate
+                  forContact:(BOOL)forContact
+                contactCount:(int)contactCount
+              preferredWidth:(CGFloat)width;
 
 @end
