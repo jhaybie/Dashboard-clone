@@ -16,13 +16,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Contacts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zem-iC-X84">
-                    <rect key="frame" x="127" y="35" width="120" height="22"/>
+                    <rect key="frame" x="127" y="16" width="120" height="22"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite friends to join EveryElection!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pft-9t-MBi">
-                    <rect key="frame" x="32" y="65" width="311" height="18"/>
+                    <rect key="frame" x="32" y="46" width="311" height="18"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -41,14 +41,23 @@
                         <action selector="refreshButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="pIh-Ou-HVo"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only contacts associated with a home address will display below" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3V-5B-Kev">
+                    <rect key="frame" x="16" y="64" width="343" height="36"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="pft-9t-MBi" secondAttribute="trailing" constant="32" id="25l-Jf-768"/>
                 <constraint firstItem="pft-9t-MBi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="HWf-aD-63n"/>
                 <constraint firstItem="vGT-t8-gM2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="Iwg-YK-Btx"/>
+                <constraint firstItem="f3V-5B-Kev" firstAttribute="top" secondItem="pft-9t-MBi" secondAttribute="bottom" id="PQa-sc-kIq"/>
                 <constraint firstItem="zem-iC-X84" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Vcf-sJ-23n"/>
-                <constraint firstItem="zem-iC-X84" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="35" id="j2Q-5P-1fT"/>
+                <constraint firstItem="f3V-5B-Kev" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="h8E-P2-QqB"/>
+                <constraint firstItem="zem-iC-X84" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="j2Q-5P-1fT"/>
+                <constraint firstAttribute="trailing" secondItem="f3V-5B-Kev" secondAttribute="trailing" constant="16" id="pjP-4O-e8x"/>
                 <constraint firstItem="pft-9t-MBi" firstAttribute="top" secondItem="zem-iC-X84" secondAttribute="bottom" constant="8" id="qbl-6d-81y"/>
                 <constraint firstAttribute="trailing" secondItem="vGT-t8-gM2" secondAttribute="trailing" constant="8" id="tUd-bl-vyh"/>
                 <constraint firstItem="pft-9t-MBi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="32" id="wU9-ML-7pf"/>
