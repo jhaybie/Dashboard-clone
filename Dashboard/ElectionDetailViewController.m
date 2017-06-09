@@ -659,9 +659,26 @@ BOOL isPinnedHeaderViewVisible;
 - (void)emailButtonTapped:(id)sender {
     int index = (int)((UIButton *)sender).tag;
     NSArray *recipients = @[self.contacts[index].email];
-    NSString *nameString = [[NSUserDefaults standardUserDefaults] objectForKey:USER_FULL_NAME];
-    NSString *emailTitle = @"%@ invited you to join EveryElection";
-    NSString *messageBody = [NSString stringWithFormat:@"%@ has invited you to join EveryElection and keep track of upcoming elections! newfounders.us", nameString];
+    NSString *emailTitle = @"You've been invited to join EveryElection";
+    
+    NSString *raceName = (self.forContacts) ? self.otherElections[self.electionIndex.section].election.races[self.electionIndex.row].raceName : self.elections[self.electionIndex.section].races[self.electionIndex.row].raceName;
+    NSString *electionName = (self.forContacts) ? self.otherElections[self.electionIndex.section].election.electionName : self.elections[self.electionIndex.section].electionName;
+    NSDate *electionDate = (self.forContacts) ? self.otherElections[self.electionIndex.section].election.electionDate : self.elections[self.electionIndex.section].electionDate;
+    NSString *electionDateString = [NSDateFormatter localizedStringFromDate:electionDate
+                                                                  dateStyle:NSDateFormatterShortStyle
+                                                                  timeStyle:NSDateFormatterNoStyle];
+//    NSString *candidateString = @"";
+//    Race *race = (self.forContacts) ? self.otherElections[self.electionIndex.section].election.races[self.electionIndex.row] : self.elections[self.electionIndex.section].races[self.electionIndex.row];
+//    for (int i = 0; i < race.candidates.count; i++) {
+//        Candidate *c = race.candidates[i];
+//        if (c.firstName.length > 0 && c.lastName.length > 0) {
+//            if (i < race.candidates.count - 1) {
+//                candidateString = [candidateString stringByAppendingString:[NSString stringWithFormat:@"%@ %@,", c.firstName, c.lastName]];
+//            }
+//        }
+//    }
+    
+    NSString *messageBody = [NSString stringWithFormat:@"Hey!\n\nI was just tracking upcoming government elections using the EveryElections app and I noticed that you can vote in the upcoming %@ race in the %@ election! Just wanted to let you know.\n\nThe election will be held on %@.\n\nYou can get more info about this and other elections by downloading the EveryElections app!\n\n", raceName, electionName, electionDateString];
     MFMailComposeViewController *messageController = [[MFMailComposeViewController alloc] init];
     messageController.mailComposeDelegate = self;
     [messageController setSubject:emailTitle];
@@ -677,8 +694,8 @@ BOOL isPinnedHeaderViewVisible;
     
     NSArray *recipients = @[smsString];
     
-    NSString *nameString = [[NSUserDefaults standardUserDefaults] objectForKey:USER_FULL_NAME];
-    NSString *message = [NSString stringWithFormat:@"%@ has invited you to join EveryElection and keep track of upcoming elections! newfounders.us", nameString];
+    NSString *electionState = (self.forContacts) ? self.otherElections[self.electionIndex.section].election.state : self.elections[self.electionIndex.section].state;
+    NSString *message = [NSString stringWithFormat:@"Hey! You can vote in an upcoming election in %@!  Learn more about by downloading the EveryElections app!", electionState];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;
