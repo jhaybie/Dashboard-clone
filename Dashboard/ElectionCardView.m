@@ -107,6 +107,7 @@
             }
             
             self.electionTimeLabel.text = [NSString stringWithFormat:@"%@%@%@%@", yearString, monthString, weekString, dayString];
+            [self.electionTimeLabel sizeToFit];
         }
         
         

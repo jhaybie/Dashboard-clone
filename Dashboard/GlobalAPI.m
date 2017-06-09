@@ -182,7 +182,7 @@
     
     NSString *addressString = [NSString stringWithFormat:@"%@ %@ %@ %@", contact.street, contact.city, contact.state, contact.zip];
     addressString = [addressString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-    
+    addressString = [addressString stringByReplacingOccurrencesOfString:@"%0A" withString:@"%20"];
     
     NSString *urlString = [NSString stringWithFormat:@"%@/election?search_type=address&address=%@", BASE_URL, addressString];
     
@@ -190,6 +190,8 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    
+    NSLog(@"%@", urlString);
     
     [manager GET:urlString
        parameters:nil

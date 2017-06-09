@@ -124,7 +124,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     
     [self getElections];
     
-    [self getContactList];
+    //[self getContactList];
 }
 
 #pragma mark - Private Methods
@@ -197,6 +197,9 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)getElections {
+    [self.segmentedControl setEnabled:false forSegmentAtIndex:1];
+    [self.segmentedControl setTitle:@"LOADING..." forSegmentAtIndex:1];
+
     [self.refreshControl endRefreshing];
     [SVProgressHUD show];
     
@@ -208,6 +211,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
             });
             self.elections = [[NSArray alloc] initWithArray:elections];
             [self processElections];
+            [self getContactList];
         } failure:^(NSInteger statusCode) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
@@ -221,6 +225,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
             });
             self.elections = [[NSArray alloc] initWithArray:elections];
             [self processElections];
+            [self getContactList];
         } failure:^(NSInteger statusCode) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
@@ -298,6 +303,9 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)processOtherElections {
+    [self.segmentedControl setEnabled:true forSegmentAtIndex:1];
+    [self.segmentedControl setTitle:@"NEAR YOUR CONTACTS" forSegmentAtIndex:1];
+
     if (self.otherElections.count > 0) {
         for (int i = 0; i < self.otherElections.count; i++) {
             OtherElection *oe = self.otherElections[i];

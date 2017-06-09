@@ -180,8 +180,8 @@
 - (void)tableHeaderViewRefreshButtonTapped {
     [self.refreshControl endRefreshing];
     self.contacts = [[NSMutableArray alloc] init];
-    [self.tableView reloadData];
     [self displayContactListForcedReload:true];
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableView DataSource & Delegate Methods
