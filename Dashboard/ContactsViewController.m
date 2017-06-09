@@ -95,8 +95,10 @@
                                                  [SVProgressHUD dismiss];
                                              });
                                              self.contacts = contacts;
-                                             
-                                             [self.tableView reloadData];
+                                             [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
+                                             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+                                                 [self.tableView reloadData];
+                                             }];
                                          } failure:^(NSString *message) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [SVProgressHUD dismiss];
