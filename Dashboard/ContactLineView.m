@@ -95,6 +95,7 @@
             self.checkbox.enabled = false;
             self.nameLabel.textColor = [UIColor lightGrayColor];
         }
+        self.checkbox.isChecked = false;
     }
     return self;
 }
