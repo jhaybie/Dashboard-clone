@@ -151,6 +151,18 @@
 
 #pragma mark - UITextField Delegate Methods
 
+- (BOOL)textField:(UITextField *)textField
+shouldChangeCharactersInRange:(NSRange)range
+replacementString:(NSString *)string {
+    // Prevent crashing undo bug – see note below.
+    if (range.length + range.location > textField.text.length) {
+        return false;
+    }
+    
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= 2;
+}
+
 - (void)textFieldDidChange:(UITextField *)textField {
     BOOL enabled = false;
     if (self.streetTextField.text.length > 0

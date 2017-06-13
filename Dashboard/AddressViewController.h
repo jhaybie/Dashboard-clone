@@ -18,7 +18,7 @@
 
 @end
 
-@interface AddressViewController : UIViewController
+@interface AddressViewController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) id<AddressViewControllerDelegate> delegate;
 @property (strong, nonatomic) UserCardView *cardView;
