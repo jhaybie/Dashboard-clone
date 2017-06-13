@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,6 +24,7 @@
                 <outlet property="rememberMeLabel" destination="uju-h0-Jfw" id="1hm-Eg-H5L"/>
                 <outlet property="scrollView" destination="tO6-4q-9hl" id="1cm-7b-wl0"/>
                 <outlet property="segmentedControl" destination="Y6l-0h-C2k" id="ftT-Eg-uQK"/>
+                <outlet property="versionLabel" destination="hYz-VK-0YG" id="EdG-j5-psb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -296,12 +297,20 @@
                                 <action selector="tAndCButtonTapped:" destination="-1" eventType="touchUpInside" id="elS-cb-YFY"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYz-VK-0YG">
+                            <rect key="frame" x="325.5" y="22.5" width="45.5" height="8.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="hYz-VK-0YG" secondAttribute="trailing" constant="4" id="Sj4-fo-iwL"/>
                         <constraint firstItem="vhA-O2-90b" firstAttribute="centerX" secondItem="qmD-9Z-yWQ" secondAttribute="centerX" id="X7W-z4-R1Z"/>
                         <constraint firstItem="vhA-O2-90b" firstAttribute="centerY" secondItem="qmD-9Z-yWQ" secondAttribute="centerY" id="ZbV-XD-HCl"/>
                         <constraint firstAttribute="height" constant="32" id="ngM-Kv-01F"/>
+                        <constraint firstAttribute="bottom" secondItem="hYz-VK-0YG" secondAttribute="bottom" constant="1" id="vWi-6q-2UY"/>
                     </constraints>
                 </view>
             </subviews>
@@ -332,6 +341,6 @@
         <image name="checkmark-inactive" width="38" height="38"/>
         <image name="icon-email" width="33" height="24"/>
         <image name="icon-password" width="28" height="35"/>
-        <image name="logo-container" width="254" height="254"/>
+        <image name="logo-container" width="241" height="241"/>
     </resources>
 </document>

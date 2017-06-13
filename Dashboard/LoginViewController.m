@@ -38,6 +38,7 @@
 @property (strong, nonatomic) NSMutableArray<UIImage *> *carouselImages;
 
 //@property (strong, nonatomic) RegisterView *registerView;
+@property (strong, nonatomic) IBOutlet UILabel *versionLabel;
 
 @end
 
@@ -53,6 +54,12 @@ NSTimer *carouselTimer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSString *appVersion = [infoDict objectForKey:@"CFBundleShortVersionString"];
+    NSString *buildNumber = [infoDict objectForKey:@"CFBundleVersion"];
+    NSString *labelText = [NSString stringWithFormat:@"EveryElection v%@ (build %@)", appVersion, buildNumber];
+    self.versionLabel.text = labelText;
     
     // Adjust spacing for devices
     int offset = 30;
@@ -290,6 +297,8 @@ NSTimer *carouselTimer;
         [self displayToastWithMessage:@"Please enter a password" backgroundColor:[UIColor globalFailureColor]];
     } else if (self.passwordTextField.text.length > 0 && ![self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text]) {
         [self displayToastWithMessage:@"Passwords do not match" backgroundColor:[UIColor globalFailureColor]];
+    } else if (self.passwordTextField.text.length < 8) {
+        [self displayToastWithMessage:@"Password must be at least 8 characters" backgroundColor:[UIColor globalFailureColor]];
     } else {
         [SVProgressHUD show];
         [GlobalAPI registerWithEmail:self.emailTextField.text
