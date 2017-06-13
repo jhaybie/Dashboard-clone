@@ -82,7 +82,7 @@ NSTimer *carouselTimer;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    carouselTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
+    carouselTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
                                                      target:self
                                                    selector:@selector(advanceCarousel)
                                                    userInfo:nil
@@ -111,10 +111,8 @@ NSTimer *carouselTimer;
 }
 
 - (void)configureCarousel {
-    self.carouselView.type = iCarouselTypeLinear;
-    self.carouselView.userInteractionEnabled = false;
-    
     // TODO: replace with server-returned images
+    UIImage *image0 = [UIImage imageNamed:@"sample-logo-0"];
     UIImage *image1 = [UIImage imageNamed:@"sample-logo-1"];
     UIImage *image2 = [UIImage imageNamed:@"sample-logo-2"];
     UIImage *image3 = [UIImage imageNamed:@"sample-logo-3"];
@@ -122,8 +120,11 @@ NSTimer *carouselTimer;
     UIImage *image5 = [UIImage imageNamed:@"sample-logo-5"];
     UIImage *image6 = [UIImage imageNamed:@"sample-logo-6"];
     UIImage *image7 = [UIImage imageNamed:@"sample-logo-7"];
-
-    self.carouselImages = [[NSMutableArray alloc] initWithCapacity:7];
+    UIImage *image8 = [UIImage imageNamed:@"sample-logo-8"];
+    UIImage *image9 = [UIImage imageNamed:@"sample-logo-9"];
+    
+    self.carouselImages = [[NSMutableArray alloc] init];
+    [self.carouselImages addObject:image0];
     [self.carouselImages addObject:image1];
     [self.carouselImages addObject:image2];
     [self.carouselImages addObject:image3];
@@ -131,7 +132,13 @@ NSTimer *carouselTimer;
     [self.carouselImages addObject:image5];
     [self.carouselImages addObject:image6];
     [self.carouselImages addObject:image7];
-
+    [self.carouselImages addObject:image8];
+    [self.carouselImages addObject:image9];
+    
+    self.carouselView.type = iCarouselTypeLinear;
+    
+    self.carouselView.userInteractionEnabled = false;
+    
     [self.carouselView reloadData];
 }
 
@@ -196,9 +203,9 @@ NSTimer *carouselTimer;
              [defaults setObject:result[@"name"] forKey:USER_FULL_NAME];
              [defaults setObject:result[@"location"][@"name"] forKey:USER_LOCATION];
              
-             [GlobalAPI registerWithFacebookEmail:result[@"email"]
-                                           userID:result[@"id"]
-                                          success:^{
+//             [GlobalAPI registerWithFacebookEmail:result[@"email"]
+//                                           userID:result[@"id"]
+//                                          success:^{
                                               AddressViewController *avc = [[AddressViewController alloc] initWithNibName:@"AddressViewController" bundle:nil];
                                               avc.modalPresentationStyle = UIModalPresentationOverFullScreen;
                                               UserCardView *cardView = [[UserCardView alloc] initWithImageURL:result[@"picture"][@"data"][@"url"]
@@ -209,13 +216,13 @@ NSTimer *carouselTimer;
                                                                                                    phoneCount:0];
                                               avc.cardView = cardView;
                                               avc.delegate = self;
-                                              
+             
                                               [self presentViewController:avc
                                                                  animated:true
                                                                completion:nil];
-                                          } failure:^(NSString *message) {
-                                              //
-                                          }];
+//                                          } failure:^(NSString *message) {
+//                                              //
+//                                          }];
          }];
     }
 }
@@ -235,6 +242,8 @@ NSTimer *carouselTimer;
         view = [[UIImageView alloc] initWithFrame:frame];
         ((UIImageView *)view).image = self.carouselImages[index];
         view.contentMode = UIViewContentModeCenter;
+    } else {
+        ((UIImageView *)view).image = self.carouselImages[index];
     }
     return view;
 }
