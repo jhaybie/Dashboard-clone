@@ -694,8 +694,7 @@ BOOL isPinnedHeaderViewVisible;
     
     NSArray *recipients = @[smsString];
     
-    NSString *electionState = (self.forContacts) ? self.otherElections[self.electionIndex.section].election.state : self.elections[self.electionIndex.section].state;
-    NSString *message = [NSString stringWithFormat:@"Hey! You can vote in an upcoming election in %@!  Learn more about by downloading the EveryElections app!", electionState];
+    NSString *message = @"You have an upcoming election. Let me know if you want to know more about it or just download the EveryElection app.";
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;
