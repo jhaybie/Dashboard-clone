@@ -120,21 +120,14 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     }
     
     [self createObservers];
-    
-    [self loadUserCardView];
-    
-    [self getElections];
-    
-    [self getContactList];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (![FBSDKAccessToken currentAccessToken]) {
-        self.cardViewHeightConstraint.constant = 0;
-    } else {
-        self.cardViewHeightConstraint.constant = 80;
-    }
+    
+    [self loadUserCardView];
+    [self getElections];
+    [self getContactList];
 }
 
 #pragma mark - Private Methods
@@ -338,9 +331,15 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
              CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 80);
              cardView.frame = frame;
              [self.cardView addSubview:cardView];
+             NSLog(@"khjasdfhkjla");
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 self.cardViewHeightConstraint.constant = 80;
+             });
          }];
     } else {
-        self.cardViewHeightConstraint.constant = 0;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.cardViewHeightConstraint.constant = 0;
+        });
     }
 }
 
