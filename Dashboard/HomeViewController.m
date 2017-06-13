@@ -11,6 +11,7 @@
 #import "Contact.h"
 #import "Election.h"
 #import "ElectionCardCell.h"
+#import "ElectionCardView.h"
 #import "ElectionDetailViewController.h"
 #import "OtherElection.h"
 #import "GlobalAPI.h"
@@ -100,7 +101,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     self.refreshControl.backgroundColor = [UIColor clearColor];
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self
-                            action:@selector(getElections)
+                            action:@selector(refresh)
                   forControlEvents:UIControlEventValueChanged];
     self.tableView.refreshControl = self.refreshControl;
     
@@ -125,6 +126,15 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     [self getElections];
     
     [self getContactList];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (![FBSDKAccessToken currentAccessToken]) {
+        self.cardViewHeightConstraint.constant = 0;
+    } else {
+        self.cardViewHeightConstraint.constant = 80;
+    }
 }
 
 #pragma mark - Private Methods
@@ -273,31 +283,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)processElections {
-    self.electionCards = [[NSMutableArray alloc] init];
-    self.electionCells = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < self.elections.count; i++) {
-        Election *election = self.elections[i];
-        for (Race *race in election.races) {
-            // TODO: maybe add some logic to filter out extraneous races???
-            ElectionCardView *ecv = [[ElectionCardView alloc] initWithRace:race forDate:election.electionDate forContact:false contactCount:0 preferredWidth:[[UIScreen mainScreen] bounds].size.width - 16];
-            ecv.delegate = self;
-            ecv.positionView.backgroundColor = [self colorForIndex:i];
-            [self.electionCards addObject:ecv];
-            
-            ElectionCardCell *cell = [[ElectionCardCell alloc] initWithElectionCardView:ecv];
-            [self.electionCells addObject:cell];
-        }
-    }
-    if (self.electionCards.count == 0 && self.otherElectionCards.count == 0) {
-        self.tableView.hidden = true;
-        self.emptyView.hidden = false;
-        [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:false];
-    } else {
-        self.tableView.hidden = false;
-        self.emptyView.hidden = true;
-        [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:true];
-    }
+    [self updateMapViewTab];
     [[NSNotificationCenter defaultCenter] postNotificationName:YOUR_ELECTIONS_RECEIVED
                                                         object:nil
                                                       userInfo:@{
@@ -307,31 +293,26 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)processOtherElections {
-    if (self.otherElections.count > 0) {
-        for (int i = 0; i < self.otherElections.count; i++) {
-            OtherElection *oe = self.otherElections[i];
-            for (Race *race in oe.election.races) {
-                ElectionCardView *ecv = [[ElectionCardView alloc] initWithRace:race
-                                                                       forDate:oe.election.electionDate
-                                                                    forContact:true
-                                                                  contactCount:(int)oe.contacts.count
-                                                                preferredWidth:[[UIScreen mainScreen] bounds].size.width - 16];
-                ecv.positionView.backgroundColor = [self colorForIndex:i];
-                [self.otherElectionCards addObject:ecv];
-                
-                ElectionCardCell *cell = [[ElectionCardCell alloc] initWithElectionCardView:ecv];
-                [self.otherElectionCells addObject:cell];
-            }
-        }
-        [[NSNotificationCenter defaultCenter] postNotificationName:CONTACTS_ELECTIONS_RECEIVED
-                                                            object:nil
-                                                          userInfo:@{
-                                                                     @"OtherElections" : self.otherElections
-                                                                     }];
-        [self performSelectorOnMainThread:@selector(enableContactSegment)
-                               withObject:nil
-                            waitUntilDone:false];
+    [self updateMapViewTab];
+    [[NSNotificationCenter defaultCenter] postNotificationName:CONTACTS_ELECTIONS_RECEIVED
+                                                        object:nil
+                                                      userInfo:@{
+                                                                 @"OtherElections" : self.otherElections
+                                                                 }];
+    [self performSelectorOnMainThread:@selector(enableContactSegment)
+                           withObject:nil
+                        waitUntilDone:false];
+}
 
+- (void)updateMapViewTab {
+    if (self.elections.count == 0 && self.otherElections.count == 0) {
+        self.tableView.hidden = true;
+        self.emptyView.hidden = false;
+        [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:false];
+    } else {
+        self.tableView.hidden = false;
+        self.emptyView.hidden = true;
+        [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:true];
     }
 }
 
@@ -369,7 +350,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     
     yourElectionsSelected = true;
     
-    if (self.electionCells.count > 0) {
+    if (self.elections.count > 0) {
         self.tableView.hidden = false;
         self.emptyView.hidden = true;
         self.tableView.alpha = 0;
@@ -389,7 +370,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     
     yourElectionsSelected = false;
     
-    if (self.otherElectionCells.count > 0) {
+    if (self.otherElections.count > 0) {
         self.tableView.hidden = false;
         self.emptyView.hidden = true;
         self.tableView.alpha = 0;
@@ -409,6 +390,12 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)refresh {
+    self.elections = [[NSMutableArray alloc] init];
+    self.otherElections = [[NSMutableArray alloc] init];
+    [self.tableView reloadData];
+    self.segmentedControl.selectedSegmentIndex = 0;
+    [self.segmentedControl sendActionsForControlEvents:UIControlEventValueChanged];
+    yourElectionsSelected = true;
     [self getElections];
     [self getContactList];
 }
@@ -522,7 +509,11 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 #pragma mark - UITableView DataSource & Delegate Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.elections.count;
+    if (yourElectionsSelected) {
+        return self.elections.count;
+    } else {
+        return self.otherElections.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -546,7 +537,10 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
     if (yourElectionsSelected) {
         Election *election = self.elections[indexPath.section];
         Race *race = election.races[indexPath.row];
-        ElectionCardView *ecv = [[ElectionCardView alloc] initWithRace:race forDate:election.electionDate forContact:false contactCount:0 preferredWidth:[[UIScreen mainScreen] bounds].size.width - 16];
+        ElectionCardView *ecv = [[ElectionCardView alloc] initWithRace:race
+                                                               forDate:election.electionDate
+                                                            forContact:false contactCount:0
+                                                        preferredWidth:[[UIScreen mainScreen] bounds].size.width - 16];
         ecv.delegate = self;
         ecv.positionView.backgroundColor = [self colorForIndex:indexPath.row];
         
@@ -580,8 +574,13 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:self.elections[section].electionName];
-    return shv;
+    if (yourElectionsSelected) {
+        SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:self.elections[section].electionName];
+        return shv;
+    } else {
+        SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:self.otherElections[section].election.electionName];
+        return shv;
+    }
 }
 
 #pragma mark - ElectionCardViewDelegate
