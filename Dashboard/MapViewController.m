@@ -220,7 +220,7 @@ BOOL userAddressExists;
 - (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(WRGMSMarker *)marker {
     ElectionCardView *cardView = [[ElectionCardView alloc] initWithRace:marker.race
                                                                 forDate:marker.date
-                                                             forContact:false
+                                                             forContact:marker.forContacts
                                                            contactCount:(int)marker.contacts.count
                                                          preferredWidth:[[UIScreen mainScreen] bounds].size.width - 80];
     return cardView;
