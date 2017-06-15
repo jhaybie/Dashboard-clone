@@ -23,7 +23,11 @@
 
 + (NSString *)authToken {
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:AUTH_TOKEN];
-    return [NSString stringWithFormat:@"Bearer %@", token];
+    if (token.length > 0) {
+        return [NSString stringWithFormat:@"Bearer %@", token];
+    } else {
+        return [self apiKey];
+    }
 }
 
 + (void)getAddressBookValidContactsForced:(BOOL)forced
