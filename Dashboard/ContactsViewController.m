@@ -91,14 +91,13 @@
     [SVProgressHUD show];
     [GlobalAPI getAddressBookValidContactsForced:forcedReload
                                          success:^(NSArray<Contact *> *contacts) {
+                                             self.contacts = contacts;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [SVProgressHUD dismiss];
-                                             });
-                                             self.contacts = contacts;
-                                             [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
-                                             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
                                                  [self.tableView reloadData];
-                                             }];
+                                                 [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
+                                             });
+                                             
                                          } failure:^(NSString *message) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [SVProgressHUD dismiss];
@@ -183,7 +182,7 @@
     [self.refreshControl endRefreshing];
     self.contacts = [[NSMutableArray alloc] init];
     [self displayContactListForcedReload:true];
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
 }
 
 #pragma mark - UITableView DataSource & Delegate Methods
