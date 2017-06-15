@@ -51,6 +51,7 @@
 
 @implementation HomeViewController
 BOOL yourElectionsSelected = true;
+BOOL isFirstLoad = true;
 
 static NSString *yourEmptyTitleString = @"We couldn't find any upcoming elections in your area.";
 static NSString *yourEmptyTextViewString = @"This could be for a couple of reasons:\n\n1. Your state, county, district, municipality, and/or city have not yet listed any upcoming elections, or\n\n2. We have not received the information necessary to post its upcoming election from your city.\n\nIf you think this was in error, please email info@newfounders.us";
@@ -81,11 +82,17 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
                              // TODO: load saved credentials here
                          }];
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.segmentedControl.selectedSegmentIndex = 0;
+        [self.segmentedControl sendActionsForControlEvents:UIControlEventValueChanged];
+        [self.tableView reloadData];
+    });
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    isFirstLoad = true;
     self.shouldShowNagView = true;
     
     self.navigationController.navigationBar.hidden = true;
@@ -126,8 +133,11 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     [super viewWillAppear:animated];
     
     [self loadUserCardView];
-    [self getElections];
-    [self getContactList];
+    if (isFirstLoad) {
+        isFirstLoad = false;
+        [self getElections];
+        [self getContactList];
+    }
 }
 
 #pragma mark - Private Methods
@@ -276,17 +286,26 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)processElections {
-    [self updateMapViewTab];
+    //[self updateMapViewTab];
     [[NSNotificationCenter defaultCenter] postNotificationName:YOUR_ELECTIONS_RECEIVED
                                                         object:nil
                                                       userInfo:@{
                                                                  @"YourElections" : self.elections
                                                                  }];
-    [self.tableView reloadData];
+    if (self.elections.count > 0) {
+        self.tableView.hidden = false;
+        self.emptyView.hidden = true;
+    } else {
+        self.tableView.hidden = true;
+        self.emptyView.hidden = false;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)processOtherElections {
-    [self updateMapViewTab];
+    //[self updateMapViewTab];
     [[NSNotificationCenter defaultCenter] postNotificationName:CONTACTS_ELECTIONS_RECEIVED
                                                         object:nil
                                                       userInfo:@{
@@ -331,7 +350,6 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
              CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 80);
              cardView.frame = frame;
              [self.cardView addSubview:cardView];
-             NSLog(@"khjasdfhkjla");
              dispatch_async(dispatch_get_main_queue(), ^{
                  self.cardViewHeightConstraint.constant = 80;
              });
@@ -348,15 +366,18 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     self.emptyTextView.text = yourEmptyTextViewString;
     
     yourElectionsSelected = true;
-    
     if (self.elections.count > 0) {
         self.tableView.hidden = false;
         self.emptyView.hidden = true;
         self.tableView.alpha = 0;
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
         [UIView animateWithDuration:0.25f animations:^{
             self.tableView.alpha = 1;
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            //[self.tableView reloadData];
+        }];
     } else {
         self.tableView.hidden = true;
         self.emptyView.hidden = false;
@@ -368,15 +389,18 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     self.emptyTextView.text = contactsEmptyTextViewString;
     
     yourElectionsSelected = false;
-    
     if (self.otherElections.count > 0) {
         self.tableView.hidden = false;
         self.emptyView.hidden = true;
         self.tableView.alpha = 0;
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
         [UIView animateWithDuration:0.25f animations:^{
             self.tableView.alpha = 1;
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            //[self.tableView reloadData];
+        }];
     } else {
         self.tableView.hidden = true;
         self.emptyView.hidden = false;
@@ -391,7 +415,9 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 - (void)refresh {
     self.elections = [[NSMutableArray alloc] init];
     self.otherElections = [[NSMutableArray alloc] init];
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
     self.segmentedControl.selectedSegmentIndex = 0;
     [self.segmentedControl sendActionsForControlEvents:UIControlEventValueChanged];
     yourElectionsSelected = true;
@@ -438,11 +464,23 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
                      }];
 }
 
+- (IBAction)refreshButtonTapped:(id)sender {
+    [self refresh];
+}
 
 #pragma mark - Facebook SDK Delegate Methods
 
 - (void)userFBLoginStatusChanged {
     if (![FBSDKAccessToken currentAccessToken]) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"False" forKey:USER_ADDRESS_EXISTS];
+        [defaults setObject:@"" forKey:USER_STREET];
+        [defaults setObject:@"" forKey:USER_CITY];
+        [defaults setObject:@"" forKey:USER_STATE];
+        [defaults setObject:@"" forKey:USER_ZIP_CODE];
+        [defaults setObject:@"" forKey:AUTH_TOKEN];
+        [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
+        
         LoginViewController *lvc = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         lvc.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:lvc
@@ -480,6 +518,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
     [defaults setObject:@"" forKey:USER_CITY];
     [defaults setObject:@"" forKey:USER_STATE];
     [defaults setObject:@"" forKey:USER_ZIP_CODE];
+    [defaults setObject:@"" forKey:AUTH_TOKEN];
     [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
 }
 
