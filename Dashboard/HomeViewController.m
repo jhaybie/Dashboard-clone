@@ -226,8 +226,8 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
         } failure:^(NSInteger statusCode) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
-                NSString *message = [NSString stringWithFormat:@"Oops! Something broke. Please try again, so sorry! (%ld.1)", (long)statusCode];
-                [self displayToastWithMessage:message backgroundColor:[UIColor globalFailureColor]];
+//                NSString *message = [NSString stringWithFormat:@"Oops! Something broke. Please try again, so sorry! (%ld.1)", (long)statusCode];
+//                [self displayToastWithMessage:message backgroundColor:[UIColor globalFailureColor]];
             });
         }];
     } else {
@@ -241,8 +241,8 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
         } failure:^(NSInteger statusCode) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
-                NSString *message = [NSString stringWithFormat:@"Oops! Something broke. Please try again, so sorry! (%ld.0)", (long)statusCode];
-                [self displayToastWithMessage:message backgroundColor:[UIColor globalFailureColor]];
+//                NSString *message = [NSString stringWithFormat:@"Oops! Something broke. Please try again, so sorry! (%ld.0)", (long)statusCode];
+//                [self displayToastWithMessage:message backgroundColor:[UIColor globalFailureColor]];
             });
         }];
     }
@@ -274,8 +274,8 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
             dispatch_group_leave(group);
         } failure:^(NSInteger statusCode) {
             dispatch_group_leave(group);
-            NSString *message = [NSString stringWithFormat:@"Oops! Something broke. Please try again, so sorry! (%ld.2)", (long)statusCode];
-            [self displayToastWithMessage:message backgroundColor:[UIColor globalFailureColor]];
+//            NSString *message = [NSString stringWithFormat:@"Oops! Something broke. Please try again, so sorry! (%ld.2)", (long)statusCode];
+//            [self displayToastWithMessage:message backgroundColor:[UIColor globalFailureColor]];
         }];
     }
     dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
