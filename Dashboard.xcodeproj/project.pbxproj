@@ -864,7 +864,7 @@
 					6FA3BC291E62426100962D55 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 6WU2E2K28R;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -1147,8 +1147,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.risemovement.EveryElection;
 				PRODUCT_NAME = EveryElection;
-				PROVISIONING_PROFILE = "6d512290-28fc-419f-8625-bfa9b82ae150";
-				PROVISIONING_PROFILE_SPECIFIER = "Dashboard Development Profile";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1168,8 +1168,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.risemovement.EveryElection;
 				PRODUCT_NAME = EveryElection;
-				PROVISIONING_PROFILE = "c29ac8ff-0f93-4404-b093-752a18173cab";
-				PROVISIONING_PROFILE_SPECIFIER = "Dashboard Development Profile";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
