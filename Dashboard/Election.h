@@ -40,4 +40,6 @@
 
 @property (nonatomic, strong) NSArray<Race *> *races;
 
+- (NSString *)displayName;
+
 @end

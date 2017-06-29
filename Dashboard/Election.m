@@ -64,4 +64,18 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[Race class]];
 }
 
+#pragma mark - Private Methods
+
+- (NSString *)displayName {
+    if ([self.electionName.lowercaseString containsString:@"primary"]) {
+        return [NSString stringWithFormat:@"Primary Election in %@", self.state.uppercaseString];
+    } else if ([self.electionName.lowercaseString containsString:@"special"]) {
+        return [NSString stringWithFormat:@"Special Election in %@", self.state.uppercaseString];
+    } else if ([self.electionName.lowercaseString containsString:@"general"]) {
+        return [NSString stringWithFormat:@"General Election in %@", self.state.uppercaseString];
+    } else {
+        return self.electionName;
+    }
+}
+
 @end

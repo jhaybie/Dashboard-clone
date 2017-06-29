@@ -96,7 +96,7 @@ BOOL isPinnedHeaderViewVisible;
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
     
     // display Election Name
-    NSString *electionNameString = [NSString stringWithFormat:@"%@\n\n", election.electionName];
+    NSString *electionNameString = [NSString stringWithFormat:@"%@\n\n", [election displayName]];
     NSMutableAttributedString *aElectionNameString = [[NSMutableAttributedString alloc] initWithString:electionNameString];
     [aElectionNameString addAttribute:NSFontAttributeName
                                value:[UIFont boldSystemFontOfSize:16.0]

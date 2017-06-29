@@ -129,7 +129,9 @@ NSTimer *carouselTimer;
     UIImage *image7 = [UIImage imageNamed:@"sample-logo-7"];
     UIImage *image8 = [UIImage imageNamed:@"sample-logo-8"];
     UIImage *image9 = [UIImage imageNamed:@"sample-logo-9"];
-    
+    UIImage *image10 = [UIImage imageNamed:@"sample-logo-10"];
+    UIImage *image11 = [UIImage imageNamed:@"sample-logo-11"];
+
     self.carouselImages = [[NSMutableArray alloc] init];
     [self.carouselImages addObject:image0];
     [self.carouselImages addObject:image1];
@@ -141,7 +143,9 @@ NSTimer *carouselTimer;
     [self.carouselImages addObject:image7];
     [self.carouselImages addObject:image8];
     [self.carouselImages addObject:image9];
-    
+    [self.carouselImages addObject:image10];
+    [self.carouselImages addObject:image11];
+
     self.carouselView.type = iCarouselTypeLinear;
     
     self.carouselView.userInteractionEnabled = false;
@@ -210,26 +214,25 @@ NSTimer *carouselTimer;
              [defaults setObject:result[@"name"] forKey:USER_FULL_NAME];
              [defaults setObject:result[@"location"][@"name"] forKey:USER_LOCATION];
              
-//             [GlobalAPI registerWithFacebookEmail:result[@"email"]
-//                                           userID:result[@"id"]
-//                                          success:^{
-                                              AddressViewController *avc = [[AddressViewController alloc] initWithNibName:@"AddressViewController" bundle:nil];
-                                              avc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-                                              UserCardView *cardView = [[UserCardView alloc] initWithImageURL:result[@"picture"][@"data"][@"url"]
-                                                                                                         name:result[@"name"]
-                                                                                                    cityState:result[@"location"][@"name"]
-                                                                                                   emailCount:0
-                                                                                                     smsCount:0
-                                                                                                   phoneCount:0];
-                                              avc.cardView = cardView;
-                                              avc.delegate = self;
              
-                                              [self presentViewController:avc
-                                                                 animated:true
-                                                               completion:nil];
-//                                          } failure:^(NSString *message) {
-//                                              //
-//                                          }];
+             [GlobalAPI loginWithEmail:@"facebook" password:[FBSDKAccessToken currentAccessToken].tokenString success:^{
+                 AddressViewController *avc = [[AddressViewController alloc] initWithNibName:@"AddressViewController" bundle:nil];
+                 avc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                 UserCardView *cardView = [[UserCardView alloc] initWithImageURL:result[@"picture"][@"data"][@"url"]
+                                                                            name:result[@"name"]
+                                                                       cityState:result[@"location"][@"name"]
+                                                                      emailCount:0
+                                                                        smsCount:0
+                                                                      phoneCount:0];
+                 avc.cardView = cardView;
+                 avc.delegate = self;
+                 
+                 [self presentViewController:avc
+                                    animated:true
+                                  completion:nil];
+             } failure:^(NSString *message) {
+                 //
+             }];
          }];
     }
 }
