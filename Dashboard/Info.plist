@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSContactsUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs this to find upcoming elections for your friends and family</string>
 	<key>Bundle Display Name</key>
 	<string>EveryElection</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -30,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>19</string>
+	<string>20</string>
 	<key>FacebookAppID</key>
 	<string>754150878081339</string>
 	<key>FacebookDisplayName</key>
@@ -49,6 +47,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSContactsUsageDescription</key>
+	<string>$(PRODUCT_NAME) needs this to find upcoming elections for your friends and family</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) needs this information to show you your location</string>
 	<key>UILaunchStoryboardName</key>
