@@ -17,6 +17,7 @@
 #import "GlobalAPI.h"
 #import "LoginViewController.h"
 #import "Race.h"
+#import "SCLAlertView.h"
 #import "SectionHeaderView.h"
 #import "SVProgressHUD.h"
 #import "UIColor+DBColors.h"
@@ -37,6 +38,7 @@
 @property (strong, nonatomic) IBOutlet UIView *emptyView;
 @property (strong, nonatomic) IBOutlet UILabel *emptyTitleLabel;
 @property (strong, nonatomic) IBOutlet UITextView *emptyTextView;
+@property (strong, nonatomic) IBOutlet UIImageView *permissionImageView;
 
 @property (strong, nonatomic) NSMutableArray<ElectionCardCell *> *electionCells;
 
@@ -52,6 +54,7 @@
 @implementation HomeViewController
 BOOL yourElectionsSelected = true;
 BOOL isFirstLoad = true;
+BOOL permissionDenied = true;
 
 static NSString *yourEmptyTitleString = @"We couldn't find any upcoming elections in your area.";
 static NSString *yourEmptyTextViewString = @"This could be for a couple of reasons:\n\n1. Your state, county, district, municipality, and/or city have not yet listed any upcoming elections, or\n\n2. We have not received the information necessary to post its upcoming election from your city.\n\nIf you think this was in error, please email info@newfounders.us";
@@ -136,7 +139,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     if (isFirstLoad) {
         isFirstLoad = false;
         [self getElections];
-        [self getContactList];
+        //[self getContactList];
     }
 }
 
@@ -194,20 +197,22 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     self.contacts = [[NSArray alloc] init];
     [GlobalAPI getAddressBookValidContactsForced:false
                                          success:^(NSArray<Contact *> *contacts) {
+                                             permissionDenied = false;
                                              self.contacts = contacts;
                                              
                                              [self processContacts];
                                              
                                          } failure:^(NSString *message) {
-                                             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
-                                                                                                            message:@"There was a problem accessing your Address Book."
-                                                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
-                                             [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                                                       style:UIAlertActionStyleDefault
-                                                                                     handler:nil]];
-                                             [self presentViewController:alert
-                                                                animated:true
-                                                              completion:nil];
+                                             permissionDenied = true;
+                                             [self.segmentedControl setEnabled:true forSegmentAtIndex:1];
+                                             [self.segmentedControl setTitle:@"NEAR YOUR CONTACTS" forSegmentAtIndex:1];
+                                             //SCLAlertView *alert = [[SCLAlertView alloc] init];
+                                             //[alert showCustom:nil
+                                             //            color:[UIColor colorWithRed:41 green:171 blue:226 alpha:1]
+                                             //            title:@"Oops!"
+                                             //         subTitle:@"We need access to your phone's contacts for this feature to work\n\nGo to Settings > Privacy > Contacts to grant EveryElection access"
+                                              //closeButtonTitle:@"OK"
+                                              //        duration:0.0f];
                                          }];
 }
 
@@ -237,7 +242,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
             });
             self.elections = [[NSArray alloc] initWithArray:elections];
             [self processElections];
-            [self getContactList];
+            //[self getContactList];
         } failure:^(NSInteger statusCode) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
@@ -373,6 +378,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     if (self.elections.count > 0) {
         self.tableView.hidden = false;
         self.emptyView.hidden = true;
+        self.permissionImageView.hidden = true;
         self.tableView.alpha = 0;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -385,17 +391,25 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     } else {
         self.tableView.hidden = true;
         self.emptyView.hidden = false;
+        self.permissionImageView.hidden = true;
     }
 }
 
 - (void)presentElectionsNearYourContacts {
+    [self getContactList];
+    self.segmentedControl.selectedSegmentIndex = 1;
     self.emptyTitleLabel.text = contactsEmptyTitleString;
     self.emptyTextView.text = contactsEmptyTextViewString;
     
     yourElectionsSelected = false;
-    if (self.otherElections.count > 0) {
+    if (permissionDenied) {
+        self.tableView.hidden = true;
+        self.emptyView.hidden = true;
+        self.permissionImageView.hidden = false;
+    } else if (self.otherElections.count > 0) {
         self.tableView.hidden = false;
         self.emptyView.hidden = true;
+        self.permissionImageView.hidden = true;
         self.tableView.alpha = 0;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -408,6 +422,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     } else {
         self.tableView.hidden = true;
         self.emptyView.hidden = false;
+        self.permissionImageView.hidden = true;
     }
 }
 
@@ -426,7 +441,9 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     [self.segmentedControl sendActionsForControlEvents:UIControlEventValueChanged];
     yourElectionsSelected = true;
     [self getElections];
-    [self getContactList];
+    if (!permissionDenied) {
+        [self getContactList];
+    }
 }
 
 - (void)segmentedControlValueChanged {
@@ -617,10 +634,10 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (yourElectionsSelected) {
-        SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:self.elections[section].electionName];
+        SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:[self.elections[section] displayName]];
         return shv;
     } else {
-        SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:self.otherElections[section].election.electionName];
+        SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:[self.otherElections[section].election displayName]];
         return shv;
     }
 }

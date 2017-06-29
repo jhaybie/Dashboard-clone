@@ -104,9 +104,15 @@
             success([[NSArray alloc] initWithArray:filteredContacts]);
         }];
     } else {
-        NSData *data = [defaults objectForKey:ALL_CONTACTS];
-        NSArray<Contact *> *allContacts = [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
-        success(allContacts);
+        CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+        if (status == CNAuthorizationStatusAuthorized) {
+            NSData *data = [defaults objectForKey:ALL_CONTACTS];
+            NSArray<Contact *> *allContacts = [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+            success(allContacts);
+        } else {
+            failure(@"Permissions");
+        }
+        
     }
 }
 
@@ -396,6 +402,7 @@
 #pragma mark - AddressBook UIAlertController Dialog Method
 
 + (void)presentAddressBookErrorDialog {
+    /*
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
                                                                    message:@"Dashboard requires access to your Address Book."
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
@@ -413,6 +420,7 @@
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alert
                                                                                      animated:true
                                                                                    completion:nil];
+    */
 }
 
 + (NSMutableArray<Election *> *)sortElections:(NSMutableArray<Election *> *)elections {

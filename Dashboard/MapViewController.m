@@ -68,6 +68,15 @@ BOOL userAddressExists;
 
     [self initializeMapView];
     [self loadYourElectionsInMapView];
+    CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+    if (status == CNAuthorizationStatusAuthorized) {
+        [self loadContactElectionsInMapView];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     [self loadContactElectionsInMapView];
 }
 

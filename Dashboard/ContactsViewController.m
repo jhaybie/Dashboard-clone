@@ -22,6 +22,8 @@
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
+@property (strong, nonatomic) IBOutlet UIImageView *deniedImageView;
+
 @end
 
 @implementation ContactsViewController
@@ -63,6 +65,12 @@
     [self.tableView addSubview:self.refreshControl];
  
     [self registerTableViewCells];
+    //[self displayContactListForcedReload:false];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     [self displayContactListForcedReload:false];
 }
 
@@ -91,6 +99,8 @@
     [SVProgressHUD show];
     [GlobalAPI getAddressBookValidContactsForced:forcedReload
                                          success:^(NSArray<Contact *> *contacts) {
+                                             self.tableView.hidden = false;
+                                             self.deniedImageView.hidden = true;
                                              self.contacts = contacts;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [SVProgressHUD dismiss];
@@ -102,15 +112,8 @@
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [SVProgressHUD dismiss];
                                              });
-                                             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
-                                                                                                            message:@"There was a problem accessing your Address Book."
-                                                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
-                                             [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                                                       style:UIAlertActionStyleDefault
-                                                                                     handler:nil]];
-                                             [self presentViewController:alert
-                                                                animated:true
-                                                              completion:nil];
+                                             self.tableView.hidden = true;
+                                             self.deniedImageView.hidden = false;
                                          }];
 }
 
