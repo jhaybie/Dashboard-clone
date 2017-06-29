@@ -20,8 +20,8 @@
 
 #pragma mark - URLs
 
-#define BASE_URL          @"https://riseapp-dot-rise-team-tool.appspot.com"
-#define AUTH_URL          @"https://auth-dot-rise-team-tool.appspot.com"
+#define BASE_URL          @"https://riseapp-dot-rise-team-tool-qa.appspot.com"
+#define AUTH_URL          @"https://auth-dot-rise-team-tool-qa.appspot.com"
 
 
 #pragma mark - DEVICE IDENTIFICATION
