@@ -1,0 +1,3 @@
+target 'Dashboard' do
+pod 'SCLAlertView-Objective-C'
+end
