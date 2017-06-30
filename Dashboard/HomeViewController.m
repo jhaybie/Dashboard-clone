@@ -49,6 +49,7 @@
 @property (strong, nonatomic) NSMutableArray<ElectionCardView *> *otherElectionCards;
 @property (strong, nonatomic) NSMutableArray<ElectionCardCell *> *otherElectionCells;
 
+@property (nonatomic) BOOL otherElectionsLoaded;
 @end
 
 @implementation HomeViewController
@@ -97,6 +98,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     
     isFirstLoad = true;
     self.shouldShowNagView = true;
+    self.otherElectionsLoaded = false;
     
     self.navigationController.navigationBar.hidden = true;
 
@@ -191,28 +193,25 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     return false;
 }
 
-- (void)getContactList {
+- (void)getContactListCompletion:(void (^)(void))completed {
     [self.segmentedControl setEnabled:false forSegmentAtIndex:1];
     [self.segmentedControl setTitle:@"LOADING..." forSegmentAtIndex:1];
     self.contacts = [[NSArray alloc] init];
+    
     [GlobalAPI getAddressBookValidContactsForced:false
                                          success:^(NSArray<Contact *> *contacts) {
                                              permissionDenied = false;
                                              self.contacts = contacts;
                                              
-                                             [self processContacts];
+                                             [self processContactsCompletion:^{
+                                                 completed();
+                                             }];
                                              
                                          } failure:^(NSString *message) {
                                              permissionDenied = true;
                                              [self.segmentedControl setEnabled:true forSegmentAtIndex:1];
                                              [self.segmentedControl setTitle:@"NEAR YOUR CONTACTS" forSegmentAtIndex:1];
-                                             //SCLAlertView *alert = [[SCLAlertView alloc] init];
-                                             //[alert showCustom:nil
-                                             //            color:[UIColor colorWithRed:41 green:171 blue:226 alpha:1]
-                                             //            title:@"Oops!"
-                                             //         subTitle:@"We need access to your phone's contacts for this feature to work\n\nGo to Settings > Privacy > Contacts to grant EveryElection access"
-                                              //closeButtonTitle:@"OK"
-                                              //        duration:0.0f];
+                                             completed();
                                          }];
 }
 
@@ -253,12 +252,14 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     }
 }
 
-- (void)processContacts {
+- (void)processContactsCompletion:(void (^)(void))completion {
     self.otherElections = [[NSMutableArray alloc] init];
     self.otherElectionCards = [[NSMutableArray alloc] init];
     self.otherElectionCells = [[NSMutableArray alloc] init];
     
     dispatch_group_t group = dispatch_group_create();
+    
+    [SVProgressHUD show];
     
     for (Contact *contact in self.contacts) {
         dispatch_group_enter(group);
@@ -284,7 +285,9 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
         }];
     }
     dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        self.otherElectionsLoaded = true;
         [self processOtherElections];
+        completion();
     });
 }
 
@@ -314,7 +317,6 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)processOtherElections {
-    //[self updateMapViewTab];
     [[NSNotificationCenter defaultCenter] postNotificationName:CONTACTS_ELECTIONS_RECEIVED
                                                         object:nil
                                                       userInfo:@{
@@ -396,34 +398,68 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)presentElectionsNearYourContacts {
-    [self getContactList];
-    self.segmentedControl.selectedSegmentIndex = 1;
-    self.emptyTitleLabel.text = contactsEmptyTitleString;
-    self.emptyTextView.text = contactsEmptyTextViewString;
-    
     yourElectionsSelected = false;
-    if (permissionDenied) {
-        self.tableView.hidden = true;
-        self.emptyView.hidden = true;
-        self.permissionImageView.hidden = false;
-    } else if (self.otherElections.count > 0) {
-        self.tableView.hidden = false;
-        self.emptyView.hidden = true;
-        self.permissionImageView.hidden = true;
-        self.tableView.alpha = 0;
+
+    if (self.otherElectionsLoaded == false) {
+        self.otherElections = [[NSMutableArray alloc] init];
         dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD show];
+            self.segmentedControl.selectedSegmentIndex = 1;
+            self.emptyTitleLabel.text = contactsEmptyTitleString;
+            self.emptyTextView.text = contactsEmptyTextViewString;
             [self.tableView reloadData];
         });
-        [UIView animateWithDuration:0.25f animations:^{
-            self.tableView.alpha = 1;
-        } completion:^(BOOL finished) {
-            //[self.tableView reloadData];
+        
+        [self getContactListCompletion:^{
+            
+            CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+            if (status != CNAuthorizationStatusAuthorized) {
+                self.tableView.hidden = true;
+                self.emptyView.hidden = true;
+                self.permissionImageView.hidden = false;
+            } else if (self.otherElections.count > 0) {
+                self.tableView.hidden = false;
+                self.emptyView.hidden = true;
+                self.permissionImageView.hidden = true;
+                self.tableView.alpha = 0;
+                [UIView animateWithDuration:0.25f animations:^{
+                    
+                    [self.tableView reloadData];
+                    self.tableView.alpha = 1;
+                } completion:^(BOOL finished) {
+                    [SVProgressHUD dismiss];
+                }];
+            } else {
+                self.tableView.hidden = true;
+                self.emptyView.hidden = false;
+                self.permissionImageView.hidden = true;
+            }
         }];
     } else {
-        self.tableView.hidden = true;
-        self.emptyView.hidden = false;
-        self.permissionImageView.hidden = true;
+        CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+        if (status != CNAuthorizationStatusAuthorized) {
+            self.tableView.hidden = true;
+            self.emptyView.hidden = true;
+            self.permissionImageView.hidden = false;
+        } else if (self.otherElections.count > 0) {
+            self.tableView.hidden = false;
+            self.emptyView.hidden = true;
+            self.permissionImageView.hidden = true;
+            self.tableView.alpha = 0;
+            [UIView animateWithDuration:0.25f animations:^{
+                
+                [self.tableView reloadData];
+                self.tableView.alpha = 1;
+            } completion:^(BOOL finished) {
+                [SVProgressHUD dismiss];
+            }];
+        } else {
+            self.tableView.hidden = true;
+            self.emptyView.hidden = false;
+            self.permissionImageView.hidden = true;
+        }
     }
+    
 }
 
 - (void)registerTableViewCells {
@@ -432,6 +468,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 }
 
 - (void)refresh {
+    self.otherElectionsLoaded = false;
     self.elections = [[NSMutableArray alloc] init];
     self.otherElections = [[NSMutableArray alloc] init];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -441,9 +478,11 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     [self.segmentedControl sendActionsForControlEvents:UIControlEventValueChanged];
     yourElectionsSelected = true;
     [self getElections];
-    if (!permissionDenied) {
-        [self getContactList];
-    }
+//    if (!permissionDenied) {
+//        [self getContactListCompletion:^{
+//            //
+//        }];
+//    }
 }
 
 - (void)segmentedControlValueChanged {

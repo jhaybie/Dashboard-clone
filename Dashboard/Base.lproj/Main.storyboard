@@ -781,8 +781,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contacts-permission" translatesAutoresizingMaskIntoConstraints="NO" id="SWU-w5-OYu">
-                                <rect key="frame" x="48" y="20" width="224" height="499"/>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contacts-permission" translatesAutoresizingMaskIntoConstraints="NO" id="SWU-w5-OYu">
+                                <rect key="frame" x="0.0" y="36" width="320" height="483"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="90" sectionHeaderHeight="120" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="w6Q-h4-jdI">
                                 <rect key="frame" x="0.0" y="20" width="320" height="499"/>
@@ -809,11 +809,11 @@
                             <constraint firstItem="7eY-lC-4rz" firstAttribute="top" secondItem="Kdf-n3-RxP" secondAttribute="top" id="BrH-8d-Ky4"/>
                             <constraint firstItem="7eY-lC-4rz" firstAttribute="leading" secondItem="Kdf-n3-RxP" secondAttribute="leading" id="Dbw-oS-X7m"/>
                             <constraint firstItem="Doy-go-Zam" firstAttribute="top" secondItem="SWU-w5-OYu" secondAttribute="bottom" id="EAA-95-3DS"/>
-                            <constraint firstItem="SWU-w5-OYu" firstAttribute="top" secondItem="4hK-iK-lSc" secondAttribute="bottom" id="Uu8-c5-xjj"/>
+                            <constraint firstItem="SWU-w5-OYu" firstAttribute="top" secondItem="4hK-iK-lSc" secondAttribute="bottom" constant="16" id="Uu8-c5-xjj"/>
                             <constraint firstItem="Doy-go-Zam" firstAttribute="top" secondItem="w6Q-h4-jdI" secondAttribute="bottom" id="V7H-6j-zvJ"/>
-                            <constraint firstAttribute="trailing" secondItem="SWU-w5-OYu" secondAttribute="trailing" constant="48" id="WUq-nK-KDz"/>
+                            <constraint firstAttribute="trailing" secondItem="SWU-w5-OYu" secondAttribute="trailing" id="WUq-nK-KDz"/>
                             <constraint firstItem="w6Q-h4-jdI" firstAttribute="leading" secondItem="Kdf-n3-RxP" secondAttribute="leading" id="c2Q-f0-Je6"/>
-                            <constraint firstItem="SWU-w5-OYu" firstAttribute="leading" secondItem="Kdf-n3-RxP" secondAttribute="leading" constant="48" id="cvr-7s-LKl"/>
+                            <constraint firstItem="SWU-w5-OYu" firstAttribute="leading" secondItem="Kdf-n3-RxP" secondAttribute="leading" id="cvr-7s-LKl"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Contacts" image="icon-tab-contacts" id="V3e-2U-KMx"/>
@@ -869,8 +869,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="contacts-permission" width="470" height="423"/>
-        <image name="home-permission" width="821" height="971"/>
+        <image name="contacts-permission" width="1243" height="2227"/>
+        <image name="home-permission" width="750" height="935"/>
         <image name="icon-contact-email" width="45" height="33"/>
         <image name="icon-contact-sms" width="48" height="41"/>
         <image name="icon-refresh" width="16" height="16"/>

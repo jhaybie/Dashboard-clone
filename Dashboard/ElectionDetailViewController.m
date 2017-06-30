@@ -574,8 +574,14 @@ BOOL isPinnedHeaderViewVisible;
         }
     }
     
-    NSString *emailTitle = @"Test Email";
-    NSString *messageBody = @"This is a test email.";
+    NSString *raceName = (self.forContacts) ? self.otherElections[self.electionIndex.section].election.races[self.electionIndex.row].raceName : self.elections[self.electionIndex.section].races[self.electionIndex.row].raceName;
+    NSString *electionName = (self.forContacts) ? self.otherElections[self.electionIndex.section].election.electionName : self.elections[self.electionIndex.section].electionName;
+    NSDate *electionDate = (self.forContacts) ? self.otherElections[self.electionIndex.section].election.electionDate : self.elections[self.electionIndex.section].electionDate;
+    NSString *electionDateString = [NSDateFormatter localizedStringFromDate:electionDate
+                                                                  dateStyle:NSDateFormatterShortStyle
+                                                                  timeStyle:NSDateFormatterNoStyle];
+    NSString *emailTitle = @"You've been invited to join EveryElection";
+    NSString *messageBody = [NSString stringWithFormat:@"Hey!\n\nI was just tracking upcoming government elections using the EveryElections app and I noticed that you can vote in the upcoming %@ race in the %@ election! Just wanted to let you know.\n\nThe election will be held on %@.\n\nYou can get more info about this and other elections by downloading the EveryElections app!\n\n", raceName, electionName, electionDateString];
     
     MFMailComposeViewController *messageController = [[MFMailComposeViewController alloc] init];
     messageController.mailComposeDelegate = self;
@@ -596,7 +602,8 @@ BOOL isPinnedHeaderViewVisible;
         }
     }
     
-    NSString *message = @"This is a test message.";
+    NSString *nameString = [[NSUserDefaults standardUserDefaults] objectForKey:USER_FULL_NAME];
+    NSString *message = [NSString stringWithFormat:@"%@ has invited you to join EveryElection and keep track of upcoming elections! newfounders.us", nameString];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;

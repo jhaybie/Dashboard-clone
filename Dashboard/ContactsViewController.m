@@ -30,6 +30,11 @@
 
 #pragma mark - Override Methods
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -71,7 +76,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self displayContactListForcedReload:false];
+    [self displayContactListForcedReload:true];
 }
 
 - (void)appWillResignActive:(NSNotification*)note {
