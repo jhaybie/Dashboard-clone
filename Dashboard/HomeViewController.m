@@ -414,6 +414,9 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
             
             CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
             if (status != CNAuthorizationStatusAuthorized) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SVProgressHUD dismiss];
+                });
                 self.tableView.hidden = true;
                 self.emptyView.hidden = true;
                 self.permissionImageView.hidden = false;
@@ -427,7 +430,9 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
                     [self.tableView reloadData];
                     self.tableView.alpha = 1;
                 } completion:^(BOOL finished) {
-                    [SVProgressHUD dismiss];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [SVProgressHUD dismiss];
+                    });
                 }];
             } else {
                 self.tableView.hidden = true;
@@ -451,7 +456,9 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
                 [self.tableView reloadData];
                 self.tableView.alpha = 1;
             } completion:^(BOOL finished) {
-                [SVProgressHUD dismiss];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SVProgressHUD dismiss];
+                });
             }];
         } else {
             self.tableView.hidden = true;

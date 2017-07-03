@@ -22,6 +22,8 @@
 
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 
+@property (strong, nonatomic) NSMutableArray<WRGMSMarker *> *markers;
+
 @end
 
 @implementation MapViewController
@@ -65,7 +67,7 @@ BOOL userAddressExists;
     userAddressExists = ([[[NSUserDefaults standardUserDefaults] objectForKey:USER_ADDRESS_EXISTS] isEqualToString:@"True"]);
     
     self.shouldShowNagView = true;
-
+    self.markers = [[NSMutableArray alloc] init];
     [self initializeMapView];
     [self loadYourElectionsInMapView];
     CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
@@ -176,6 +178,16 @@ BOOL userAddressExists;
     marker.forContacts = (contacts.count > 0);
     marker.contacts = contacts;
     marker.map = self.mapView;
+    [self.markers addObject:marker];
+    if (self.markers.count == 1) {
+        WRGMSMarker *marker = self.markers[0];
+        [self.mapView setSelectedMarker:marker];
+        float zoom = 3;
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:marker.position.latitude
+                                                                longitude:marker.position.longitude
+                                                                     zoom:zoom];
+        self.mapView.camera = camera;
+    }
     
     //self.mapView.camera = [GMSCameraPosition cameraWithTarget:marker.position zoom:13];
 }
