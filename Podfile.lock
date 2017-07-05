@@ -1,12 +1,15 @@
 PODS:
   - SCLAlertView-Objective-C (1.1.2)
+  - Stripe (10.1.0)
 
 DEPENDENCIES:
   - SCLAlertView-Objective-C
+  - Stripe
 
 SPEC CHECKSUMS:
   SCLAlertView-Objective-C: 0e54351fa4f98a5c7c6ad3727e6dbb46784534e5
+  Stripe: 1c7aa951a075cced500a919d92b687b35d410705
 
-PODFILE CHECKSUM: c9443981254f6c8284a9cb4867091f4cd505ed4c
+PODFILE CHECKSUM: 554efdf8e347fc16bd5a5143e728fdf0a40a0935
 
 COCOAPODS: 1.1.1
