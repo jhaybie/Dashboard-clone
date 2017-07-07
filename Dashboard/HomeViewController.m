@@ -49,6 +49,11 @@
 @property (strong, nonatomic) NSMutableArray<ElectionCardView *> *otherElectionCards;
 @property (strong, nonatomic) NSMutableArray<ElectionCardCell *> *otherElectionCells;
 
+@property (strong, nonatomic) UIButton *grantPermissionButton;
+@property (strong, nonatomic) UIButton *skipGrantPermissionButton;
+@property (strong, nonatomic) UIImageView *grantPermissionImageView;
+
+
 @property (nonatomic) BOOL otherElectionsLoaded;
 @end
 
@@ -498,11 +503,68 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
             [self presentElectionsNearYou];
             break;
         case 1: // Near Your Contacts
-            [self presentElectionsNearYourContacts];
+        {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            if ([[defaults objectForKey:CONTACTS_IMPORTED] isEqualToString:@"False"])
+            {
+                [self addGrantContactPermissionView];
+            }
+            else
+                [self presentElectionsNearYourContacts];
+        }
             break;
+
         default:
             break;
     }
+}
+#pragma mark - Tutorial View Methods
+-(void)addGrantContactPermissionView
+{
+    self.grantPermissionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"request_contact_permission"]];
+    
+    self.grantPermissionImageView.frame = CGRectMake(
+                                                     self.grantPermissionImageView.frame.origin.x+5-5,
+                                                     self.grantPermissionImageView.frame.origin.y+100, self.view.frame.size.width-10+10, self.view.frame.size.height-150);
+    
+    self.grantPermissionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.grantPermissionButton addTarget:self action:@selector(grantPermissionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.grantPermissionButton setFrame:CGRectMake(self.grantPermissionImageView.frame.origin.x, self.view.frame.size.height-120, self.view.frame.size.width-10, 50)];
+    [self.grantPermissionButton setBackgroundColor:[UIColor clearColor]];
+    
+    self.skipGrantPermissionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.skipGrantPermissionButton addTarget:self action:@selector(skipGrantPermissionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.skipGrantPermissionButton setFrame:CGRectMake(self.grantPermissionImageView.frame.size.width-180, self.grantPermissionImageView.frame.origin.y, 200, 40)];
+    [self.skipGrantPermissionButton setBackgroundColor:[UIColor clearColor]];
+    
+    [self.view addSubview:self.grantPermissionImageView];
+    [self.view addSubview:self.grantPermissionButton];
+    [self.view addSubview:self.skipGrantPermissionButton];
+    
+}
+
+-(void)removeGrantContactPermissionView
+{
+    [self.grantPermissionImageView removeFromSuperview];
+    [self.grantPermissionButton removeFromSuperview];
+    [self.skipGrantPermissionButton removeFromSuperview];
+    
+}
+
+-(void)grantPermissionButtonClicked:(id)sender
+{
+    [self removeGrantContactPermissionView];
+    [self presentElectionsNearYourContacts];
+}
+
+-(void)skipGrantPermissionButtonClicked:(id)sender
+{
+    [self.grantPermissionImageView removeFromSuperview];
+    [self.grantPermissionButton removeFromSuperview];
+    [self.skipGrantPermissionButton removeFromSuperview];
+    
+    self.segmentedControl.selectedSegmentIndex=0;
+    [self presentElectionsNearYou];
 }
 
 #pragma mark - IBActions 

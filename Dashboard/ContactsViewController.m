@@ -24,6 +24,10 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *deniedImageView;
 
+@property (strong, nonatomic) UIButton *grantPermissionButton;
+@property (strong, nonatomic) UIButton *skipGrantPermissionButton;
+@property (strong, nonatomic) UIImageView *grantPermissionImageView;
+
 @end
 
 @implementation ContactsViewController
@@ -76,7 +80,16 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self displayContactListForcedReload:true];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([[defaults objectForKey:CONTACTS_IMPORTED] isEqualToString:@"False"])
+    {
+        [self addGrantContactPermissionView];
+    }
+    else
+    {
+        [self displayContactListForcedReload:true];
+    }
+
 }
 
 - (void)appWillResignActive:(NSNotification*)note {
@@ -94,10 +107,12 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    [GlobalAPI saveContacts:self.contacts];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![[defaults objectForKey:CONTACTS_IMPORTED] isEqualToString:@"False"])
+    {
+        [GlobalAPI saveContacts:self.contacts];
+    }
 }
-
 #pragma mark - Private Methods
 
 - (void)displayContactListForcedReload:(BOOL)forcedReload {
@@ -215,6 +230,51 @@
     TableViewHeaderView *headerView = [[TableViewHeaderView alloc] init];
     headerView.delegate = self;
     return headerView;
+}
+#pragma mark - Tutorial View Methods
+-(void)addGrantContactPermissionView
+{
+    self.grantPermissionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"request_contact_permission"]];
+    
+    self.grantPermissionImageView.frame = CGRectMake(
+                                                     self.grantPermissionImageView.frame.origin.x+5-5,
+                                                     self.grantPermissionImageView.frame.origin.y+100, self.view.frame.size.width-10+10, self.view.frame.size.height-150);
+    
+    self.grantPermissionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.grantPermissionButton addTarget:self action:@selector(grantPermissionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.grantPermissionButton setFrame:CGRectMake(self.grantPermissionImageView.frame.origin.x, self.view.frame.size.height-120, self.view.frame.size.width-10, 50)];
+    [self.grantPermissionButton setBackgroundColor:[UIColor clearColor]];
+    
+    self.skipGrantPermissionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.skipGrantPermissionButton addTarget:self action:@selector(skipGrantPermissionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.skipGrantPermissionButton setFrame:CGRectMake(self.grantPermissionImageView.frame.size.width-180, self.grantPermissionImageView.frame.origin.y, 200, 40)];
+    [self.skipGrantPermissionButton setBackgroundColor:[UIColor clearColor]];
+    
+    [self.view addSubview:self.grantPermissionImageView];
+    [self.view addSubview:self.grantPermissionButton];
+    [self.view addSubview:self.skipGrantPermissionButton];
+    
+}
+
+-(void)removeGrantContactPermissionView
+{
+    [self.grantPermissionImageView removeFromSuperview];
+    [self.grantPermissionButton removeFromSuperview];
+    [self.skipGrantPermissionButton removeFromSuperview];
+    
+}
+
+-(void)grantPermissionButtonClicked:(id)sender
+{
+    [self removeGrantContactPermissionView];
+    [self displayContactListForcedReload:true];
+}
+
+-(void)skipGrantPermissionButtonClicked:(id)sender
+{
+    [self.grantPermissionImageView removeFromSuperview];
+    [self.grantPermissionButton removeFromSuperview];
+    [self.skipGrantPermissionButton removeFromSuperview];
 }
 
 @end
