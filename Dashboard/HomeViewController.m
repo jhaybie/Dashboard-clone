@@ -49,9 +49,7 @@
 @property (strong, nonatomic) NSMutableArray<ElectionCardView *> *otherElectionCards;
 @property (strong, nonatomic) NSMutableArray<ElectionCardCell *> *otherElectionCells;
 
-@property (strong, nonatomic) UIButton *grantPermissionButton;
-@property (strong, nonatomic) UIButton *skipGrantPermissionButton;
-@property (strong, nonatomic) UIImageView *grantPermissionImageView;
+@property (strong, nonatomic) UIView *grantPermissionView;
 
 
 @property (nonatomic) BOOL otherElectionsLoaded;
@@ -521,53 +519,91 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
 #pragma mark - Tutorial View Methods
 -(void)addGrantContactPermissionView
 {
-    self.grantPermissionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"request_contact_permission"]];
+    self.grantPermissionView = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height)];
     
-    self.grantPermissionImageView.frame = CGRectMake(
-                                                     self.grantPermissionImageView.frame.origin.x+5-5,
-                                                     self.grantPermissionImageView.frame.origin.y+100, self.view.frame.size.width-10+10, self.view.frame.size.height-150);
+    UIImageView *grantPermissionImageView;
+    UIButton *grantPermissionButton;
+    UIButton *skipGrantPermissionButton;
     
-    self.grantPermissionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.grantPermissionButton addTarget:self action:@selector(grantPermissionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.grantPermissionButton setFrame:CGRectMake(self.grantPermissionImageView.frame.origin.x, self.view.frame.size.height-120, self.view.frame.size.width-10, 50)];
-    [self.grantPermissionButton setBackgroundColor:[UIColor clearColor]];
     
-    self.skipGrantPermissionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.skipGrantPermissionButton addTarget:self action:@selector(skipGrantPermissionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.skipGrantPermissionButton setFrame:CGRectMake(self.grantPermissionImageView.frame.size.width-180, self.grantPermissionImageView.frame.origin.y, 200, 40)];
-    [self.skipGrantPermissionButton setBackgroundColor:[UIColor clearColor]];
+    grantPermissionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"john-hancock"]];
+    grantPermissionImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
     
-    [self.view addSubview:self.grantPermissionImageView];
-    [self.view addSubview:self.grantPermissionButton];
-    [self.view addSubview:self.skipGrantPermissionButton];
+    grantPermissionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [grantPermissionButton addTarget:self action:@selector(grantPermissionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [grantPermissionButton setFrame:CGRectMake(grantPermissionImageView.frame.origin.x, self.view.frame.size.height-100, self.view.frame.size.width, 80)];
+    [grantPermissionButton setBackgroundColor:[UIColor colorWithHexString:@"#29ABE2"]];
+    [grantPermissionButton setTitle:@"Grant Contacts Permissions" forState:UIControlStateNormal];
+    [grantPermissionButton.titleLabel setFont:[UIFont systemFontOfSize:20 weight:UIFontWeightRegular]];
+    
+    
+    skipGrantPermissionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [skipGrantPermissionButton addTarget:self action:@selector(skipGrantPermissionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [skipGrantPermissionButton setFrame:CGRectMake(grantPermissionImageView.frame.size.width-180, grantPermissionImageView.frame.origin.y, 200, 100)];
+    [skipGrantPermissionButton setBackgroundColor:[UIColor clearColor]];
+    [skipGrantPermissionButton setTitle:@"Skip for Now" forState:UIControlStateNormal];
+    [skipGrantPermissionButton.titleLabel setFont:[UIFont italicSystemFontOfSize:18.0f]];
+    
+    
+    UILabel *shareLabel = [[UILabel alloc]initWithFrame:CGRectMake(grantPermissionImageView.frame.size.width/2-(grantPermissionImageView.frame.size.width/3), self.view.frame.size.height-300, grantPermissionImageView.frame.size.width/1.5, 100)];
+    shareLabel.text = @"Share elections with friends and family";
+    shareLabel.font = [UIFont systemFontOfSize:20 weight:UIFontWeightSemibold];
+    shareLabel.numberOfLines = 0;
+    shareLabel.baselineAdjustment = YES;
+    shareLabel.adjustsFontSizeToFitWidth = YES;
+    
+    shareLabel.clipsToBounds = YES;
+    shareLabel.backgroundColor = [UIColor clearColor];
+    shareLabel.textColor = [UIColor whiteColor];
+    shareLabel.textAlignment = NSTextAlignmentCenter;
+    
+    UILabel *shareLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(grantPermissionImageView.frame.size.width/2-(grantPermissionImageView.frame.size.width/2.4), self.view.frame.size.height-230, grantPermissionImageView.frame.size.width/1.2, 100)];
+    shareLabel2.text = @"EveryElection helps you keep your social network socially responsible";
+    shareLabel2.font = [UIFont systemFontOfSize:20 weight:UIFontWeightLight];
+    shareLabel2.numberOfLines = 0;
+    shareLabel2.baselineAdjustment = YES;
+    shareLabel2.adjustsFontSizeToFitWidth = YES;
+    
+    shareLabel2.clipsToBounds = YES;
+    shareLabel2.backgroundColor = [UIColor clearColor];
+    shareLabel2.textColor = [UIColor whiteColor];
+    shareLabel2.textAlignment = NSTextAlignmentJustified;
+    
+    
+    [self.tabBarController.tabBar setHidden:YES];
+    
+    [self.grantPermissionView addSubview:grantPermissionImageView];
+    [self.grantPermissionView addSubview:grantPermissionButton];
+    [self.grantPermissionView addSubview:skipGrantPermissionButton];
+    [self.grantPermissionView addSubview:shareLabel];
+    [self.grantPermissionView addSubview:shareLabel2];
+    [self.view addSubview:self.grantPermissionView];
     
 }
 
 -(void)removeGrantContactPermissionView
 {
-    [self.grantPermissionImageView removeFromSuperview];
-    [self.grantPermissionButton removeFromSuperview];
-    [self.skipGrantPermissionButton removeFromSuperview];
+    [self.grantPermissionView removeFromSuperview];
     
 }
 
 -(void)grantPermissionButtonClicked:(id)sender
 {
+    [self.tabBarController.tabBar setHidden:NO];
     [self removeGrantContactPermissionView];
     [self presentElectionsNearYourContacts];
 }
 
 -(void)skipGrantPermissionButtonClicked:(id)sender
 {
-    [self.grantPermissionImageView removeFromSuperview];
-    [self.grantPermissionButton removeFromSuperview];
-    [self.skipGrantPermissionButton removeFromSuperview];
-    
+    [self.grantPermissionView removeFromSuperview];
+    [self.tabBarController.tabBar setHidden:NO];
     self.segmentedControl.selectedSegmentIndex=0;
     [self presentElectionsNearYou];
 }
 
-#pragma mark - IBActions 
+
+#pragma mark - IBActions
 
 - (IBAction)emailLogoutButtonTapped:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

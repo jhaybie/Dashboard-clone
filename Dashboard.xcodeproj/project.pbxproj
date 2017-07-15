@@ -882,7 +882,7 @@
 				TargetAttributes = {
 					6FA3BC291E62426100962D55 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 6WU2E2K28R;
+						DevelopmentTeam = CYAPVX6BEE;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
@@ -1205,7 +1205,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 6WU2E2K28R;
+				DEVELOPMENT_TEAM = CYAPVX6BEE;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1227,7 +1227,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 6WU2E2K28R;
+				DEVELOPMENT_TEAM = CYAPVX6BEE;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
