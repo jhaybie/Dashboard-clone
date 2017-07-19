@@ -544,30 +544,27 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     [skipGrantPermissionButton setTitle:@"Skip for Now" forState:UIControlStateNormal];
     [skipGrantPermissionButton.titleLabel setFont:[UIFont italicSystemFontOfSize:18.0f]];
     
-    
     UILabel *shareLabel = [[UILabel alloc]initWithFrame:CGRectMake(grantPermissionImageView.frame.size.width/2-(grantPermissionImageView.frame.size.width/3), self.view.frame.size.height-300, grantPermissionImageView.frame.size.width/1.5, 100)];
-    shareLabel.text = @"Share elections with friends and family";
-    shareLabel.font = [UIFont systemFontOfSize:20 weight:UIFontWeightSemibold];
-    shareLabel.numberOfLines = 0;
-    shareLabel.baselineAdjustment = YES;
-    shareLabel.adjustsFontSizeToFitWidth = YES;
-    
-    shareLabel.clipsToBounds = YES;
-    shareLabel.backgroundColor = [UIColor clearColor];
-    shareLabel.textColor = [UIColor whiteColor];
-    shareLabel.textAlignment = NSTextAlignmentCenter;
+    [shareLabel setText:@"Share elections with friends and family"];
+    [shareLabel setFont:[UIFont systemFontOfSize:20 weight:UIFontWeightSemibold]];
+    [shareLabel setNumberOfLines:0];
+    [shareLabel setBaselineAdjustment:YES];
+    [shareLabel setAdjustsFontSizeToFitWidth:YES];
+    [shareLabel setClipsToBounds:YES];
+    [shareLabel setBackgroundColor:[UIColor clearColor]];
+    [shareLabel setTextColor:[UIColor whiteColor]];
+    [shareLabel setTextAlignment:NSTextAlignmentCenter];
     
     UILabel *shareLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(grantPermissionImageView.frame.size.width/2-(grantPermissionImageView.frame.size.width/2.4), self.view.frame.size.height-230, grantPermissionImageView.frame.size.width/1.2, 100)];
-    shareLabel2.text = @"EveryElection helps you keep your social network socially responsible";
-    shareLabel2.font = [UIFont systemFontOfSize:20 weight:UIFontWeightLight];
-    shareLabel2.numberOfLines = 0;
-    shareLabel2.baselineAdjustment = YES;
-    shareLabel2.adjustsFontSizeToFitWidth = YES;
-    
-    shareLabel2.clipsToBounds = YES;
-    shareLabel2.backgroundColor = [UIColor clearColor];
-    shareLabel2.textColor = [UIColor whiteColor];
-    shareLabel2.textAlignment = NSTextAlignmentJustified;
+    [shareLabel2 setText:@"EveryElection helps you keep your social network socially responsible"];
+    [shareLabel2 setFont:[UIFont systemFontOfSize:20 weight:UIFontWeightLight]];
+    [shareLabel2 setNumberOfLines:0];
+    [shareLabel2 setBaselineAdjustment:YES];
+    [shareLabel2 setAdjustsFontSizeToFitWidth:YES];
+    [shareLabel2 setClipsToBounds:YES];
+    [shareLabel2 setBackgroundColor:[UIColor clearColor]];
+    [shareLabel2 setTextColor:[UIColor whiteColor]];
+    [shareLabel2 setTextAlignment:NSTextAlignmentJustified];
     
     
     [self.tabBarController.tabBar setHidden:YES];
