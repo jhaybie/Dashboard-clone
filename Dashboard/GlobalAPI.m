@@ -125,7 +125,7 @@
     NSString *state = [prefs objectForKey:USER_STATE];
     NSString *zip = [prefs objectForKey:USER_ZIP_CODE];
     
-    NSString *addressString = [NSString stringWithFormat:@"%@ %@ %@ %@", street, city, state, zip];
+    NSString *addressString = [NSString stringWithFormat:@"%@ %@ %@ %@ USA", street, city, state, zip];
     addressString = [addressString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
     
     
@@ -190,7 +190,7 @@
                        success:(void (^)(NSArray<Election *> *elections))success
                        failure:(void (^)(NSInteger statusCode))failure {
     
-    NSString *addressString = [NSString stringWithFormat:@"%@ %@ %@ %@", contact.street, contact.city, contact.state, contact.zip];
+    NSString *addressString = [NSString stringWithFormat:@"%@ %@ %@ %@ USA", contact.street, contact.city, contact.state, contact.zip];
     addressString = [addressString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
     addressString = [addressString stringByReplacingOccurrencesOfString:@"%0A" withString:@"%20"];
     
