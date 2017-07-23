@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6F17A02E1ECB88DD00A7249A /* DetailCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F17A02D1ECB88DD00A7249A /* DetailCardView.m */; };
 		6F17A0301ECB88EC00A7249A /* DetailCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F17A02F1ECB88EC00A7249A /* DetailCardView.xib */; };
-		6F28DF881EC3AB4F008DE223 /* ElectionCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F28DF871EC3AB4F008DE223 /* ElectionCardView.xib */; };
 		6F3FE9111E76D7E900134EF5 /* PinnedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FE9101E76D7E900134EF5 /* PinnedHeaderView.xib */; };
 		6F3FE9141E76D80500134EF5 /* PinnedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE9131E76D80500134EF5 /* PinnedHeaderView.m */; };
 		6F3FE9181E76EF8800134EF5 /* DBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FE9161E76EF8800134EF5 /* DBViewController.m */; };
@@ -39,7 +38,6 @@
 		6F8D2FF01E7C5D23006969A9 /* TableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F8D2FEF1E7C5D23006969A9 /* TableViewHeaderView.xib */; };
 		6F8D2FF41E7C5F06006969A9 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D2FF21E7C5F06006969A9 /* ContactCell.m */; };
 		6F8D2FF51E7C5F06006969A9 /* ContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F8D2FF31E7C5F06006969A9 /* ContactCell.xib */; };
-		6F8EACBF1EEACE7000702BEF /* SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F8EACBE1EEACE7000702BEF /* SectionHeaderView.xib */; };
 		6F8EACC21EEACE8400702BEF /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8EACC11EEACE8400702BEF /* SectionHeaderView.m */; };
 		6FA3BC2F1E62426100962D55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC2E1E62426100962D55 /* main.m */; };
 		6FA3BC321E62426100962D55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3BC311E62426100962D55 /* AppDelegate.m */; };
@@ -138,6 +136,14 @@
 		6FCB59CC1E6A1A76005A3D66 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB59CB1E6A1A76005A3D66 /* ContactsViewController.m */; };
 		6FCC05EF1EB7852D00BECCAB /* Race.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC05EE1EB7852D00BECCAB /* Race.m */; };
 		B52C064E3FA8D8F0D0E784A5 /* libPods-Dashboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D78BA8E3E516F207CD332DD7 /* libPods-Dashboard.a */; };
+		CDF5F8A61F20F73B005268FF /* ElectionCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF5F8A51F20F73B005268FF /* ElectionCardView.xib */; };
+		CDF5F8A81F20F76E005268FF /* SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF5F8A71F20F76E005268FF /* SectionHeaderView.xib */; };
+		CDF5F8BC1F210395005268FF /* ElectionCardViewRev.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF5F8BB1F210395005268FF /* ElectionCardViewRev.xib */; };
+		CDF5F8CA1F23AD04005268FF /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF5F8C11F23AD04005268FF /* MenuViewController.m */; };
+		CDF5F8CB1F23AD04005268FF /* NSObject+reSideMenuSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF5F8C31F23AD04005268FF /* NSObject+reSideMenuSingleton.m */; };
+		CDF5F8CC1F23AD04005268FF /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF5F8C51F23AD04005268FF /* RECommonFunctions.m */; };
+		CDF5F8CD1F23AD04005268FF /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF5F8C71F23AD04005268FF /* RESideMenu.m */; };
+		CDF5F8CE1F23AD04005268FF /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF5F8C91F23AD04005268FF /* UIViewController+RESideMenu.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,7 +151,6 @@
 		6F17A02C1ECB88DD00A7249A /* DetailCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCardView.h; sourceTree = "<group>"; };
 		6F17A02D1ECB88DD00A7249A /* DetailCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCardView.m; sourceTree = "<group>"; };
 		6F17A02F1ECB88EC00A7249A /* DetailCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCardView.xib; sourceTree = "<group>"; };
-		6F28DF871EC3AB4F008DE223 /* ElectionCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElectionCardView.xib; sourceTree = "<group>"; };
 		6F3FE9101E76D7E900134EF5 /* PinnedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinnedHeaderView.xib; sourceTree = "<group>"; };
 		6F3FE9121E76D80500134EF5 /* PinnedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinnedHeaderView.h; sourceTree = "<group>"; };
 		6F3FE9131E76D80500134EF5 /* PinnedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinnedHeaderView.m; sourceTree = "<group>"; };
@@ -183,7 +188,6 @@
 		6F8D2FF11E7C5F06006969A9 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
 		6F8D2FF21E7C5F06006969A9 /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
 		6F8D2FF31E7C5F06006969A9 /* ContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactCell.xib; sourceTree = "<group>"; };
-		6F8EACBE1EEACE7000702BEF /* SectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderView.xib; sourceTree = "<group>"; };
 		6F8EACC01EEACE8400702BEF /* SectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderView.h; sourceTree = "<group>"; };
 		6F8EACC11EEACE8400702BEF /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
 		6FA3BC2A1E62426100962D55 /* EveryElection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EveryElection.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -368,6 +372,19 @@
 		6FCB59CB1E6A1A76005A3D66 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
 		6FCC05ED1EB7852D00BECCAB /* Race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Race.h; sourceTree = "<group>"; };
 		6FCC05EE1EB7852D00BECCAB /* Race.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Race.m; sourceTree = "<group>"; };
+		CDF5F8A51F20F73B005268FF /* ElectionCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElectionCardView.xib; sourceTree = "<group>"; };
+		CDF5F8A71F20F76E005268FF /* SectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderView.xib; sourceTree = "<group>"; };
+		CDF5F8BB1F210395005268FF /* ElectionCardViewRev.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElectionCardViewRev.xib; sourceTree = "<group>"; };
+		CDF5F8C01F23AD04005268FF /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		CDF5F8C11F23AD04005268FF /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		CDF5F8C21F23AD04005268FF /* NSObject+reSideMenuSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+reSideMenuSingleton.h"; sourceTree = "<group>"; };
+		CDF5F8C31F23AD04005268FF /* NSObject+reSideMenuSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+reSideMenuSingleton.m"; sourceTree = "<group>"; };
+		CDF5F8C41F23AD04005268FF /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
+		CDF5F8C51F23AD04005268FF /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
+		CDF5F8C61F23AD04005268FF /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESideMenu.h; sourceTree = "<group>"; };
+		CDF5F8C71F23AD04005268FF /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
+		CDF5F8C81F23AD04005268FF /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
+		CDF5F8C91F23AD04005268FF /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
 		D78BA8E3E516F207CD332DD7 /* libPods-Dashboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dashboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E44AD407B56FE6C2EF0F1907 /* Pods-Dashboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dashboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dashboard/Pods-Dashboard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -479,6 +496,7 @@
 				6FCB59171E676295005A3D66 /* Home */,
 				6FCB58D11E64DEB1005A3D66 /* Login */,
 				6FCB59C51E6A1956005A3D66 /* Map View */,
+				CDF5F8CF1F23AD0D005268FF /* Menu */,
 				6FA3BC3E1E62426100962D55 /* LaunchScreen.storyboard */,
 			);
 			name = Screens;
@@ -690,7 +708,8 @@
 				6FCB59051E6608E5005A3D66 /* UserCardView.xib */,
 				6FCB59071E6608FC005A3D66 /* UserCardView.h */,
 				6FCB59081E6608FC005A3D66 /* UserCardView.m */,
-				6F28DF871EC3AB4F008DE223 /* ElectionCardView.xib */,
+				CDF5F8A51F20F73B005268FF /* ElectionCardView.xib */,
+				CDF5F8BB1F210395005268FF /* ElectionCardViewRev.xib */,
 				6FCB59131E673AA4005A3D66 /* ElectionCardView.h */,
 				6FCB59141E673AA4005A3D66 /* ElectionCardView.m */,
 			);
@@ -734,7 +753,7 @@
 				6FCB591A1E6762C5005A3D66 /* ElectionCardCell.xib */,
 				6FCB59181E6762C5005A3D66 /* ElectionCardCell.h */,
 				6FCB59191E6762C5005A3D66 /* ElectionCardCell.m */,
-				6F8EACBE1EEACE7000702BEF /* SectionHeaderView.xib */,
+				CDF5F8A71F20F76E005268FF /* SectionHeaderView.xib */,
 				6F8EACC01EEACE8400702BEF /* SectionHeaderView.h */,
 				6F8EACC11EEACE8400702BEF /* SectionHeaderView.m */,
 			);
@@ -848,6 +867,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		CDF5F8CF1F23AD0D005268FF /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				CDF5F8C01F23AD04005268FF /* MenuViewController.h */,
+				CDF5F8C11F23AD04005268FF /* MenuViewController.m */,
+				CDF5F8C21F23AD04005268FF /* NSObject+reSideMenuSingleton.h */,
+				CDF5F8C31F23AD04005268FF /* NSObject+reSideMenuSingleton.m */,
+				CDF5F8C41F23AD04005268FF /* RECommonFunctions.h */,
+				CDF5F8C51F23AD04005268FF /* RECommonFunctions.m */,
+				CDF5F8C61F23AD04005268FF /* RESideMenu.h */,
+				CDF5F8C71F23AD04005268FF /* RESideMenu.m */,
+				CDF5F8C81F23AD04005268FF /* UIViewController+RESideMenu.h */,
+				CDF5F8C91F23AD04005268FF /* UIViewController+RESideMenu.m */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -918,8 +954,8 @@
 				6FCB58D01E64DEAD005A3D66 /* LoginViewController.xib in Resources */,
 				6FCB591C1E6762C5005A3D66 /* ElectionCardCell.xib in Resources */,
 				6F3FE91B1E76EFD700134EF5 /* DBToastView.xib in Resources */,
-				6F28DF881EC3AB4F008DE223 /* ElectionCardView.xib in Resources */,
 				6F8D2FF51E7C5F06006969A9 /* ContactCell.xib in Resources */,
+				CDF5F8A61F20F73B005268FF /* ElectionCardView.xib in Resources */,
 				6F8D2FF01E7C5D23006969A9 /* TableViewHeaderView.xib in Resources */,
 				6FA3BC401E62426100962D55 /* LaunchScreen.storyboard in Resources */,
 				6FCB58D71E64DF55005A3D66 /* Info.plist in Resources */,
@@ -928,7 +964,7 @@
 				6FCB590D1E671609005A3D66 /* RegisterView.xib in Resources */,
 				6F3FE9291E772E4000134EF5 /* GoogleMaps.bundle in Resources */,
 				6FA3BC3B1E62426100962D55 /* Main.storyboard in Resources */,
-				6F8EACBF1EEACE7000702BEF /* SectionHeaderView.xib in Resources */,
+				CDF5F8A81F20F76E005268FF /* SectionHeaderView.xib in Resources */,
 				6FCB59061E6608E5005A3D66 /* UserCardView.xib in Resources */,
 				6FCB59B81E69C795005A3D66 /* ContactLineView.xib in Resources */,
 				6F17A0301ECB88EC00A7249A /* DetailCardView.xib in Resources */,
@@ -936,6 +972,7 @@
 				6FCB59041E660835005A3D66 /* AddressViewController.xib in Resources */,
 				6F3FE9111E76D7E900134EF5 /* PinnedHeaderView.xib in Resources */,
 				6FA3BCBB1E62641000962D55 /* SVProgressHUD.bundle in Resources */,
+				CDF5F8BC1F210395005268FF /* ElectionCardViewRev.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,7 +991,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		2C355B54DCA87D8BB502E2FB /* [CP] Embed Pods Frameworks */ = {
@@ -999,6 +1036,7 @@
 				6FCB58DD1E64E0EF005A3D66 /* DBSegmentedControl.m in Sources */,
 				6FA3BC9C1E62637B00962D55 /* UIImage+WebP.m in Sources */,
 				6FCB58CF1E64DEAD005A3D66 /* LoginViewController.m in Sources */,
+				CDF5F8CE1F23AD04005268FF /* UIViewController+RESideMenu.m in Sources */,
 				6FA3BC601E62636800962D55 /* AFURLResponseSerialization.m in Sources */,
 				6FCB59151E673AA4005A3D66 /* ElectionCardView.m in Sources */,
 				6FCB59CC1E6A1A76005A3D66 /* ContactsViewController.m in Sources */,
@@ -1012,6 +1050,7 @@
 				6F3FE9141E76D80500134EF5 /* PinnedHeaderView.m in Sources */,
 				6F8D2FF41E7C5F06006969A9 /* ContactCell.m in Sources */,
 				6FCB59A31E68921D005A3D66 /* EXTScope.m in Sources */,
+				CDF5F8CA1F23AD04005268FF /* MenuViewController.m in Sources */,
 				6FCB59031E660835005A3D66 /* AddressViewController.m in Sources */,
 				6FCB59BE1E69CD74005A3D66 /* Contact.m in Sources */,
 				6FA3BC8F1E62637B00962D55 /* NSData+ImageContentType.m in Sources */,
@@ -1034,6 +1073,7 @@
 				6FA3BC5C1E62636800962D55 /* AFHTTPSessionManager.m in Sources */,
 				6F8D2FEE1E7C5D13006969A9 /* TableViewHeaderView.m in Sources */,
 				6FAF06F41ED8BB2200AD3D43 /* Candidate.m in Sources */,
+				CDF5F8CC1F23AD04005268FF /* RECommonFunctions.m in Sources */,
 				6FA3BC901E62637B00962D55 /* NSImage+WebCache.m in Sources */,
 				6F3FE9181E76EF8800134EF5 /* DBViewController.m in Sources */,
 				6FA3BC931E62637B00962D55 /* SDWebImageCompat.m in Sources */,
@@ -1065,8 +1105,10 @@
 				6FA3BCBC1E62641000962D55 /* SVProgressHUD.m in Sources */,
 				6FA3BCA01E62637B00962D55 /* UIView+WebCacheOperation.m in Sources */,
 				6FA3BC9A1E62637B00962D55 /* UIImage+GIF.m in Sources */,
+				CDF5F8CB1F23AD04005268FF /* NSObject+reSideMenuSingleton.m in Sources */,
 				6FA3BC2F1E62426100962D55 /* main.m in Sources */,
 				6FA3BC981E62637B00962D55 /* SDWebImagePrefetcher.m in Sources */,
+				CDF5F8CD1F23AD04005268FF /* RESideMenu.m in Sources */,
 				6FA3BCAA1E62639D00962D55 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				6F3FE91E1E76EFFF00134EF5 /* DBToastView.m in Sources */,
 				6FCB58EE1E64F286005A3D66 /* DBCheckboxButton.m in Sources */,
