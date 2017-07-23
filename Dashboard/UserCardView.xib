@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,14 +16,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-user-icon" translatesAutoresizingMaskIntoConstraints="NO" id="gmf-VG-Rpd">
-                    <rect key="frame" x="14" y="3" width="82" height="74"/>
+                    <rect key="frame" x="64" y="3" width="82" height="74"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="74" id="ARC-LF-ZuK"/>
                         <constraint firstAttribute="width" constant="82" id="CEN-1b-8FV"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w8l-jb-Fvd">
-                    <rect key="frame" x="24" y="10" width="60" height="60"/>
+                    <rect key="frame" x="74" y="10" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="q7h-7Z-NdY"/>
                         <constraint firstAttribute="width" constant="60" id="zTh-zn-fcf"/>
@@ -36,12 +36,12 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Firstname Lastname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sc6-Ft-eQX">
-                    <rect key="frame" x="100" y="15" width="383" height="19.5"/>
+                    <rect key="frame" x="150" y="15" width="383" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City, State" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0M-ps-xUX">
-                    <rect key="frame" x="116" y="35.5" width="367" height="18"/>
+                    <rect key="frame" x="161" y="36" width="367" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="18" id="jYI-oB-nsD"/>
                     </constraints>
@@ -50,27 +50,39 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-map-marker" translatesAutoresizingMaskIntoConstraints="NO" id="dwn-1s-Dj9">
-                    <rect key="frame" x="100" y="38.5" width="12" height="12"/>
+                    <rect key="frame" x="148" y="39" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="g9b-EW-Y7d"/>
                         <constraint firstAttribute="width" constant="12" id="wvM-eh-enY"/>
                     </constraints>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awp-vj-IJt">
+                    <rect key="frame" x="0.0" y="10" width="31" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="Xod-ih-RF5"/>
+                        <constraint firstAttribute="width" constant="31" id="gBZ-bW-Awr"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="sidemenu">
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Sc6-Ft-eQX" firstAttribute="top" secondItem="w8l-jb-Fvd" secondAttribute="top" constant="5" id="7O8-WD-ytd"/>
-                <constraint firstItem="E0M-ps-xUX" firstAttribute="leading" secondItem="dwn-1s-Dj9" secondAttribute="trailing" constant="4" id="ElL-4n-uuh"/>
+                <constraint firstItem="gmf-VG-Rpd" firstAttribute="leading" secondItem="awp-vj-IJt" secondAttribute="trailing" constant="33" id="98q-Ll-yr6"/>
+                <constraint firstItem="awp-vj-IJt" firstAttribute="top" secondItem="w8l-jb-Fvd" secondAttribute="top" id="DKY-m7-4iJ"/>
+                <constraint firstItem="E0M-ps-xUX" firstAttribute="leading" secondItem="dwn-1s-Dj9" secondAttribute="trailing" constant="1" id="ElL-4n-uuh"/>
                 <constraint firstItem="E0M-ps-xUX" firstAttribute="centerY" secondItem="dwn-1s-Dj9" secondAttribute="centerY" id="Elm-SA-gfM"/>
                 <constraint firstItem="gmf-VG-Rpd" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Jbh-az-FXQ"/>
-                <constraint firstItem="dwn-1s-Dj9" firstAttribute="leading" secondItem="Sc6-Ft-eQX" secondAttribute="leading" id="MbF-YS-Z4u"/>
+                <constraint firstItem="dwn-1s-Dj9" firstAttribute="leading" secondItem="Sc6-Ft-eQX" secondAttribute="leading" constant="-2" id="MbF-YS-Z4u"/>
                 <constraint firstItem="Sc6-Ft-eQX" firstAttribute="leading" secondItem="w8l-jb-Fvd" secondAttribute="trailing" constant="16" id="Vha-yL-Uy6"/>
-                <constraint firstItem="gmf-VG-Rpd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="Wmr-j1-zNa"/>
+                <constraint firstItem="gmf-VG-Rpd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="64" id="Wmr-j1-zNa"/>
                 <constraint firstItem="dwn-1s-Dj9" firstAttribute="top" secondItem="Sc6-Ft-eQX" secondAttribute="bottom" constant="4" id="XXj-2f-JDe"/>
                 <constraint firstItem="w8l-jb-Fvd" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="aJP-Ib-LsC"/>
-                <constraint firstItem="w8l-jb-Fvd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="goq-O2-7Nk"/>
-                <constraint firstAttribute="trailing" secondItem="E0M-ps-xUX" secondAttribute="trailing" constant="24" id="pKe-dZ-V0s"/>
-                <constraint firstAttribute="trailing" secondItem="Sc6-Ft-eQX" secondAttribute="trailing" constant="24" id="pUf-2q-xfz"/>
+                <constraint firstItem="w8l-jb-Fvd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="74" id="goq-O2-7Nk"/>
+                <constraint firstAttribute="trailing" secondItem="E0M-ps-xUX" secondAttribute="trailing" constant="-21" id="pKe-dZ-V0s"/>
+                <constraint firstAttribute="trailing" secondItem="Sc6-Ft-eQX" secondAttribute="trailing" constant="-26" id="pUf-2q-xfz"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -79,6 +91,7 @@
             <connections>
                 <outlet property="cityStateLabel" destination="E0M-ps-xUX" id="r04-0z-97V"/>
                 <outlet property="imageView" destination="w8l-jb-Fvd" id="3Z7-o0-Jjk"/>
+                <outlet property="menuButton" destination="awp-vj-IJt" id="r2g-0K-nVU"/>
                 <outlet property="nameLabel" destination="Sc6-Ft-eQX" id="l3t-Zt-nhu"/>
             </connections>
             <point key="canvasLocation" x="99.5" y="-241"/>
@@ -87,5 +100,6 @@
     <resources>
         <image name="background-user-icon" width="107" height="97"/>
         <image name="icon-map-marker" width="21" height="21"/>
+        <image name="sidemenu" width="57" height="111"/>
     </resources>
 </document>

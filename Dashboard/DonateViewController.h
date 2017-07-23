@@ -7,9 +7,10 @@
 //
 
 #import "DBViewController.h"
+#import "Stripe.h"
+#import "GlobalAPI.h"
 
-@interface DonateViewController : DBViewController
-
+@interface DonateViewController : DBViewController<STPPaymentContextDelegate,UITextFieldDelegate>
 
 @end
 

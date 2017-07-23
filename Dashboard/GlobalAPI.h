@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Stripe.h"
 
 @class Contact;
 @class Election;
@@ -49,3 +50,14 @@
 + (NSMutableArray<Election *> *)sortElections:(NSMutableArray<Election *> *)elections;
 
 @end
+
+
+@interface StripeAPIClient :NSObject<STPEphemeralKeyProvider>
++ (StripeAPIClient *) sharedClient;
+-(void)completeCharge:(STPPaymentResult*)_result amount:(NSInteger)amount shippingAddress: (STPAddress*) shippingAddres shippingMethod: (PKShippingMethod*) shippingMethod completion:(void (^)(void))completion;
+
+-(void)submitTokenToBackend:(STPToken*)token completion:(void (^)(void))completion;
+-(void)createPaymentChargeUsingSourceAndParams:(STPSource*)source amount:(NSInteger)amount completion:(void (^)(void))completion;
+
+@end
+

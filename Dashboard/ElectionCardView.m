@@ -28,9 +28,14 @@
     
     
     if ((self = [super initWithFrame:frame])) {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"ElectionCardView"
-                                              owner:self
-                                            options:nil] objectAtIndex:0];
+        if (electionDate==nil)
+            self = [[[NSBundle mainBundle] loadNibNamed:@"ElectionCardViewRev"
+                                                  owner:self
+                                                options:nil] objectAtIndex:0];
+        else
+            self = [[[NSBundle mainBundle] loadNibNamed:@"ElectionCardView"
+                                                  owner:self
+                                                options:nil] objectAtIndex:0];
         
         self.frame = frame;
         

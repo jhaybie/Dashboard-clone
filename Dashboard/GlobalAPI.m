@@ -431,3 +431,104 @@
 }
 
 @end
+
+
+@implementation StripeAPIClient:NSObject
+
+static StripeAPIClient *sharedClient = nil;
+
++ (StripeAPIClient *) sharedClient
+{
+    if (sharedClient == nil)
+    {
+        sharedClient = [[self alloc]init];
+    }
+    return sharedClient;
+}
+/*
+ -(void)createCustomerKeyWithAPIVersion:(NSString *)apiVersion completion:(STPJSONResponseCompletionBlock)completion
+ {
+ NSString *urlString = [NSString stringWithFormat:@"%@/keys?api_version=%@", DONATE_URL, apiVersion];
+ NSString *Bearer=[[NSUserDefaults standardUserDefaults] objectForKey:AUTH_TOKEN];
+ 
+ AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+ [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+ [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"text/html"]];
+ [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",Bearer] forHTTPHeaderField:@"Authorization"];
+ 
+ [manager GET:urlString
+ parameters:nil
+ progress:nil
+ success:^(NSURLSessionDataTask *task, id responseObject) {
+ completion(responseObject, nil);
+ } failure:^(NSURLSessionDataTask *task, NSError *error) {
+ completion(nil, error);
+ }];
+ }
+ */
+
+- (void)createCustomerKeyWithAPIVersion:(NSString *)apiVersion completion:(STPJSONResponseCompletionBlock)completion {
+    
+    NSURL *url = [[NSURL URLWithString:HEROKU_BASE_URL] URLByAppendingPathComponent:@"ephemeral_keys"];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"text/html"]];
+    [manager POST:url.absoluteString
+       parameters:@{@"api_version": STRIPE_VERSION}
+         progress:nil
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              completion(responseObject, nil);
+          } failure:^(NSURLSessionDataTask *task, NSError *error) {
+              completion(nil, error);
+          }];
+}
+
+
+-(void)completeCharge:(STPPaymentResult*)_result amount:(NSInteger)amount shippingAddress: (STPAddress*) shippingAddres shippingMethod: (PKShippingMethod*) shippingMethod completion:(void (^)(void))completion {
+    NSURL *url = [[NSURL URLWithString:HEROKU_BASE_URL] URLByAppendingPathComponent:@"charge"];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:url.absoluteString
+       parameters:@{@"source": _result.source.stripeID, @"amount":[NSNumber numberWithInteger:amount]}
+         progress:nil
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              completion();
+          } failure:^(NSURLSessionDataTask *task, NSError *error) {
+              completion();
+          }];
+    
+}
+
+-(void)submitTokenToBackend:(STPToken*)token completion:(void (^)(void))completion {
+    NSURL *url = [[NSURL URLWithString:HEROKU_BASE_URL] URLByAppendingPathComponent:@"charge"];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:url.absoluteString
+       parameters:@{@"source": token.tokenId,@"amount":[NSNumber numberWithInteger:123456]}
+         progress:nil
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              completion();
+          } failure:^(NSURLSessionDataTask *task, NSError *error) {
+              completion();
+          }];
+    
+}
+
+-(void)createPaymentChargeUsingSourceAndParams:(STPSource*)source amount:(NSInteger)amount completion:(void (^)(void))completion {
+    NSURL *url = [[NSURL URLWithString:HEROKU_BASE_URL] URLByAppendingPathComponent:@"charge"];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:url.absoluteString
+       parameters:@{@"source": source.stripeID, @"amount":[NSNumber numberWithInteger:amount]}
+         progress:nil
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              completion();
+          } failure:^(NSURLSessionDataTask *task, NSError *error) {
+              completion();
+          }];
+    
+}
+
+@end

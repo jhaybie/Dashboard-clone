@@ -11,5 +11,6 @@
 @interface SectionHeaderView : UIView
 
 - (instancetype)initWithTitle:(NSString *)title;
+- (instancetype)initWithTitle:(NSString *)title andElectionDate:(NSDate*)electionDate;
 
 @end

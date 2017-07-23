@@ -10,6 +10,8 @@
 #import "Constant.h"
 #import "SVProgressHUD.h"
 #import "UIColor+DBColors.h"
+#import "Stripe.h"
+#import "NSObject+reSideMenuSingleton.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
@@ -30,6 +32,10 @@
 
     // Register Google Maps SDK API Key
     [GMSServices provideAPIKey:GOOGLE_API_KEY];
+    
+    // Stripe API initialization
+    [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:STRIPE_PUB_KEY];
+
     
     // Configure tabBarController appearance
     [[UITabBar appearance] setBarTintColor:[UIColor globalDarkColor]];
@@ -55,6 +61,9 @@
 
     [self configureSVProgressHUD];
     
+    [reSideMenuSingleton sharedManager];
+    [self.window setRootViewController:[[reSideMenuSingleton sharedManager]sideMenuViewController]];
+
     return YES;
 }
 

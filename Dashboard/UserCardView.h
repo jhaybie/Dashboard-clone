@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UserCardView : UIView
+@property (strong, nonatomic) IBOutlet UIButton *menuButton;
 
 - (instancetype)initWithImageURL:(NSURL *)imageURL
                             name:(NSString *)name

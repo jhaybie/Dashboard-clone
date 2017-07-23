@@ -363,6 +363,10 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
              
              CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 80);
              cardView.frame = frame;
+             
+             
+             [cardView.menuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
+             
              [self.cardView addSubview:cardView];
              dispatch_async(dispatch_get_main_queue(), ^{
                  self.cardViewHeightConstraint.constant = 80;
@@ -708,6 +712,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 
 #pragma mark - UITableView DataSource & Delegate Methods
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (yourElectionsSelected) {
         return self.elections.count;
@@ -717,11 +722,11 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 217;
+    return 217-50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 217;
+    return 217-50;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -738,7 +743,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         Election *election = self.elections[indexPath.section];
         Race *race = election.races[indexPath.row];
         ElectionCardView *ecv = [[ElectionCardView alloc] initWithRace:race
-                                                               forDate:election.electionDate
+                                                               forDate:nil
                                                             forContact:false contactCount:0
                                                         preferredWidth:[[UIScreen mainScreen] bounds].size.width - 16];
         ecv.delegate = self;
@@ -750,7 +755,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         OtherElection *oe = self.otherElections[indexPath.section];
         Race *race = oe.election.races[indexPath.row];
         ElectionCardView *ecv = [[ElectionCardView alloc] initWithRace:race
-                                                               forDate:oe.election.electionDate
+                                                               forDate:nil
                                                             forContact:true
                                                           contactCount:(int)oe.contacts.count
                                                         preferredWidth:[[UIScreen mainScreen] bounds].size.width - 16];
@@ -762,7 +767,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60;
+    return 60+5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -774,13 +779,17 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
     if (yourElectionsSelected) {
-        SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:[self.elections[section] displayName]];
+        SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:[self.elections[section] displayName]andElectionDate:[self.elections[section] electionDate]];
         return shv;
     } else {
-        SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:[self.otherElections[section].election displayName]];
+        SectionHeaderView *shv = [[SectionHeaderView alloc] initWithTitle:[self.otherElections[section].election displayName]andElectionDate:[self.otherElections[section].election electionDate]];
         return shv;
     }
+    
+    
+    
 }
 
 #pragma mark - ElectionCardViewDelegate
