@@ -47,9 +47,11 @@
             [self.sideMenuViewController hideMenuViewController];
         }
              break;
-        case 4:
+        case 1:
         {
-            
+            [self.sideMenuViewController setContentViewController:[[reSideMenuSingleton sharedManager] vc] animated:YES];
+            [self.sideMenuViewController hideMenuViewController];
+            [self logout];
             
 
         }
@@ -100,5 +102,29 @@
     return cell;
 }
 
+-(void)logout
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"False" forKey:USER_ADDRESS_EXISTS];
+    [defaults setObject:@"" forKey:USER_STREET];
+    [defaults setObject:@"" forKey:USER_CITY];
+    [defaults setObject:@"" forKey:USER_STATE];
+    [defaults setObject:@"" forKey:USER_ZIP_CODE];
+    [defaults setObject:@"NO" forKey:IS_SESSION_ACTIVE];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
+    if ([FBSDKAccessToken currentAccessToken]) {
+        [FBSDKAccessToken setCurrentAccessToken:nil];
+        [FBSDKProfile setCurrentProfile:nil];
+    }
+    LoginViewController *lvc = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    lvc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:lvc
+                       animated:true
+                     completion:^{
+                         NSLog(@"Done!");
+                         
+                         // TODO: load saved credentials here
+                     }];
 
+}
 @end
