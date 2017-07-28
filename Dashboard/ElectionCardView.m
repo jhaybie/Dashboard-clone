@@ -29,9 +29,16 @@
     
     if ((self = [super initWithFrame:frame])) {
         if (electionDate==nil)
+        {
             self = [[[NSBundle mainBundle] loadNibNamed:@"ElectionCardViewRev"
                                                   owner:self
                                                 options:nil] objectAtIndex:0];
+            self.electionTimeLabel.hidden=YES;
+            self.electionInLabel.hidden=YES;
+            self.positionView.hidden=NO;
+            [self.positionLabel setFrame:self.electionTimeLabel.frame];
+            
+        }
         else
             self = [[[NSBundle mainBundle] loadNibNamed:@"ElectionCardView"
                                                   owner:self
