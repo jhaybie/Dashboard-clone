@@ -177,19 +177,60 @@ BOOL userAddressExists;
     marker.date = date;
     marker.forContacts = (contacts.count > 0);
     marker.contacts = contacts;
-    marker.map = self.mapView;
-    [self.markers addObject:marker];
-    if (self.markers.count == 1) {
-        WRGMSMarker *marker = self.markers[0];
-        [self.mapView setSelectedMarker:marker];
-        float zoom = 3;
-        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:marker.position.latitude
-                                                                longitude:marker.position.longitude
-                                                                     zoom:zoom];
-        self.mapView.camera = camera;
-    }
     
-    //self.mapView.camera = [GMSCameraPosition cameraWithTarget:marker.position zoom:13];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
+    [geocoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:marker.position.latitude longitude:marker.position.longitude]
+                   completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (error){}
+         else
+         {
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             if (![placemark.ISOcountryCode isEqualToString:@"US"])
+             {
+                 marker.icon =[UIImage imageNamed:@"segment-side"];// something else like a line
+                 marker.map = self.mapView;
+                 [self.markers addObject:marker];
+                 if (self.markers.count == 1) {
+                     WRGMSMarker *marker = self.markers[0];
+                     [self.mapView setSelectedMarker:marker];
+                     float zoom = 3;
+                     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:marker.position.latitude
+                                                                             longitude:marker.position.longitude
+                                                                                  zoom:zoom];
+                     self.mapView.camera = camera;
+                 }
+             }
+             else
+             {
+                 marker.map = self.mapView;
+                 [self.markers addObject:marker];
+                 if (self.markers.count == 1) {
+                     WRGMSMarker *marker = self.markers[0];
+                     [self.mapView setSelectedMarker:marker];
+                     float zoom = 3;
+                     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:marker.position.latitude
+                                                                             longitude:marker.position.longitude
+                                                                                  zoom:zoom];
+                     self.mapView.camera = camera;
+                 }
+             }
+         }
+     }];
+    
+//    marker.map = self.mapView;
+//    [self.markers addObject:marker];
+//    if (self.markers.count == 1) {
+//        WRGMSMarker *marker = self.markers[0];
+//        [self.mapView setSelectedMarker:marker];
+//        float zoom = 3;
+//        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:marker.position.latitude
+//                                                                longitude:marker.position.longitude
+//                                                                     zoom:zoom];
+//        self.mapView.camera = camera;
+//    }
+    
+    
 }
 
 - (void)getCoordinatesFromAddressString:(NSString *)addressString forRace:(Race *)race forDate:(NSDate *)date contacts:(NSArray<Contact *> *)contacts {
