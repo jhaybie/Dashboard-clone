@@ -186,6 +186,10 @@
         
         NSArray *recipients = @[smsString];
         
+        if (contact.mobile.length < 1) {
+            recipients= [[NSArray alloc]init];// Buddy Name!!!
+        }
+        
         NSString *nameString = [[NSUserDefaults standardUserDefaults] objectForKey:USER_FULL_NAME];
         NSString *message = [NSString stringWithFormat:@"%@ has invited you to join EveryElection and keep track of upcoming elections! newfounders.us", nameString];
         
