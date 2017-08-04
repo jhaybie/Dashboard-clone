@@ -17,6 +17,7 @@
 @interface DBNagView : UIView
 
 @property (strong, nonatomic) id<DBNagViewDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UIButton *menuButton;
 
 - (instancetype)initWithMessage:(NSString *)message backgroundColor:(UIColor *)backgroundColor;
 

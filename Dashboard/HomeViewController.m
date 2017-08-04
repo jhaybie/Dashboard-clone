@@ -375,6 +375,7 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.cardViewHeightConstraint.constant = 0;
+            [self showMenuButton];
         });
     }
 }
@@ -810,6 +811,20 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                      completion:nil];
     
     //[self displayToastWithMessage:@"Please enter valid email and password" backgroundColor:[UIColor globalFailureColor]];
+}
+-(void)showMenuButton
+{
+    self.cardViewHeightConstraint.constant = 50;
+
+    UIButton *menuButton;
+    menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
+    [menuButton setFrame:CGRectMake(0, 0, 30, 50)];
+    [menuButton setImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
+    [self.cardView addSubview:menuButton];
+//    self.nagView.menuButton.hidden=NO;
+//    [self.nagView.menuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
+//    
 }
 
 @end

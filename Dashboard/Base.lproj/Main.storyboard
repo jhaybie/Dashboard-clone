@@ -127,14 +127,15 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="R1E-mu-ykS"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfd-Dm-MGJ">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfd-Dm-MGJ">
                                 <rect key="frame" x="0.0" y="588" width="375" height="30"/>
                                 <color key="backgroundColor" red="0.1215686275" green="0.50196078430000002" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="mpZ-Bv-itF"/>
                                 </constraints>
                                 <state key="normal" title="Logout">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="emailLogoutButtonTapped:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Md9-CH-BDK"/>
@@ -843,7 +844,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cHn-BA-Wkm" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="List View" image="icon-tab-home" id="acW-dT-cKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hj6-Te-jym">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Hj6-Te-jym">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -19,11 +19,15 @@
 
 
 #pragma mark - URLs
-#define HEROKU_BASE_URL   @"https://guarded-savannah-35433.herokuapp.com/"
-#define BASE_URL          @"https://riseapp-dot-rise-team-tool-qa.appspot.com"
-#define AUTH_URL          @"https://auth-dot-rise-team-tool-qa.appspot.com"
-#define DONATE_URL        @"https://donate-dot-rise-team-tool-qa.appspot.com"
+#define BASE_URL          @"https://riseapp-dot-rise-team-tool.appspot.com"
+#define AUTH_URL          @"https://auth-dot-rise-team-tool.appspot.com"
+#define DONATE_URL        @"https://donate-dot-rise-team-tool.appspot.com"
 
+//#define BASE_URL          @"https://riseapp-dot-rise-team-tool-qa.appspot.com"
+//#define AUTH_URL          @"https://auth-dot-rise-team-tool-qa.appspot.com"
+//#define DONATE_URL        @"https://donate-dot-rise-team-tool-qa.appspot.com"
+
+#define HEROKU_BASE_URL   @"https://guarded-savannah-35433.herokuapp.com/"
 #define STRIPE_VERSION     @"2017-06-05"//@"2016-07-06"
 #define STRIPE_PUB_KEY    @"pk_test_4bE0pVqCXoFro6aV9iJnnIhX"   //chingpaq
 //#define STRIPE_PUB_KEY  @"pk_test_zEaBQsmR9aKOqnlbjNLuN3gK" // newfounders test

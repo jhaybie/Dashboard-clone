@@ -292,14 +292,25 @@
                success:(void (^)(void))success
                failure:(void (^)(NSString *message))failure {
     
-    NSString *urlString = [NSString stringWithFormat:@"%@/login?grant_type=password&username=%@&password=%@&client_id=%@&client_secret=%@", AUTH_URL, email, password, CLIENT_ID, CLIENT_SECRET];
+    //    NSString *urlString = [NSString stringWithFormat:@"%@/login?grant_type=password&username=%@&password=%@&client_id=%@&client_secret=%@", AUTH_URL, email, password, CLIENT_ID, CLIENT_SECRET];
+    
+    //curl -X POST "https://auth-dot-rise-team-tool-qa.appspot.com/login" -d "grant_type=password&username=info@apps.newfounders.us&client_id=123456&client_secret=secret123456&password=garbage”
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/login", AUTH_URL];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"password", @"grant_type",
+                            email, @"username",
+                            CLIENT_ID, @"client_id",
+                            CLIENT_SECRET, @"client_secret",
+                            password, @"password",
+                            nil];
+    
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
     [manager POST:urlString
-       parameters:nil
+       parameters:params
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
               NSLog(@"Successful!");
@@ -328,13 +339,24 @@
                   success:(void (^)(void))success
                   failure:(void (^)(NSString *message))failure {
     
-    NSString *urlString = [NSString stringWithFormat:@"%@/register?username=%@&password=%@&client_id=%@&client_secret=%@/", AUTH_URL, email, password, CLIENT_ID, CLIENT_SECRET];
+    //    NSString *urlString = [NSString stringWithFormat:@"%@/register?username=%@&password=%@&client_id=%@&client_secret=%@/", AUTH_URL, email, password, CLIENT_ID, CLIENT_SECRET];
+
+    
+    //curl -X POST "https://auth-dot-rise-team-tool-qa.appspot.com/register" -d "username=founder1%40test.com&password=testpass&client_id=123456&client_secret=secret123456"
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/register", AUTH_URL];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            email, @"username",
+                            password, @"password",
+                            CLIENT_ID, @"client_id",
+                            CLIENT_SECRET, @"client_secret",
+                            nil];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     [manager POST:urlString
-       parameters:nil
+       parameters:params
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
               [GlobalAPI loginWithEmail:email
@@ -357,16 +379,24 @@
 
 + (void)registerWithFacebookEmail:(NSString *)email
                            userID:(NSString *)userID
-                  success:(void (^)(void))success
-                  failure:(void (^)(NSString *message))failure {
+                          success:(void (^)(void))success
+                          failure:(void (^)(NSString *message))failure {
     
-    NSString *urlString = [NSString stringWithFormat:@"%@/register?username=%@&password=%@&client_id=%@&client_secret=%@/", AUTH_URL, email, userID, CLIENT_ID, CLIENT_SECRET];
+    //    NSString *urlString = [NSString stringWithFormat:@"%@/register?username=%@&password=%@&client_id=%@&client_secret=%@/", AUTH_URL, email, userID, CLIENT_ID, CLIENT_SECRET];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/register", AUTH_URL];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            email, @"username",
+                            userID, @"password",
+                            CLIENT_ID, @"client_id",
+                            CLIENT_SECRET, @"client_secret",
+                            nil];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     [manager POST:urlString
-       parameters:nil
+       parameters:params
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
               [GlobalAPI loginWithEmail:email
