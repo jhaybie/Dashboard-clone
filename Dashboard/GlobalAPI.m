@@ -44,9 +44,13 @@
         }
         
         CNContactStore *store = [[CNContactStore alloc] init];
+        ///*
+        
         [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
             
             // make sure the user granted us access
+            
+            
             if (!granted) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [GlobalAPI presentAddressBookErrorDialog];
@@ -70,17 +74,23 @@
                                                                                                   [CNContactFormatter descriptorForRequiredKeysForStyle:CNContactFormatterStyleFullName]
                                                                                                   ]];
             
+            
+            NSMutableArray<Contact *> *filteredContacts = [[NSMutableArray alloc] init];
+            
             BOOL fetched = [store enumerateContactsWithFetchRequest:request
                                                               error:&fetchError
                                                          usingBlock:^(CNContact *contact, BOOL *stop) {
                                                              if (contact.phoneNumbers.count > 0
-                                                                 //&& contact.emailAddresses.count > 0
+                                                                 
                                                                  && contact.postalAddresses.count > 0) {
+                                                                 
                                                                  
                                                                  for (int i = 0; i < contact.postalAddresses.count; i++) {
                                                                      CNLabeledValue *address = contact.postalAddresses[i];
                                                                      if (address.label == CNLabelHome) {
-                                                                         [contacts addObject:contact];
+                                                                         Contact *cleanedContact = [[Contact alloc] initWithContact:contact];
+                                                                         if (cleanedContact)
+                                                                             [filteredContacts addObject:cleanedContact];
                                                                          break;
                                                                      }
                                                                  }
@@ -91,18 +101,14 @@
                 [defaults setObject:@[] forKey:ALL_CONTACTS];
             }
             
-            NSMutableArray<Contact *> *filteredContacts = [[NSMutableArray alloc] init];
             
-            for (CNContact *contact in contacts) {
-                Contact *cleanedContact = [[Contact alloc] initWithContact:contact];
-                if (cleanedContact) {
-                    [filteredContacts addObject:cleanedContact];
-                }
-            }
+            
             [defaults setObject:@"True" forKey:CONTACTS_IMPORTED];
             [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:filteredContacts] forKey:ALL_CONTACTS];
             success([[NSArray alloc] initWithArray:filteredContacts]);
+            
         }];
+        //*/
     } else {
         CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
         if (status == CNAuthorizationStatusAuthorized) {
@@ -113,8 +119,7 @@
             failure(@"Permissions");
         }
         
-    }
-}
+    }}
 
 + (void)getElections:(void (^)(NSArray<Election *> *elections))success
              failure:(void (^)(NSInteger statusCode))failure {
@@ -387,36 +392,24 @@
     NSString *urlString = [NSString stringWithFormat:@"%@/register", AUTH_URL];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             email, @"username",
-                            userID, @"password",
+                            @"12345678", @"password",
                             CLIENT_ID, @"client_id",
                             CLIENT_SECRET, @"client_secret",
                             nil];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     [manager POST:urlString
        parameters:params
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              [GlobalAPI loginWithEmail:email
-                               password:userID
-                                success:^{
-                                    success();
-                                } failure:^(NSString *message) {
-                                    failure(@"There was an error registering your account");
-                                }];
-              
+              success();
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
               if (response.statusCode == 400) {
-                  [GlobalAPI loginWithEmail:email
-                                   password:userID
-                                    success:^{
-                                        success();
-                                    } failure:^(NSString *message) {
-                                        failure(@"There was an error registering your account");
-                                    }];
+                  
+                failure(@"There was an error registering your account");
+                  
               } else {
                   failure(@"There was an error registering your account");
               }
