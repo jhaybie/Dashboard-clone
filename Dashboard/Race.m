@@ -29,6 +29,8 @@
              @"recall"                        : @"Info.Recall",
              @"raceName"                      : @"Info.Race",
              @"numberOfSeats"                 : @"Info.NumSeats",
+             @"longitude"                     : @"Info.Longitude",
+             @"latitude"                      : @"Info.Latitude",
              @"candidates"                    : @"Candidates"
              };
 }

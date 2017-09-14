@@ -27,6 +27,10 @@
 @property (nonatomic) BOOL recall;
 @property (nonatomic, strong) NSString *raceName;
 @property (nonatomic) int numberOfSeats;
+@property (nonatomic) float longitude;
+@property (nonatomic) float latitude;
+
+
 @property (nonatomic, strong) NSArray<Candidate *> *candidates;
 
 @property (nonatomic) BOOL isConfirmed;
