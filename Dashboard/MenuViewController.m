@@ -11,6 +11,7 @@
 @interface MenuViewController ()
 
 @property (strong, readwrite, nonatomic) UITableView *tableView;
+@property (nonatomic, strong) DBToastView *toastView;
 
 @end
 
@@ -46,14 +47,47 @@
             [self.sideMenuViewController setContentViewController:[[reSideMenuSingleton sharedManager] vc] animated:YES];
             [self.sideMenuViewController hideMenuViewController];
         }
-             break;
+            break;
         case 1:
+        {
+            [self showSettingsView];
+            [self.sideMenuViewController hideMenuViewController];
+        }
+            break;
+        case 2:
+        {
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            alert.tintTopCircle = NO;
+            alert.iconTintColor = [UIColor colorWithHexString:@"#1F80AA"];
+            alert.useLargerIcon = NO;
+            alert.cornerRadius = 13.0f;
+            
+            SCLTextView *textField = [alert addTextField:@"Old Password"];
+            SCLTextView *newPasswordTextField = [alert addTextField:@"New Password"];
+            SCLTextView *newPasswordConfirmTextField = [alert addTextField:@"Confirm Password"];
+            
+            
+            [alert addButton:@"Change" actionBlock:^(void) {
+                [self changePasswordOf:textField.text withNewPassword:newPasswordTextField.text confirmWithPassword:newPasswordConfirmTextField.text];
+            }];
+            
+            [alert addButton:@"Close" actionBlock:^(void) {
+                [self.sideMenuViewController hideMenuViewController];
+            }];
+            [alert showCustom:self image:[UIImage imageNamed:@"icon-password"] color:[UIColor colorWithHexString:@"#1F80AA"] title:nil subTitle:@"To change your password, enter your old password followed by your new password" closeButtonTitle:nil duration:0.0f];
+            
+            
+            
+            
+        }
+            break;
+        case 3:
         {
             [self.sideMenuViewController setContentViewController:[[reSideMenuSingleton sharedManager] vc] animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             [self logout];
             
-
+            
         }
             break;
         default:
@@ -76,7 +110,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 2;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,8 +128,8 @@
         cell.selectedBackgroundView = [[UIView alloc] init];
     }
     
-    NSArray *titles = @[@"Home", @"Log Out"];
-    NSArray *images = @[@"icon-home", @"icon-settings"];
+    NSArray *titles = @[@"Home",@"Settings",@"Password", @"Log Out"];
+    NSArray *images = @[@"xicon-home",@"xicon-settings",@"xicon-changepassword", @"xleft-arrow"];
     cell.textLabel.text = titles[indexPath.row];
     cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     
@@ -111,6 +145,9 @@
     [defaults setObject:@"" forKey:USER_STATE];
     [defaults setObject:@"" forKey:USER_ZIP_CODE];
     [defaults setObject:@"NO" forKey:IS_SESSION_ACTIVE];
+    [defaults removeObjectForKey:@"RegisterEmailFB"];
+    [defaults removeObjectForKey:@"HasRegisterEmailFB"];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
     if ([FBSDKAccessToken currentAccessToken]) {
         [FBSDKAccessToken setCurrentAccessToken:nil];
@@ -125,6 +162,51 @@
                          
                          // TODO: load saved credentials here
                      }];
-
+    
 }
+
+-(void)showSettingsView
+{
+    SettingsViewController *avc = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+    avc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSURL *imageURL = [NSURL URLWithString:[defaults objectForKey:USER_IMAGE_URL]];
+    NSString *fullName = [defaults objectForKey:USER_FULL_NAME];
+    NSString *location = [defaults objectForKey:USER_LOCATION];
+    
+    UserCardView *cardView = [[UserCardView alloc] initWithImageURL:imageURL
+                                                               name:fullName
+                                                          cityState:location
+                                                         emailCount:0
+                                                           smsCount:0
+                                                         phoneCount:0];
+    avc.cardView = cardView;
+    //    avc.delegate = self;
+    cardView.menuButton.hidden=YES;
+    
+    [self presentViewController:avc
+                       animated:true
+                     completion:nil];
+}
+-(void)changePasswordOf:(NSString*)oldPassword withNewPassword:(NSString*)newPassword confirmWithPassword:(NSString*)confirmPassword
+{
+    if (oldPassword.length==0 || newPassword.length==0 || confirmPassword==0)
+    {
+        [self displayToastWithMessage:@"Please enter your password" backgroundColor:[UIColor globalFailureColor]];
+    }
+    else if (![newPassword isEqualToString:confirmPassword])
+    {
+        [self displayToastWithMessage:@"New password does not match with the confirmation password" backgroundColor:[UIColor globalFailureColor]];
+    }
+    else if (newPassword.length<8)
+    {
+        [self displayToastWithMessage:@"Passwords should be at least 8 characters" backgroundColor:[UIColor globalFailureColor]];
+    }
+    else
+    {
+        [self displayToastWithMessage:@"Change Password Sucessful" backgroundColor:[UIColor globalSuccessColor]];
+    }
+}
+
 @end

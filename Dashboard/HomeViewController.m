@@ -351,8 +351,10 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
                  NSLog(@"Login error: %@", [error localizedDescription]);
                  return;
              }
-             //NSLog(@"Gathered the following info from your logged in user: %@ email: %@ birthday: %@, profilePhotoURL: %@",
-             //      result, result[@"email"], result[@"birthday"], result[@"picture"][@"data"][@"url"]);
+             
+             
+             [self registerThisEmailForFacebook:result];
+             
              
              UserCardView *cardView = [[UserCardView alloc] initWithImageURL:result[@"picture"][@"data"][@"url"]
                                                                         name:result[@"name"]
@@ -827,4 +829,32 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 //    
 }
 
+-(void)registerThisEmailForFacebook:(id) result
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *email = [defaults objectForKey:@"RegisterEmailFB"];
+    BOOL didAsk =[[defaults objectForKey:@"DidAskRegisterEmailFB"] boolValue];
+    if (didAsk==NO)
+        if (email==nil)
+        {
+            [defaults setObject:result[USER_FIRST_NAME] forKey:USER_FIRST_NAME];
+            [defaults setObject:result[USER_LAST_NAME] forKey:USER_LAST_NAME];
+            [defaults setObject:result[@"location"][@"name"] forKey:@"user_city"];
+            
+            
+            [GlobalAPI registerWithFacebookEmail:result[@"email"]
+                                          userID:result[@"email"]
+                                         success:^{
+                                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                             [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"DidAskRegisterEmailFB"];
+                                             [defaults setObject:result[@"email"] forKey:@"RegisterEmailFB"];
+                                         } failure:^(NSString *message) {
+                                             
+                                             [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"DidAskRegisterEmailFB"];
+                                             [defaults setObject:result[@"email"] forKey:@"RegisterEmailFB"];
+                                         }];
+            
+        }
+    
+}
 @end

@@ -136,6 +136,8 @@
 		6FCB59CC1E6A1A76005A3D66 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB59CB1E6A1A76005A3D66 /* ContactsViewController.m */; };
 		6FCC05EF1EB7852D00BECCAB /* Race.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC05EE1EB7852D00BECCAB /* Race.m */; };
 		B52C064E3FA8D8F0D0E784A5 /* libPods-Dashboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D78BA8E3E516F207CD332DD7 /* libPods-Dashboard.a */; };
+		CD42E46E1F54432A00A961CD /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD42E46B1F54432A00A961CD /* SettingsViewController.xib */; };
+		CD42E46F1F54432A00A961CD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD42E46D1F54432A00A961CD /* SettingsViewController.m */; };
 		CDF5F8A61F20F73B005268FF /* ElectionCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF5F8A51F20F73B005268FF /* ElectionCardView.xib */; };
 		CDF5F8A81F20F76E005268FF /* SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF5F8A71F20F76E005268FF /* SectionHeaderView.xib */; };
 		CDF5F8BC1F210395005268FF /* ElectionCardViewRev.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF5F8BB1F210395005268FF /* ElectionCardViewRev.xib */; };
@@ -372,6 +374,9 @@
 		6FCB59CB1E6A1A76005A3D66 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
 		6FCC05ED1EB7852D00BECCAB /* Race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Race.h; sourceTree = "<group>"; };
 		6FCC05EE1EB7852D00BECCAB /* Race.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Race.m; sourceTree = "<group>"; };
+		CD42E46B1F54432A00A961CD /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		CD42E46C1F54432A00A961CD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		CD42E46D1F54432A00A961CD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		CDF5F8A51F20F73B005268FF /* ElectionCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElectionCardView.xib; sourceTree = "<group>"; };
 		CDF5F8A71F20F76E005268FF /* SectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderView.xib; sourceTree = "<group>"; };
 		CDF5F8BB1F210395005268FF /* ElectionCardViewRev.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElectionCardViewRev.xib; sourceTree = "<group>"; };
@@ -489,6 +494,7 @@
 				6FA3BC301E62426100962D55 /* AppDelegate.h */,
 				6FA3BC311E62426100962D55 /* AppDelegate.m */,
 				6FA3BC391E62426100962D55 /* Main.storyboard */,
+				CD42E4701F54433000A961CD /* Settings */,
 				6FCB590B1E66091F005A3D66 /* Address */,
 				6FCB59C91E6A1A53005A3D66 /* Contacts */,
 				6FCB59C41E6A1936005A3D66 /* Donate */,
@@ -867,6 +873,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		CD42E4701F54433000A961CD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				CD42E46B1F54432A00A961CD /* SettingsViewController.xib */,
+				CD42E46C1F54432A00A961CD /* SettingsViewController.h */,
+				CD42E46D1F54432A00A961CD /* SettingsViewController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		CDF5F8CF1F23AD0D005268FF /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -964,6 +980,7 @@
 				6FCB590D1E671609005A3D66 /* RegisterView.xib in Resources */,
 				6F3FE9291E772E4000134EF5 /* GoogleMaps.bundle in Resources */,
 				6FA3BC3B1E62426100962D55 /* Main.storyboard in Resources */,
+				CD42E46E1F54432A00A961CD /* SettingsViewController.xib in Resources */,
 				CDF5F8A81F20F76E005268FF /* SectionHeaderView.xib in Resources */,
 				6FCB59061E6608E5005A3D66 /* UserCardView.xib in Resources */,
 				6FCB59B81E69C795005A3D66 /* ContactLineView.xib in Resources */,
@@ -1096,6 +1113,7 @@
 				6FA3BC9E1E62637B00962D55 /* UIImageView+WebCache.m in Sources */,
 				6FCB59B51E68AB17005A3D66 /* ElectionDetailViewController.m in Sources */,
 				6FA3BC9D1E62637B00962D55 /* UIImageView+HighlightedWebCache.m in Sources */,
+				CD42E46F1F54432A00A961CD /* SettingsViewController.m in Sources */,
 				6FCC05EF1EB7852D00BECCAB /* Race.m in Sources */,
 				6FCB59A91E68921D005A3D66 /* MTLTransformerErrorHandling.m in Sources */,
 				6FA3BCBA1E62641000962D55 /* SVProgressAnimatedView.m in Sources */,

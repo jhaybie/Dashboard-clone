@@ -13,7 +13,12 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "LoginViewController.h"
+#import "SettingsViewController.h"
+#import "UserCardView.h"
+#import "SCLAlertView.h"
+#import "UIColor+DBColors.h"
+#import "DBViewController.h"
 
-@interface MenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MenuViewController : DBViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

@@ -58,7 +58,8 @@
     if (![defaults objectForKey:CONTACTS_IMPORTED]) {
         [defaults setObject:@"False" forKey:CONTACTS_IMPORTED];
     }
-
+    [defaults removeObjectForKey:@"RegisterEmailFB"];
+    
     [self configureSVProgressHUD];
     
     [reSideMenuSingleton sharedManager];

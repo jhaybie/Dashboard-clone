@@ -63,7 +63,8 @@
 #define PASSWORD            @"Password"
 #define AUTH_TOKEN          @"AuthToken"
 #define REFRESH_TOKEN       @"RefreshToken"
-
+#define USER_FIRST_NAME     @"first_name"
+#define USER_LAST_NAME     @"last_name"
 
 #pragma mark - FONTS
 

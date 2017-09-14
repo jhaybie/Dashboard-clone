@@ -39,6 +39,9 @@
 
 //@property (strong, nonatomic) RegisterView *registerView;
 @property (strong, nonatomic) IBOutlet UILabel *versionLabel;
+@property (strong, nonatomic) IBOutlet UIButton *resetPasswordButton;
+@property (strong, nonatomic) UIButton *closeButton;
+@property (strong, nonatomic) UIWebView *webview;
 
 @end
 
@@ -334,6 +337,46 @@ NSTimer *carouselTimer;
     [[UIApplication sharedApplication] openURL:donateURL
                                        options:@{}
                              completionHandler:nil];
+}
+- (IBAction)resetPasswordButtonTapped:(id)sender {
+    //    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    //
+    //    SCLTextView *textField = [alert addTextField:@"Email"];
+    //    [alert addButton:@"Send Password Reset Email" actionBlock:^(void) {
+    //        if (![textField.text isEqualToString:@""])
+    //        {
+    //            [GlobalAPI resetEmail:textField.text
+    //                          success:^{
+    //                              NSLog(@"Good");
+    //                          } failure:^(NSString *message) {
+    //                              NSLog(@"Fail");
+    //                          }];
+    //        }
+    //    }];
+    //
+    //
+    //    [alert showCustom:self image:[UIImage imageNamed:@"unlock"] color:[UIColor colorWithHexString:@"#29ABE2"] title:@"Reset Password" subTitle:@"Please submit your email and we'll send you a link to reset your password" closeButtonTitle:nil duration:0.0f];
+    //    alert.labelTitle.textColor = [UIColor whiteColor];
+    //    alert.labelTitle.backgroundColor = [UIColor colorWithHexString:@"#1F80AA"];//#29ABE2"
+    //    alert.labelTitle.frame = CGRectMake(-100, -100, 1000, 500);
+    //
+    
+    self.webview=[[UIWebView alloc]initWithFrame:CGRectMake(0, -60, self.view.frame.size.width,self.view.frame.size.height+60)];
+    NSURLRequest *nsrequest=[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://auth-dot-rise-team-tool-qa.appspot.com/lostpass"]];
+    [self.webview loadRequest:nsrequest];
+    [self.view addSubview:self.webview];
+    
+    self.closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.closeButton addTarget:self action:@selector(cancelButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.closeButton setFrame:CGRectMake(self.view.frame.size.width-120, 10, 100, 80)];
+    [self.closeButton setTitle:@"Close" forState:UIControlStateNormal];
+    [self.closeButton.titleLabel setTextColor:[UIColor grayColor]];
+    [self.view addSubview:self.closeButton];
+
+}
+- (IBAction)cancelButtonTapped:(id)sender {
+    [self.webview removeFromSuperview];
+    [self.closeButton removeFromSuperview];
 }
 
 #pragma mark - Facebook SDK Delegate Methods

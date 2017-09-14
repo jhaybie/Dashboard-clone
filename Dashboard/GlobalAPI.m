@@ -407,10 +407,9 @@
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
               if (response.statusCode == 400) {
-                  
                 failure(@"There was an error registering your account");
-                  
-              } else {
+              }
+              else {
                   failure(@"There was an error registering your account");
               }
           }];

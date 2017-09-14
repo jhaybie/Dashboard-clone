@@ -203,31 +203,23 @@ BOOL userAddressExists;
 }
 
 - (void)getCoordinatesFromAddressString:(NSString *)addressString forRace:(Race *)race forDate:(NSDate *)date contacts:(NSArray<Contact *> *)contacts {
-    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
-    [geoCoder geocodeAddressString:addressString completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = [placemarks objectAtIndex:0];
-        CLLocation *location = placemark.location;
+    CLLocation *location = [[CLLocation alloc]initWithLatitude:race.latitude longitude:race.longitude];
+    
+    NSError *error;
+    
+    if ([[NSNumber numberWithFloat:location.coordinate.latitude] intValue]==0 && [[NSNumber numberWithFloat:location.coordinate.longitude] intValue]==0)
         
-        if ([[NSNumber numberWithFloat:location.coordinate.latitude] intValue]==0 && [[NSNumber numberWithFloat:location.coordinate.longitude] intValue]==0)
-            
-        {
-            NSLog(@"Error: %@", error.description);
-        }
-        else
-        {
-            CLLocationCoordinate2D coordinate = location.coordinate;
-            [self loadMapViewWithCoordinates:coordinate
-                                     forRace:race
-                                     forDate:date
-                                    contacts:contacts];
-        }
-        
-//        CLLocationCoordinate2D coordinate = location.coordinate;
-//        [self loadMapViewWithCoordinates:coordinate
-//                                 forRace:race
-//                                 forDate:date
-//                                contacts:contacts];
-    }];
+    {
+        NSLog(@"Error: %@", error.description);
+    }
+    else
+    {
+        CLLocationCoordinate2D coordinate = location.coordinate;
+        [self loadMapViewWithCoordinates:coordinate
+                                 forRace:race
+                                 forDate:date
+                                contacts:contacts];
+    }
 }
 
 #pragma mark - API Calls
