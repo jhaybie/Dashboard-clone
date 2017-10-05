@@ -36,6 +36,9 @@
     // Stripe API initialization
     [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:STRIPE_PUB_KEY];
 
+    //firebase initialization
+    [FIRApp configure];
+    
     
     // Configure tabBarController appearance
     [[UITabBar appearance] setBarTintColor:[UIColor globalDarkColor]];

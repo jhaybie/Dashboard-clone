@@ -196,20 +196,21 @@
         [defaults setObject:self.zipcodeTextField.text forKey:USER_ZIP_CODE];
         [[NSNotificationCenter defaultCenter] postNotificationName:ADDRESS_UPDATED object:nil];
         [self displayToastWithMessage:@"Address Sucessfully saved" backgroundColor:[UIColor globalSuccessColor]];
+        
+        [GlobalAPI logEventInFirebase:@"analytics_settings" descriptionFieldName:@"type" description:@"address"];
     }
     
     if (self.firstNameTextField.text.length>0 || self.lastNameTextField.text>0)
     {
         [defaults setObject:self.lastNameTextField.text forKey:USER_LAST_NAME];
         [defaults setObject:self.firstNameTextField.text forKey:USER_FIRST_NAME];
-        
+        [GlobalAPI logEventInFirebase:@"analytics_settings" descriptionFieldName:@"type" description:@"name"];
         [self displayToastWithMessage:@"First and Last Name Sucessfully saved" backgroundColor:[UIColor globalSuccessColor]];
     }
     
     [self.delegate didDismissViewController:self];
     [self dismissViewControllerAnimated:true completion:nil];
 }
-
 - (void)skipButtonTapped:(UITapGestureRecognizer *)sender {
     [self.view endEditing:true];
     

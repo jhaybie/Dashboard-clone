@@ -87,7 +87,7 @@
                                                                  
                                                                  for (int i = 0; i < contact.postalAddresses.count; i++) {
                                                                      CNLabeledValue *address = contact.postalAddresses[i];
-                                                                     if (address.label == CNLabelHome) {
+                                                                     if (address.label == CNLabelHome|| [address.label isEqualToString:@"_$!<Home>!$_"]) {
                                                                          Contact *cleanedContact = [[Contact alloc] initWithContact:contact];
                                                                          if (cleanedContact)
                                                                              [filteredContacts addObject:cleanedContact];
@@ -451,6 +451,97 @@
     }];
     return [[NSMutableArray alloc] initWithArray:sortedCollection];
 }
+
+#pragma mark - Private Firebase
++ (void)registerWithFirebase:(NSString*)email andPassword:(NSString*)password
+{
+    [[FIRAuth auth] createUserWithEmail:email
+                               password:password
+                             completion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
+                                 if (error) {
+                                     NSLog(@"%@ created", error.localizedDescription);
+                                     return;
+                                 }
+                                 NSLog(@"%@ created", user.email);
+                             }];
+    
+}
++ (void)registerWithFirebaseViaFacebook:(NSString*)email
+{
+    FIRAuthCredential *credential = [FIRFacebookAuthProvider
+                                     credentialWithAccessToken:[FBSDKAccessToken currentAccessToken].tokenString];
+    
+    // This will register user in Authentication Table of Firebase
+    if ([FIRAuth auth].currentUser) {
+        [[FIRAuth auth]
+         .currentUser linkWithCredential:credential
+         completion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
+             NSLog(@"Account already linked");
+         }];
+    } else {
+        [[FIRAuth auth] signInWithCredential:credential
+                                  completion:^(FIRUser *user, NSError *error) {
+                                      NSLog(@"Account Created");
+                                  }];
+    }
+}
+
++ (void)registerThisProfileToFirebase:(NSDictionary*)profileDictionary
+{
+    if ([FIRAuth auth].currentUser.uid==nil)return;
+    
+    //This will save user profile in Users table of Firebase
+    [[[[[FIRDatabaseSingleton sharedManager] mainFirebaseReference] child:@"users"]  child:[FIRAuth auth].currentUser.uid]
+     observeSingleEventOfType:FIRDataEventTypeValue
+     withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+         if (![snapshot exists]) {
+             
+             // create buyer profile using facebook profile
+             [[[[[FIRDatabaseSingleton sharedManager] mainFirebaseReference] child:@"users"] child:[FIRAuth auth].currentUser.uid]
+              setValue:@{
+                         @"firstName" : profileDictionary[@"first_name"],
+                         @"lastName" : profileDictionary[@"last_name"],
+                         SMS_COUNTER: [NSNumber numberWithInteger:0],
+                         EMAIL_COUNTER: [NSNumber numberWithInteger:0],
+                         CALL_COUNTER: [NSNumber numberWithInteger:0]
+                         }];
+             
+         } else {
+             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+             NSString *count_str= snapshot.value[CALL_COUNTER];
+             ;
+             [defaults setObject:[NSNumber numberWithInt:[count_str intValue]] forKey:CALL_COUNTER];
+             count_str = snapshot.value[SMS_COUNTER];
+             [defaults setObject:[NSNumber numberWithInt:[count_str intValue]] forKey:SMS_COUNTER];
+             count_str = snapshot.value[EMAIL_COUNTER];
+             [defaults setObject:[NSNumber numberWithInt:[count_str intValue]] forKey:EMAIL_COUNTER];
+             
+             
+         }
+     }];
+    
+}
++ (void)updateProfileInFirebase:(NSDictionary*)profileDictionary
+{
+    if ([FIRAuth auth].currentUser.uid==nil)return;
+    
+    [[[[[FIRDatabaseSingleton sharedManager] mainFirebaseReference] child:@"users"] child:[FIRAuth auth].currentUser.uid]
+     updateChildValues:profileDictionary];
+}
+
++ (void)logEventInFirebase:(NSString*)event descriptionFieldName:(NSString*)descriptionName description:(NSString*)description
+{
+    if ([FIRAuth auth].currentUser.uid==nil)return;
+    NSString *key = [[[[FIRDatabaseSingleton sharedManager] mainFirebaseReference] child:event] childByAutoId].key;
+    [[[[[FIRDatabaseSingleton sharedManager] mainFirebaseReference] child:event] child:key]
+     updateChildValues:@{@"userid":[FIRAuth auth].currentUser.uid,
+                         @"datetime": [NSDateFormatter localizedStringFromDate:[NSDate date]
+                                                                     dateStyle:NSDateFormatterMediumStyle
+                                                                     timeStyle:NSDateFormatterShortStyle],
+                         descriptionName: description
+                         }];
+}
+
 
 @end
 

@@ -63,6 +63,7 @@ BOOL userAddressExists;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [GlobalAPI logEventInFirebase:@"analytics_tab" descriptionFieldName:@"type" description:@"map"];
     
 //    userAddressExists = ([[[NSUserDefaults standardUserDefaults] objectForKey:USER_ADDRESS_EXISTS] isEqualToString:@"True"]);
 //    

@@ -21,7 +21,7 @@
     [aCoder encodeObject:self.city forKey:@"City"];
     [aCoder encodeObject:self.state forKey:@"State"];
     [aCoder encodeObject:self.zip forKey:@"Zip"];
-
+    
     [aCoder encodeObject:self.phone forKey:@"Phone"];
     [aCoder encodeObject:self.mobile forKey:@"Mobile"];
     [aCoder encodeObject:self.email forKey:@"Email"];
@@ -72,7 +72,7 @@
         
         for (int i = 0; i < contact.postalAddresses.count; i++) {
             CNLabeledValue *address = contact.postalAddresses[i];
-            if (address.label == CNLabelHome) {
+            if (address.label == CNLabelHome || [address.label isEqualToString:@"_$!<Home>!$_"]) {
                 NSArray *addresses = (NSArray*)[contact.postalAddresses valueForKey:@"value"];
                 CNPostalAddress *homeAddress = addresses[i];
                 self.street = homeAddress.street;
@@ -83,21 +83,22 @@
         }
         
         NSCharacterSet *nonNumberSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-
+        
         self.phone = @"";
         for (CNLabeledValue *number in contact.phoneNumbers) {
-            if (number.label == CNLabelPhoneNumberMain) {
+            if (number.label == CNLabelPhoneNumberMain || [number.label isEqualToString:@"_$!<Home>!$_"]) {
                 NSString *phoneString = [(CNPhoneNumber *)(number.value) stringValue];
                 NSString *cleanedPhoneString = [[phoneString componentsSeparatedByCharactersInSet:nonNumberSet] componentsJoinedByString:@""];
                 self.phone = cleanedPhoneString;
+                break;
             }
         }
         
         self.mobile = @"";
         for (CNLabeledValue *number in contact.phoneNumbers) {
-            if (number.label == CNLabelPhoneNumberMobile || number.label == CNLabelPhoneNumberiPhone) {
+            if (number.label == CNLabelPhoneNumberMobile || number.label == CNLabelPhoneNumberiPhone|| [number.label isEqualToString:@"_$!<Mobile>!$_"]|| [number.label isEqualToString:@"_$!<iPhone>!$_"]) {
                 NSString *phoneString = [(CNPhoneNumber *)(number.value) stringValue];
-                 NSString *cleanedPhoneString = [[phoneString componentsSeparatedByCharactersInSet:nonNumberSet] componentsJoinedByString:@""];
+                NSString *cleanedPhoneString = [[phoneString componentsSeparatedByCharactersInSet:nonNumberSet] componentsJoinedByString:@""];
                 self.mobile = cleanedPhoneString;
                 self.phone = cleanedPhoneString; // Replace landline if mobile number is found
             }
@@ -113,16 +114,18 @@
         self.isSelected = false;
         self.isInvited = false;
     }
-    if ((self.firstName.length == 0 && self.lastName.length == 0)
-        || (self.city.length == 0 && self.state.length == 0 && self.zip.length == 0
-        && self.phone.length == 0
-        && self.mobile.length == 0
-        && self.email.length == 0)) {
-            
+    
+    if (     (self.city.length == 0 ) ||
+        self.phone.length == 0
+        || self.mobile.length == 0
+        || self.email.length == 0)    {
+        
         return nil;
     } else {
         return self;
     }
+    
 }
 
 @end
+

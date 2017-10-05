@@ -39,6 +39,9 @@
         self.nameLabel.text = name;
         self.cityStateLabel.text = cityState;
         // TODO: assign emailCount, smsCount and phoneCount to their repsective labels
+        self.callCount.text = [NSString stringWithFormat:@"%li",phoneCount];
+        self.messageCount.text = [NSString stringWithFormat:@"%li",smsCount];
+        self.emailCount.text = [NSString stringWithFormat:@"%li",emailCount];
     }
     return self;
 }

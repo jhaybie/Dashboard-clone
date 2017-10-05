@@ -138,6 +138,8 @@
 		B52C064E3FA8D8F0D0E784A5 /* libPods-Dashboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D78BA8E3E516F207CD332DD7 /* libPods-Dashboard.a */; };
 		CD42E46E1F54432A00A961CD /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD42E46B1F54432A00A961CD /* SettingsViewController.xib */; };
 		CD42E46F1F54432A00A961CD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD42E46D1F54432A00A961CD /* SettingsViewController.m */; };
+		CDB343A21F74101C00EEAE25 /* NSObject+FIRDatabaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB343A01F74101C00EEAE25 /* NSObject+FIRDatabaseSingleton.m */; };
+		CDB343A61F741B9D00EEAE25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDB343A51F741A4000EEAE25 /* GoogleService-Info.plist */; };
 		CDF5F8A61F20F73B005268FF /* ElectionCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF5F8A51F20F73B005268FF /* ElectionCardView.xib */; };
 		CDF5F8A81F20F76E005268FF /* SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF5F8A71F20F76E005268FF /* SectionHeaderView.xib */; };
 		CDF5F8BC1F210395005268FF /* ElectionCardViewRev.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF5F8BB1F210395005268FF /* ElectionCardViewRev.xib */; };
@@ -377,6 +379,9 @@
 		CD42E46B1F54432A00A961CD /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		CD42E46C1F54432A00A961CD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		CD42E46D1F54432A00A961CD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		CDB343A01F74101C00EEAE25 /* NSObject+FIRDatabaseSingleton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FIRDatabaseSingleton.m"; sourceTree = "<group>"; };
+		CDB343A11F74101C00EEAE25 /* NSObject+FIRDatabaseSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+FIRDatabaseSingleton.h"; sourceTree = "<group>"; };
+		CDB343A51F741A4000EEAE25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CDF5F8A51F20F73B005268FF /* ElectionCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElectionCardView.xib; sourceTree = "<group>"; };
 		CDF5F8A71F20F76E005268FF /* SectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderView.xib; sourceTree = "<group>"; };
 		CDF5F8BB1F210395005268FF /* ElectionCardViewRev.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElectionCardViewRev.xib; sourceTree = "<group>"; };
@@ -430,6 +435,7 @@
 		6FA3BC211E62426100962D55 = {
 			isa = PBXGroup;
 			children = (
+				CDB343A51F741A4000EEAE25 /* GoogleService-Info.plist */,
 				6FA3BC2C1E62426100962D55 /* Dashboard */,
 				6FA3BC2B1E62426100962D55 /* Products */,
 				6FA3BC4B1E62436F00962D55 /* Frameworks */,
@@ -470,6 +476,7 @@
 				6FCB58E21E64E28A005A3D66 /* Constant.h */,
 				6FCB591D1E686DAA005A3D66 /* GlobalAPI.h */,
 				6FCB591E1E686DAA005A3D66 /* GlobalAPI.m */,
+				CDB343A31F74102400EEAE25 /* Singletons */,
 				6FCB58DE1E64E1C7005A3D66 /* Categories */,
 				6FA3BC4A1E62433300962D55 /* Libraries */,
 				6FCB59161E675520005A3D66 /* Models */,
@@ -883,6 +890,15 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		CDB343A31F74102400EEAE25 /* Singletons */ = {
+			isa = PBXGroup;
+			children = (
+				CDB343A11F74101C00EEAE25 /* NSObject+FIRDatabaseSingleton.h */,
+				CDB343A01F74101C00EEAE25 /* NSObject+FIRDatabaseSingleton.m */,
+			);
+			name = Singletons;
+			sourceTree = "<group>";
+		};
 		CDF5F8CF1F23AD0D005268FF /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -984,6 +1000,7 @@
 				CDF5F8A81F20F76E005268FF /* SectionHeaderView.xib in Resources */,
 				6FCB59061E6608E5005A3D66 /* UserCardView.xib in Resources */,
 				6FCB59B81E69C795005A3D66 /* ContactLineView.xib in Resources */,
+				CDB343A61F741B9D00EEAE25 /* GoogleService-Info.plist in Resources */,
 				6F17A0301ECB88EC00A7249A /* DetailCardView.xib in Resources */,
 				6FCB59A41E68921D005A3D66 /* Info.plist in Resources */,
 				6FCB59041E660835005A3D66 /* AddressViewController.xib in Resources */,
@@ -1092,6 +1109,7 @@
 				6FAF06F41ED8BB2200AD3D43 /* Candidate.m in Sources */,
 				CDF5F8CC1F23AD04005268FF /* RECommonFunctions.m in Sources */,
 				6FA3BC901E62637B00962D55 /* NSImage+WebCache.m in Sources */,
+				CDB343A21F74101C00EEAE25 /* NSObject+FIRDatabaseSingleton.m in Sources */,
 				6F3FE9181E76EF8800134EF5 /* DBViewController.m in Sources */,
 				6FA3BC931E62637B00962D55 /* SDWebImageCompat.m in Sources */,
 				6FA3BC611E62636800962D55 /* AFURLSessionManager.m in Sources */,

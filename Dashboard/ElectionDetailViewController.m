@@ -86,6 +86,25 @@ BOOL isPinnedHeaderViewVisible;
     clv.delegate = self;
     [self.contactListView addSubview:clv];
     [self.scrollView setNeedsDisplay];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    
+    // Configure Refresh Control
+    [refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    
+    // Configure View Controller
+    [self.scrollView setRefreshControl:refreshControl];
+}
+-(void) refreshView: (UIRefreshControl *) refresh{
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Closing"];
+    
+    double delayInSeconds = 0.3;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        NSLog(@"end refresh");
+        [self closeButtonTapped:nil];
+        [refresh endRefreshing];
+    });
 }
 
 - (void)displayElectionDetails {
@@ -693,6 +712,8 @@ BOOL isPinnedHeaderViewVisible;
     [messageController setToRecipients:recipients];
     
     [self presentViewController:messageController animated:YES completion:NULL];
+    
+    [GlobalAPI logEventInFirebase:@"email_analytics" descriptionFieldName:@"recipient" description:self.contacts[index].email];
 }
 
 - (void)smsButtonTapped:(id)sender {
@@ -711,6 +732,7 @@ BOOL isPinnedHeaderViewVisible;
     [self presentViewController:messageController
                        animated:true
                      completion:nil];
+    [GlobalAPI logEventInFirebase:@"sms_analytics" descriptionFieldName:@"recipient" description:self.contacts[index].mobile];
 }
 
 - (void)phoneButtonTapped:(id)sender {
@@ -720,6 +742,13 @@ BOOL isPinnedHeaderViewVisible;
     [[UIApplication sharedApplication] openURL:phoneURL
                                        options:@{}
                              completionHandler:nil];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    int count= [[defaults objectForKey:CALL_COUNTER] intValue];
+    count++;
+    [defaults setObject:[NSNumber numberWithInt:count] forKey:CALL_COUNTER];
+    [GlobalAPI updateProfileInFirebase:@{CALL_COUNTER:[NSNumber numberWithInt:count] }];
+    [GlobalAPI logEventInFirebase:@"call_analytics" descriptionFieldName:@"recipient" description:self.contacts[index].phone];
 }
 
 #pragma mark - MFMailComposeViewController Delegate Method
@@ -734,6 +763,13 @@ BOOL isPinnedHeaderViewVisible;
         case MFMailComposeResultSaved:
             break;
         case MFMailComposeResultSent:
+        {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            int count= [[defaults objectForKey:EMAIL_COUNTER] intValue];
+            count++;
+            [defaults setObject:[NSNumber numberWithInt:count] forKey:EMAIL_COUNTER];
+            [GlobalAPI updateProfileInFirebase:@{EMAIL_COUNTER:[NSNumber numberWithInt:count] }];
+        }
             break;
         case MFMailComposeResultFailed: {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!"
@@ -763,6 +799,12 @@ BOOL isPinnedHeaderViewVisible;
     }
     else if (result == MessageComposeResultSent){
         NSLog(@"Message sent");
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        int count= [[defaults objectForKey:SMS_COUNTER] intValue];
+        count++;
+        [defaults setObject:[NSNumber numberWithInt:count] forKey:SMS_COUNTER];
+        [GlobalAPI updateProfileInFirebase:@{SMS_COUNTER:[NSNumber numberWithInt:count] }];
+        // sms counter up
     }
     else{
         NSLog(@"Message failed");

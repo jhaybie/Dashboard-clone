@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "Stripe.h"
+#import "NSObject+FIRDatabaseSingleton.h"
+@import FBSDKCoreKit;
+@import FBSDKLoginKit;
 
 @class Contact;
 @class Election;
@@ -48,6 +51,13 @@
 + (void)saveContacts:(NSArray<Contact *> *)contacts;
 
 + (NSMutableArray<Election *> *)sortElections:(NSMutableArray<Election *> *)elections;
+
++ (void)registerWithFirebase:(NSString*)email andPassword:(NSString*)password;
++ (void)registerWithFirebaseViaFacebook:(NSString*)email;
++ (void)registerThisProfileToFirebase:(NSDictionary*)profileDictionary;
++ (void)updateProfileInFirebase:(NSDictionary*)profileDictionary;
++ (void)logEventInFirebase:(NSString*)event descriptionFieldName:(NSString*)descriptionName description:(NSString*)description;
+
 
 @end
 

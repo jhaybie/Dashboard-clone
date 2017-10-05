@@ -200,7 +200,7 @@ STPPaymentCardTextField *paymentField;
 
 - (IBAction)donateButtonTapped:(id)sender {
     
-    
+    [GlobalAPI logEventInFirebase:@"analytics_donate" descriptionFieldName:@"type" description:@"donate"];
     [self tempDonateNowButtonTapped:nil];
     return;
     

@@ -153,15 +153,25 @@
         [FBSDKAccessToken setCurrentAccessToken:nil];
         [FBSDKProfile setCurrentProfile:nil];
     }
-    LoginViewController *lvc = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    lvc.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:lvc
-                       animated:true
-                     completion:^{
-                         NSLog(@"Done!");
-                         
-                         // TODO: load saved credentials here
-                     }];
+    NSError *signOutError;
+    BOOL status = [[FIRAuth auth] signOut:&signOutError];
+    if (!status) {
+        NSLog(@"Error signing out: %@", signOutError);
+        return;
+    }
+    else{
+        LoginViewController *lvc = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        lvc.modalPresentationStyle = UIModalPresentationFullScreen;
+        [self presentViewController:lvc
+                           animated:true
+                         completion:^{
+                             NSLog(@"Done!");
+                             
+                             // TODO: load saved credentials here
+                         }];
+        
+    }
+    
     
 }
 

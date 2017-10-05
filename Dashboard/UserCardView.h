@@ -10,6 +10,9 @@
 
 @interface UserCardView : UIView
 @property (strong, nonatomic) IBOutlet UIButton *menuButton;
+@property (strong, nonatomic) IBOutlet UILabel *emailCount;
+@property (strong, nonatomic) IBOutlet UILabel *messageCount;
+@property (strong, nonatomic) IBOutlet UILabel *callCount;
 
 - (instancetype)initWithImageURL:(NSURL *)imageURL
                             name:(NSString *)name

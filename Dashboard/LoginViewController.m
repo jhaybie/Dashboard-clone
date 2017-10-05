@@ -271,6 +271,7 @@ NSTimer *carouselTimer;
     if (self.emailTextField.text.length == 0 || self.passwordTextField.text.length == 0) {
         [self displayToastWithMessage:@"Please enter valid email and password" backgroundColor:[UIColor globalFailureColor]];
     } else {
+        [GlobalAPI logEventInFirebase:@"analytics_login" descriptionFieldName:@"method" description:@"email"];
         [SVProgressHUD show];
         [GlobalAPI loginWithEmail:self.emailTextField.text
                          password:self.passwordTextField.text
@@ -313,6 +314,9 @@ NSTimer *carouselTimer;
                                  dispatch_async(dispatch_get_main_queue(), ^{
                                      [SVProgressHUD dismiss];
                                  });
+                                 
+                                 [GlobalAPI registerWithFirebase:self.emailTextField.text andPassword:self.passwordTextField.text];
+                                 
                                  //[self dismissViewControllerAnimated:true completion:nil];
                                  AddressViewController *avc = [[AddressViewController alloc] initWithNibName:@"AddressViewController" bundle:nil];
                                  avc.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -388,7 +392,8 @@ NSTimer *carouselTimer;
 -   (void)loginButton:(FBSDKLoginButton *)loginButtonv
 didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
               error:(NSError *)error {
-    
+    [GlobalAPI registerWithFirebaseViaFacebook:nil];
+    [GlobalAPI logEventInFirebase:@"analytics_login" descriptionFieldName:@"method" description:@"Facebook"];
 }
 
 #pragma mark - AddressViewController Delegate Method

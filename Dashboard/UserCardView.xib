@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -66,6 +66,39 @@
                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="email" translatesAutoresizingMaskIntoConstraints="NO" id="9Hd-lR-kEd">
+                    <rect key="frame" x="150" y="59" width="15" height="10"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="text" translatesAutoresizingMaskIntoConstraints="NO" id="sJm-Yh-K9C">
+                    <rect key="frame" x="188" y="59" width="15" height="12"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="phone" translatesAutoresizingMaskIntoConstraints="NO" id="mdB-Hq-w2g">
+                    <rect key="frame" x="228" y="59" width="13" height="11"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a02-MS-KPa">
+                    <rect key="frame" x="167" y="55" width="29" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkT-aO-Xde">
+                    <rect key="frame" x="206" y="56" width="29" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXo-sX-vfQ">
+                    <rect key="frame" x="244" y="56" width="29" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -89,9 +122,12 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="callCount" destination="bXo-sX-vfQ" id="qD9-f4-OcJ"/>
                 <outlet property="cityStateLabel" destination="E0M-ps-xUX" id="r04-0z-97V"/>
+                <outlet property="emailCount" destination="a02-MS-KPa" id="gSe-aS-h1m"/>
                 <outlet property="imageView" destination="w8l-jb-Fvd" id="3Z7-o0-Jjk"/>
                 <outlet property="menuButton" destination="awp-vj-IJt" id="r2g-0K-nVU"/>
+                <outlet property="messageCount" destination="OkT-aO-Xde" id="6Q7-zg-4QZ"/>
                 <outlet property="nameLabel" destination="Sc6-Ft-eQX" id="l3t-Zt-nhu"/>
             </connections>
             <point key="canvasLocation" x="99.5" y="-241"/>
@@ -99,7 +135,10 @@
     </objects>
     <resources>
         <image name="background-user-icon" width="107" height="97"/>
+        <image name="email" width="23" height="17"/>
         <image name="icon-map-marker" width="21" height="21"/>
-        <image name="sidemenu" width="57" height="111"/>
+        <image name="phone" width="17" height="17"/>
+        <image name="sidemenu" width="53" height="100"/>
+        <image name="text" width="24" height="21"/>
     </resources>
 </document>

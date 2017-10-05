@@ -73,6 +73,7 @@
  
     [self registerTableViewCells];
     //[self displayContactListForcedReload:false];
+     [GlobalAPI logEventInFirebase:@"analytics_tab" descriptionFieldName:@"type" description:@"contacts"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -202,6 +203,8 @@
         [self presentViewController:messageController
                            animated:true
                          completion:nil];
+        
+        [GlobalAPI logEventInFirebase:@"analytics_invite" descriptionFieldName:@"contact" description:contact.mobile];
     }
 }
 

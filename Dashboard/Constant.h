@@ -65,6 +65,10 @@
 #define REFRESH_TOKEN       @"RefreshToken"
 #define USER_FIRST_NAME     @"first_name"
 #define USER_LAST_NAME     @"last_name"
+#define SMS_COUNTER         @"sms_counter"
+#define EMAIL_COUNTER       @"email_counter"
+#define CALL_COUNTER        @"call_counter"
+
 
 #pragma mark - FONTS
 

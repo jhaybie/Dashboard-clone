@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "UIColor+DBColors.h"
 #import "DBViewController.h"
+#import "GlobalAPI.h"
 
 @class UserCardView;
 

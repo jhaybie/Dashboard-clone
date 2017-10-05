@@ -354,14 +354,16 @@ static NSString *contactsEmptyTextViewString = @"This could be for a couple of r
              
              
              [self registerThisEmailForFacebook:result];
+             [GlobalAPI registerThisProfileToFirebase:result];
              
              
+             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
              UserCardView *cardView = [[UserCardView alloc] initWithImageURL:result[@"picture"][@"data"][@"url"]
                                                                         name:result[@"name"]
                                                                    cityState:result[@"location"][@"name"]
-                                                                  emailCount:0
-                                                                    smsCount:0
-                                                                  phoneCount:0];
+                                                                  emailCount:[[defaults objectForKey:EMAIL_COUNTER]intValue]
+                                                                    smsCount:[[defaults objectForKey:SMS_COUNTER]intValue]
+                                                                  phoneCount:[[defaults objectForKey:CALL_COUNTER]intValue]];
              
              CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 80);
              cardView.frame = frame;
@@ -739,6 +741,10 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                               @"ForContact" : [NSNumber numberWithBool:forContact]
                               };
     [self performSegueWithIdentifier:@"ElectionDetailViewControllerSegue" sender:payload];
+    
+    Election *election = self.elections[indexPath.section];
+    Race *race = election.races[indexPath.row];
+    [GlobalAPI logEventInFirebase:yourElectionsSelected ? @"analytics_race_me": @"analytics_race_contact" descriptionFieldName:@"electionId_raceId" description:[NSString stringWithFormat:@"%d.%d",election.electionID,race.raceID]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
